@@ -1,4 +1,4 @@
-name: SolveBio Python Package
+name: QuartzBio Package
 
 # on: [push, pull_request]
 on: [push]
@@ -10,8 +10,8 @@ jobs:
       matrix:
         python-version: [3.6, 3.7, 3.8, '3.10', '3.11', '3.12', pypy2, pypy3]
     env:
-      SOLVEBIO_API_HOST: ${{ secrets.QUARTZBIO_API_HOST }}
-      SOLVEBIO_API_KEY: ${{ secrets.QUARTZBIO_API_KEY }}
+      QUARTZBIO_API_HOST: ${{ secrets.QUARTZBIO_API_HOST }}
+      QUARTZBIO_API_KEY: ${{ secrets.QUARTZBIO_API_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -36,13 +36,13 @@ jobs:
       - name: Scripts
         run: |
           python -m pytest recipes/tests/test_recipes_sync.py
-          python -m pytest solvebio/test/test_object.py
-          python -m flake8 solvebio
+          python -m pytest quartzbio/test/test_object.py
+          python -m flake8 quartzbio
   build_py27:
     runs-on: ubuntu-20.04
     env:
-      SOLVEBIO_API_HOST: ${{ secrets.QUARTZBIO_API_HOST }}
-      SOLVEBIO_API_KEY: ${{ secrets.QUARTZBIO_API_KEY }}
+      QUARTZBIO_API_HOST: ${{ secrets.QUARTZBIO_API_HOST }}
+      QUARTZBIO_API_KEY: ${{ secrets.QUARTZBIO_API_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -69,4 +69,4 @@ jobs:
       - name: Scripts
         run: |
           python2.7 -m pytest recipes/tests/test_recipes_sync.py
-          python2.7 -m flake8 solvebio
+          python2.7 -m flake8 quartzbio

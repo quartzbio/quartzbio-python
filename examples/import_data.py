@@ -1,8 +1,8 @@
-import solvebio
+import quartzbio
 
-solvebio.login()
+quartzbio.login()
 
-vault = solvebio.Vault.get_personal_vault()
+vault = quartzbio.Vault.get_personal_vault()
 
 # The folders that will contain your dataset
 path = '/SampleImport/1.0.0'
@@ -11,16 +11,16 @@ path = '/SampleImport/1.0.0'
 dataset_name = 'SampleDataset'
 
 # Create a dataset
-dataset = solvebio.Object.get_or_create_by_full_path(
+dataset = quartzbio.Object.get_or_create_by_full_path(
     '{0}:/{1}/{2}'.format(vault.name, path, dataset_name),
 )
 
 # Create a manifest object and a file to it
-manifest = solvebio.Manifest()
+manifest = quartzbio.Manifest()
 manifest.add_file('path/to/file.vcf.gz')
 
 # Create the import
-imp = solvebio.DatasetImport.create(
+imp = quartzbio.DatasetImport.create(
     dataset_id=dataset.id,
     manifest=manifest.manifest
 )
@@ -45,7 +45,7 @@ new_records = [
     }
 ]
 
-imp = solvebio.DatasetImport.create(
+imp = quartzbio.DatasetImport.create(
     dataset_id=dataset.id,
     data_records=new_records
 )

@@ -6,29 +6,15 @@ import sys
 import warnings
 
 VERSION = 'undefined'
-install_requires = ['six', 'pyprind']
+install_requires = ['six', 'pyprind', 'requests>=2.0.0']
 extra = {}
 
-with open('solvebio/version.py') as f:
+with open('quartzbio/version.py') as f:
     for row in f.readlines():
         if row.startswith('VERSION'):
             exec(row)
 
-if sys.version_info < (2, 6):
-    warnings.warn(
-        'Python 2.5 is no longer officially supported by SolveBio. '
-        'If you have any questions, please file an issue on GitHub or '
-        'contact us at support@solvebio.com.',
-        DeprecationWarning)
-    install_requires.append('requests >= 0.8.8, < 0.10.1')
-    install_requires.append('ssl')
-elif sys.version_info < (2, 7):
-    install_requires.append('ordereddict')
-else:
-    install_requires.append('requests>=2.0.0')
-
-
-# solvebio-recipes requires additional packages
+# quartzbio-recipes requires additional packages
 recipes_requires = [
     'pyyaml==5.3.1',
     'click==7.1.2',
@@ -46,31 +32,31 @@ if sys.version_info < (3, 0):
     except ImportError:
         install_requires.append('simplejson')
 
-    # solvebio-recipes only available in python3
+    # quartzbio-recipes only available in python3
     extras_requires = {}
 
 with open('README.md') as f:
     long_description = f.read()
 
 setup(
-    name='solvebio',
+    name='quartzbio',
     version=VERSION,
-    description='The SolveBio Python client',
+    description='The QuartzBio Python client',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    author='Solve, Inc.',
-    author_email='contact@solvebio.com',
-    url='https://github.com/solvebio/solvebio-python',
+    author='Precision for Medicine, Inc.',
+    author_email='qb-help@precisionformedicine.com',
+    url='https://github.com/quartzbio/quartzbio-python',
     packages=find_packages(),
-    package_dir={'solvebio': 'solvebio', 'recipes': 'recipes'},
-    test_suite='solvebio.test',
+    package_dir={'quartzbio': 'quartzbio', 'recipes': 'recipes'},
+    test_suite='quartzbio.test',
     include_package_data=True,
     install_requires=install_requires,
     platforms='any',
     extras_require=extras_requires,
     entry_points={
-        'console_scripts': ['solvebio = solvebio.cli.main:main',
-                            'solvebio-recipes = recipes.sync_recipes:sync_recipes']
+        'console_scripts': ['quartzbio = quartzbio.cli.main:main',
+                            'quartzbio-recipes = recipes.sync_recipes:sync_recipes']
     },
     classifiers=[
         'Intended Audience :: Science/Research',
