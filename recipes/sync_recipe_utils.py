@@ -4,7 +4,7 @@ helper functions for managing recipes
 import sys
 from collections import OrderedDict
 
-import solvebio as sb
+import quartzbio as sb
 import ruamel.yaml as yaml
 import click
 

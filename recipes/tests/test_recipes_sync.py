@@ -1,7 +1,7 @@
 import os
 import sys
 import pytest
-import solvebio as sb
+import quartzbio as sb
 import recipes.sync_recipes as sync_recipes
 import mock
 from click.testing import CliRunner

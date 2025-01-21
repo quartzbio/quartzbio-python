@@ -1,6 +1,6 @@
 import os
 import sys
-import solvebio
+import quartzbio
 
 
 def download_vault_folder(remote_path, local_path, dry_run=False, force=False):
@@ -13,14 +13,14 @@ def download_vault_folder(remote_path, local_path, dry_run=False, force=False):
             'Write access to local path ({}) is required'
             .format(local_path))
 
-    full_path, path_dict = solvebio.Object.validate_full_path(remote_path)
-    vault = solvebio.Vault.get_by_full_path(path_dict['vault'])
+    full_path, path_dict = quartzbio.Object.validate_full_path(remote_path)
+    vault = quartzbio.Vault.get_by_full_path(path_dict['vault'])
     print('Downloading all files from {} to {}'.format(full_path, local_path))
 
     if path_dict['path'] == '/':
         parent_object_id = None
     else:
-        parent_object = solvebio.Object.get_by_full_path(
+        parent_object = quartzbio.Object.get_by_full_path(
             remote_path, assert_type='folder')
         parent_object_id = parent_object.id
 
@@ -61,7 +61,7 @@ def main():
         print('Usage: {} <vault path> <local path>'.format(sys.argv[0]))
         sys.exit(1)
 
-    solvebio.login()
+    quartzbio.login()
     download_vault_folder(sys.argv[1], sys.argv[2], dry_run=True)
 
 

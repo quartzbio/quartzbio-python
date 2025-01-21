@@ -11,9 +11,20 @@ dash_core_components==1.15.0
 dash_html_components==1.1.2
 dash_renderer==1.9.0
 Werkzeug<=2.0.3
-solvebio==2.12.0
 pyyaml==5.3.1
-click==7.1.2
 ruamel.yaml==0.16.12
-pytest
+pytest==8.3.3
 brotli<=1.0.9
+click==8.1.7
+black==24.8.0
+# quartzbio
+
+sphinx==7.1.2
+sphinx-autobuild==2021.3.14
+sphinx-mdinclude==0.6.2
+sphinxcontrib-applehelp==1.0.4
+sphinxcontrib-devhelp==1.0.2
+sphinxcontrib-htmlhelp==2.0.1
+sphinxcontrib-jsmath==1.0.1
+sphinxcontrib-qthelp==1.0.3
+sphinxcontrib-serializinghtml==1.1.5

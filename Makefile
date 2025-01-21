@@ -49,15 +49,24 @@ install:
 #: Same as 'check' target
 test: check
 
-#: Run a specific unit test, eg test-sample runs solvebio.test.test_sample
+#: Run a specific unit test, eg test-sample runs quartzbio.test.test_sample
 test-%:
-	python -m unittest solvebio.test.$(subst test-,test_,$@)
+	python -m unittest quartzbio.test.$(subst test-,test_,$@)
 
 changelog:
-	github_changelog_generator --user solvebio --project solvebio-python
+	github_changelog_generator --user quartzbio --project quartzbio-python
 
 release: clean dist
 	twine upload dist/*
+
+sphinx-apidoc:
+	sphinx-apidoc -o docs/source -f --separate quartzbio quartzbio/test
+
+sphinx-autobuild:
+	sphinx-autobuild docs/source docs/build/html --port 8080 --host 0.0.0.0
+
+sphinx-build:
+	sphinx-build -b html docs/source docs/build/html
 
 
 .PHONY: $(PHONY)

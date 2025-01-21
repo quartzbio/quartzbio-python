@@ -7,7 +7,7 @@ It will also show a diff of the changes detected and optionally save the changes
 Please install the following dependencies for best results:
 
 
-    pip install solvebio click black
+    pip install quartzbio click black
 
 
 ## Usage
@@ -34,7 +34,7 @@ Overwrite the existing template with upgraded Python 3 expression:
 
 """
 
-import solvebio
+import quartzbio
 import click
 import subprocess
 import os
@@ -93,7 +93,7 @@ def format_expression(code):
 
 @click.command()
 @click.argument("template_id")
-@click.option("--api-host", default="https://api.solvebio.com")
+@click.option("--api-host", default="https://api.quartzbio.com")
 @click.option("--diff", is_flag=True)
 @click.option("--format-diff", is_flag=True)
 @click.option("--save", is_flag=True)
@@ -117,7 +117,7 @@ def convert_template(
 
     """
 
-    solvebio.login(api_host=api_host)
+    quartzbio.login(api_host=api_host)
 
     if not save:
         print(
@@ -126,7 +126,7 @@ def convert_template(
         )
 
     # Retrieve a template from EDP
-    template = solvebio.DatasetTemplate.retrieve(template_id)
+    template = quartzbio.DatasetTemplate.retrieve(template_id)
     # Convert each field to Python 3
     for field in template.fields:
         if not field["expression"]:
@@ -161,7 +161,7 @@ def convert_template(
         else:
             print("Creating a new template with Python 3 expressions.")
             template.name = f"{template.name} py3"
-            solvebio.DatasetTemplate.create(**template)
+            quartzbio.DatasetTemplate.create(**template)
 
         print(f"Template {template.id} saved with Python 3 expressions.")
 

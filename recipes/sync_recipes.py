@@ -1,6 +1,6 @@
 import click
 import recipes.sync_recipe_utils as sr
-import solvebio as sb
+import quartzbio as sb
 
 __version__ = '1.0.0'
 
