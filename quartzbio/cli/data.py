@@ -212,7 +212,8 @@ def _upload_folder(
     all_folder_parts = sorted(all_folder_parts, key=lambda x: len(x.split("/")))
     for folder in all_folder_parts:
         print("{}Creating folder {}".format("[Dry Run] " if dry_run else "", folder))
-        Object.create_folder(vault, folder)
+        if not dry_run:
+            Object.create_folder(vault, folder)
 
     # Create files in parallel
     # Signal handling allows for graceful exit upon KeyboardInterrupt
