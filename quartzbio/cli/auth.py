@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+
 import quartzbio
 from ..client import client
 from .credentials import get_credentials
@@ -13,6 +14,8 @@ def login_and_save_credentials(*args, **kwargs):
     """
     Domain, email and password are used to get the user's API key.
     """
+    # @TODO: refactor this
+
     if args and args[0].api_key:
         # Handle command-line arguments if provided.
         logged_in = quartzbio.login(
