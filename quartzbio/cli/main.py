@@ -12,7 +12,7 @@ from . import auth
 from . import data
 from .tutorial import print_tutorial
 from .ipython import launch_ipython_shell
-from ..utils.validators import validate_api_host_url
+from ..auth import validate_api_host_url
 from ..utils.files import get_home_dir
 
 
@@ -505,6 +505,9 @@ class QuartzBioArgumentParser(argparse.ArgumentParser):
         return super(QuartzBioArgumentParser, self).parse_args(args, namespace)
 
     def api_host_url(self, value):
+        if not value:
+            raise QuartzBioError("No QuartzBio API host is set")
+
         validate_api_host_url(value)
         return value
 

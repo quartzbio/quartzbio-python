@@ -10,31 +10,40 @@ from .credentials import save_credentials
 from .credentials import delete_credentials
 
 
-def login_and_save_credentials(*args, **kwargs):
+def login_and_save_credentials(
+    *args,
+    api_host: str = None,
+    api_key: str = None,
+    access_token: str = None,
+    name: str = None,
+    version: str = None,
+):
     """
-    Domain, email and password are used to get the user's API key.
+    CLI command to login and persist credentials to a file
     """
-    # @TODO: refactor this
 
-    if args and args[0].api_key:
-        # Handle command-line arguments if provided.
-        logged_in = quartzbio.login(
-            api_key=args[0].api_key, api_host=quartzbio.api_host
-        )
-    elif args and args[0].access_token:
-        # Handle command-line arguments if provided.
-        logged_in = quartzbio.login(
-            access_token=args[0].access_token, api_host=quartzbio.api_host
-        )
-    elif quartzbio.login(**kwargs):
-        logged_in = True
-    else:
-        logged_in = False
+    if args and args[0].access_token:
+        access_token = args[0].access_token
+    elif args and args[0].api_key:
+        api_key = args[0].api_key
 
-    if logged_in:
-        # Print information about the current user
-        user = client.whoami()
-        print_user(user)
+    if args and args[0].api_host:
+        api_host = args[0].api_host
+
+    quartzbio.login(
+        api_host=api_host,
+        api_key=api_key,
+        access_token=access_token,
+        name=name,
+        version=version,
+    )
+
+    # Print information about the current user
+    user = client.whoami()
+    print_user(user)
+
+    print("@@@ WHAT??")
+    if False:
         save_credentials(
             user["email"].lower(),
             client._auth.token,
@@ -42,11 +51,11 @@ def login_and_save_credentials(*args, **kwargs):
             quartzbio.api_host,
         )
         print("Updated local credentials file.")
-    else:
-        print(
-            "You are not logged-in. Visit "
-            "https://docs.quartzbio.com/#authentication to get started."
-        )
+    # else:
+    #     print(
+    #         "You are not logged-in. Visit "
+    #         "https://docs.quartzbio.com/#authentication to get started."
+    #     )
 
 
 def logout(*args):

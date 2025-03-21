@@ -10,7 +10,7 @@ import quartzbio
 
 from .version import VERSION
 from .errors import QuartzBioError
-from .utils.validators import validate_api_host_url
+from .auth import authenticate, QuartzBioTokenAuth
 
 import platform
 import requests
@@ -19,7 +19,6 @@ import logging
 
 from requests import Session
 from requests import codes
-from requests.auth import AuthBase
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
@@ -64,25 +63,6 @@ def _handle_request_error(e):
     raise QuartzBioError(message=msg)
 
 
-class QuartzBioTokenAuth(AuthBase):
-    """Custom auth handler for QuartzBio API token authentication"""
-
-    def __init__(self, token=None, token_type="Token"):
-        self.token = token
-        self.token_type = token_type
-
-    def __call__(self, r):
-        if self.token:
-            r.headers["Authorization"] = "{0} {1}".format(self.token_type, self.token)
-        return r
-
-    def __repr__(self):
-        if self.token:
-            return self.token_type
-        else:
-            return "Anonymous"
-
-
 class QuartzBioClient(object):
     """A requests-based HTTP client for QuartzBio API resources"""
 
@@ -97,7 +77,7 @@ class QuartzBioClient(object):
         include_resources=True,
         retry_all=None,
     ):
-        self.set_auth(host, token, token_type)
+        self._host, self._auth = authenticate(host, token, token_type)
         self._headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
@@ -153,33 +133,6 @@ class QuartzBioClient(object):
                     continue
                 subclass = type(name, (class_,), {"_client": self})
                 setattr(self, name, subclass)
-
-    def set_auth(self, host=None, token=None, token_type="Token"):
-        self._host = validate_api_host_url(host)
-
-        if host is not None:
-
-            # If the domain ends with .quartzbio.com, determine if
-            # we are being redirected. If so, update the url with the new host
-            # and log a warning.
-            if self._host and self._host.rstrip("/").endswith(".api.quartzbio.com"):
-                old_host = self._host.rstrip("/")
-                response = requests.head(old_host, allow_redirects=True)
-                # Strip the port number from the host for comparison
-                new_host = (
-                    validate_api_host_url(response.url).rstrip("/").replace(":443", "")
-                )
-                if old_host != new_host:
-                    logger.warn(
-                        'API host redirected from "{}" to "{}", '
-                        "please update your local credentials file".format(
-                            old_host, new_host
-                        )
-                    )
-                    self._host = new_host
-
-        if token is not None:
-            self._auth = QuartzBioTokenAuth(token, token_type)
 
     def set_user_agent(self, name=None, version=None):
         ua = "quartzbio-python-client/{} python-requests/{} {}/{}".format(

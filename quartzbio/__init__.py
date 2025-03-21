@@ -92,7 +92,8 @@ from .errors import QuartzBioError
 from .query import Query, BatchQuery, Filter, GenomicFilter
 from .global_search import GlobalSearch
 from .annotate import Annotator, Expression
-from .client import client
+from .client import client, QuartzBioClient
+from .auth import authenticate
 from .resource import (
     Application,
     Beacon,
@@ -150,52 +151,23 @@ def login(
             )
     """
 
-    if not api_host:
-        api_host = (
-            _os.environ.get("QUARTZBIO_API_HOST", None)
-            or _os.environ.get("QUARTZBIO_API_HOST", None)
-            or _os.environ.get("EDP_API_HOST", None)
-        )
-
-    if not api_key:
-        # Read/Write API key
-        api_key = (
-            _os.environ.get("SOLVEBIO_API_KEY", None)
-            or _os.environ.get("QUARTZBIO_API_KEY", None)
-            or _os.environ.get("EDP_API_KEY", None)
-        )
-
-    if not access_token:
-        # OAuth2 access tokens
-        access_token = (
-            _os.environ.get("SOLVEBIO_ACCESS_TOKEN", None)
-            or _os.environ.get("QUARTZBIO_ACCESS_TOKEN", None)
-            or _os.environ.get("EDP_ACCESS_TOKEN", None)
-        )
-
-    if not api_host or (not api_key and not access_token):
-        from .cli.credentials import get_credentials
-
-        creds = get_credentials()
-        # creds = (host, email, token_type, token)
-        if creds:
-            api_host = creds[0]
-            if creds[2] == "Bearer":
-                access_token = creds[3]
-            else:
-                # By default, assume it is an API key.
-                api_key = creds[3]
-
-    # TODO: warn user if WWW url is provided in edp_login!
-
-    # @TODO: remove references to quartzbio.api_host, etc...
-
     if access_token:
-        client.set_auth(api_host, "Bearer", access_token)
+        client._host, client._auth = authenticate(
+            api_host, access_token, token_type="Bearer"
+        )
     elif api_key:
-        client.set_auth(api_host, "Token", api_key)
+        client._host, client._auth = authenticate(api_host, api_key, token_type="Token")
 
     client.set_user_agent(name=name, version=version)
+
+
+def whoami():
+    try:
+        user = client.whoami()
+    except Exception as e:
+        print("{} (code: {})".format(e.message, e.status_code))
+    else:
+        return user
 
 
 __all__ = [
@@ -230,4 +202,5 @@ __all__ = [
     "Vault",
     "User",
     "VERSION",
+    "login",
 ]
