@@ -322,7 +322,7 @@ class ObjectTests(QuartzBioTestCase):
         self.assertEqual(res, {"metadata": {"hello": "world"}, "name": "test"})
 
     @mock.patch("quartzbio.resource.Object.create")
-    @mock.patch("quartzbio.client.QuartzBioClient.post")
+    @mock.patch("quartzbio.QuartzBioClient.post")
     def test_object_query(self, QuartzBioClientPost, ObjectCreate):
         ObjectCreate.side_effect = fake_object_create
         valid_response = {"took": 100, "total": 2, "results": [{"foo": 1}, {"bar": 2}]}
