@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 import os
-from typing import Literal
+from typing import Literal, Tuple
 
 from six.moves.urllib.parse import urlparse
 
@@ -41,7 +41,7 @@ def authenticate(
     token_type: Literal["Bearer", "Token"],
     *,
     raise_on_missing=True,
-) -> tuple[str, QuartzBioTokenAuth]:
+) -> Tuple[str, QuartzBioTokenAuth]:
     """
     Sets login credentials for QuartzBio API authentication.
 
