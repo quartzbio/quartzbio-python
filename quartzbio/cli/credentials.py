@@ -135,7 +135,7 @@ def delete_credentials():
         raise CredentialsError("Could not open netrc file: " + str(e))
 
     try:
-        del rc.hosts[as_netrc_machine(quartzbio.api_host)]
+        del rc.hosts[as_netrc_machine(quartzbio.get_api_host())]
     except KeyError:
         pass
     else:
@@ -143,7 +143,7 @@ def delete_credentials():
 
 
 def save_credentials(email, token, token_type="Token", api_host=None):
-    api_host = api_host or quartzbio.api_host
+    api_host = api_host or quartzbio.get_api_host()
 
     try:
         netrc_path = netrc.path()

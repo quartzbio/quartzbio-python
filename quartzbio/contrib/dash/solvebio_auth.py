@@ -48,7 +48,8 @@ class QuartzBioAuth(OAuthBase):
             raise Exception(
                 'QuartzBioAuth Error: missing required parameter "quartzbio_url"'
             )
-        self._api_host = kwargs.get("api_host") or quartzbio.api_host
+        # @TODO: fix `api_host`
+        self._api_host = kwargs.get("api_host") or quartzbio.get_api_host()
         self._oauth_client_secret = kwargs.get("client_secret")
         self._oauth_grant_type = kwargs.get("grant_type") or self.DEFAULT_GRANT_TYPE
         self.token_cookie_max_age = kwargs.get(

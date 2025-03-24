@@ -172,6 +172,10 @@ def whoami():
         return user
 
 
+def get_api_host():
+    return client._host
+
+
 __all__ = [
     "Annotator",
     "Application",

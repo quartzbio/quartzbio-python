@@ -42,13 +42,13 @@ def login_and_save_credentials(
     user = client.whoami()
     print_user(user)
 
-    print("@@@ WHAT??")
+    # @TODO: fix `api_host`
     if False:
         save_credentials(
             user["email"].lower(),
             client._auth.token,
             client._auth.token_type,
-            quartzbio.api_host,
+            quartzbio.get_api_host(),
         )
         print("Updated local credentials file.")
     # else:
@@ -89,7 +89,6 @@ def print_user(user):
     email = user["email"]
     domain = user["account"]["domain"]
     print(
-        'You are logged-in to the "{}" domain as {} (server: {}).'.format(
-            domain, email, quartzbio.api_host
-        )
+        f'You are logged-in to the "{domain}" domain as {email}' + \
+        f' (server: {quartzbio.get_api_host()}).'
     )

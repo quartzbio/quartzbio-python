@@ -9,7 +9,6 @@ import mock
 
 from .helper import QuartzBioTestCase
 
-import quartzbio
 from quartzbio.cli import main
 from quartzbio import DatasetTemplate
 from quartzbio import Vault
