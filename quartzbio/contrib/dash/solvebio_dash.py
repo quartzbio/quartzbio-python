@@ -52,11 +52,6 @@ class QuartzBioDash(dash.Dash):
                 "WARNING: No QuartzBio client ID found. "
                 "Your app (but not your data) will be publicly accessible."
             )
-            if quartzbio.api_key:
-                print(
-                    "QuartzBio API key detected. All users of this app will "
-                    "use this API key."
-                )
 
         @server.before_request
         def set_quartzbio_client():

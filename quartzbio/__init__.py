@@ -133,10 +133,12 @@ def login(
 
     1) Parameters provided (e.g. the parameters of this function)
     2) Environment variables (if the above parameters weren't provided)
-    3) quartzbio credentials file stored in the user's HOME directory (if parameters and environment variables weren't found)
+    3) quartzbio credentials file stored in the user's HOME directory
+        (if parameters and environment variables weren't found)
 
     :param api_host: the QuartzBio EDP instance's URL to access.
-    :param access_token: your user's access token, which you can generate at the EDP website (user menu > `Personal Access Tokens`)
+    :param access_token: your user's access token, which you can generate at the EDP website
+        (user menu > `Personal Access Tokens`)
     :param api_key: Your API key. You can use this instead of providing an access token
     :param name: name
     :param version: version
