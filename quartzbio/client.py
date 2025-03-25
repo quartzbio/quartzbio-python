@@ -17,9 +17,7 @@ import requests
 import textwrap
 import logging
 
-from requests import Session
-from requests import codes
-from requests.adapters import HTTPAdapter
+from requests import Session, codes, adapters
 from requests.packages.urllib3.util.retry import Retry
 
 from six.moves.urllib.parse import urljoin
@@ -27,12 +25,27 @@ from six.moves.urllib.parse import urljoin
 # Try using pyopenssl if available.
 # Requires: pip install pyopenssl ndg-httpsclient pyasn1
 # See http://urllib3.readthedocs.org/en/latest/contrib.html#module-urllib3.contrib.pyopenssl  # noqa
-try:
-    import urllib3.contrib.pyopenssl
+import ssl
+import sys
 
-    urllib3.contrib.pyopenssl.inject_into_urllib3()
+# Python 3.8+ compatibility
+try:
+    import urllib3
+
+    if sys.version_info <= (3, 9):
+        import urllib3.contrib.pyopenssl
+
+        urllib3.contrib.pyopenssl.inject_into_urllib3()
+    else:
+        # Python 3.10+ automatically handles SSL; no need for inject_into_urllib3()
+        pass
 except ImportError:
     pass
+
+# Ensure SSL/TLS support is available
+if not ssl.HAS_TLSv1_2:
+    raise RuntimeError("TLS 1.2 support is required but not available.")
+
 
 logger = logging.getLogger("quartzbio")
 
@@ -55,7 +68,15 @@ def _handle_request_error(e):
             "know at support@quartzbio.com."
         )
         err = "A %s was raised" % (type(e).__name__,)
-        if str(e):
+
+        if isinstance(e, (urllib3.exceptions.SSLError, ssl.SSLError)) or sys.version_info >= (3, 12):
+            err += ("\n\nThis is an SSLError. If you're using python 3.12, "
+                    "it could be because of stricter SSL requirements:\n"
+                    "https://docs.python.org/3/whatsnew/3.12.html\n"
+                    "https://docs.python.org/3/whatsnew/3.12.html\n"
+                    "Try upgrading urllib3 and certifi:\n"
+                    "  pip install --upgrade urllib3 certifi\n\n")
+        elif str(e):
             err += " with error message %s" % (str(e),)
         else:
             err += " with no error message"
@@ -118,7 +139,7 @@ class QuartzBioClient(object):
 
         # Use a session with a retry policy to handle
         # intermittent connection errors.
-        adapter = HTTPAdapter(max_retries=retries)
+        adapter = adapters.HTTPAdapter(max_retries=retries)
         self._session = Session()
         self._session.mount(self._host, adapter)
 
