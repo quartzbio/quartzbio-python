@@ -174,7 +174,7 @@ class Vault(
     def upload_file(self, local_path, remote_path, **kwargs):
         from quartzbio import Object
 
-        return Object.upload_file(local_path, remote_path, self.full_path, **kwargs)
+        return Object.upload_file(local_path, remote_path, self.full_path, client=self._client, **kwargs)
 
     def search(self, query, **params):
         params.update(
