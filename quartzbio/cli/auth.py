@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+
 import quartzbio
 from ..client import client
 from .credentials import get_credentials
@@ -9,41 +10,51 @@ from .credentials import save_credentials
 from .credentials import delete_credentials
 
 
-def login_and_save_credentials(*args, **kwargs):
+def login_and_save_credentials(
+    *args,
+    api_host: str = None,
+    api_key: str = None,
+    access_token: str = None,
+    name: str = None,
+    version: str = None,
+):
     """
-    Domain, email and password are used to get the user's API key.
+    CLI command to login and persist credentials to a file
     """
-    if args and args[0].api_key:
-        # Handle command-line arguments if provided.
-        logged_in = quartzbio.login(
-            api_key=args[0].api_key, api_host=quartzbio.api_host
-        )
-    elif args and args[0].access_token:
-        # Handle command-line arguments if provided.
-        logged_in = quartzbio.login(
-            access_token=args[0].access_token, api_host=quartzbio.api_host
-        )
-    elif quartzbio.login(**kwargs):
-        logged_in = True
-    else:
-        logged_in = False
 
-    if logged_in:
-        # Print information about the current user
-        user = client.whoami()
-        print_user(user)
-        save_credentials(
-            user["email"].lower(),
-            client._auth.token,
-            client._auth.token_type,
-            quartzbio.api_host,
-        )
-        print("Updated local credentials file.")
-    else:
-        print(
-            "You are not logged-in. Visit "
-            "https://docs.quartzbio.com/#authentication to get started."
-        )
+    if args and args[0].access_token:
+        access_token = args[0].access_token
+    elif args and args[0].api_key:
+        api_key = args[0].api_key
+
+    if args and args[0].api_host:
+        api_host = args[0].api_host
+
+    quartzbio.login(
+        api_host=api_host,
+        api_key=api_key,
+        access_token=access_token,
+        name=name,
+        version=version,
+    )
+
+    # Print information about the current user
+    user = client.whoami()
+    print_user(user)
+
+    # fixme: how to detect if login was successful
+    save_credentials(
+        user["email"].lower(),
+        client._auth.token,
+        client._auth.token_type,
+        quartzbio.get_api_host(),
+    )
+    print("Updated local credentials file.")
+    # else:
+    #     print(
+    #         "You are not logged-in. Visit "
+    #         "https://docs.quartzbio.com/#authentication to get started."
+    #     )
 
 
 def logout(*args):
@@ -77,7 +88,6 @@ def print_user(user):
     email = user["email"]
     domain = user["account"]["domain"]
     print(
-        'You are logged-in to the "{}" domain as {} (server: {}).'.format(
-            domain, email, quartzbio.api_host
-        )
+        f'You are logged-in to the "{domain}" domain as {email}'
+        f' (server: {quartzbio.get_api_host()}).'
     )

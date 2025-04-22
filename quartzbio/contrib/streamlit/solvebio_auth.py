@@ -25,9 +25,9 @@ class QuartzBioOAuth2(BaseOAuth2[Dict[str, Any]]):
             client_id,
             client_secret,
             self.QUARTZBIO_URL,
-            urljoin(quartzbio.api_host, self.OAUTH2_TOKEN_URL),
+            urljoin(quartzbio.get_api_host(), self.OAUTH2_TOKEN_URL),
             revoke_token_endpoint=urljoin(
-                quartzbio.api_host, self.OAUTH2_REVOKE_TOKEN_URL
+                quartzbio.get_api_host(), self.OAUTH2_REVOKE_TOKEN_URL
             ),
             name=name,
         )

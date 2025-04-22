@@ -23,24 +23,6 @@ except:
     # Python 2.6 doesn't support this
     pass
 
-# Read/Write API key
-api_key = (
-    _os.environ.get("SOLVEBIO_API_KEY", None)
-    or _os.environ.get("QUARTZBIO_API_KEY", None)
-    or _os.environ.get("EDP_API_KEY", None)
-)
-# OAuth2 access tokens
-access_token = (
-    _os.environ.get("SOLVEBIO_ACCESS_TOKEN", None)
-    or _os.environ.get("QUARTZBIO_ACCESS_TOKEN", None)
-    or _os.environ.get("EDP_ACCESS_TOKEN", None)
-)
-api_host = (
-    _os.environ.get("QUARTZBIO_API_HOST", None)
-    or _os.environ.get("QUARTZBIO_API_HOST", None)
-    or _os.environ.get("EDP_API_HOST", None)
-)
-
 
 def _init_logging():
     loglevel_base = _os.environ.get("QUARTZBIO_LOGLEVEL", None) or _os.environ.get(
@@ -110,7 +92,8 @@ from .errors import QuartzBioError
 from .query import Query, BatchQuery, Filter, GenomicFilter
 from .global_search import GlobalSearch
 from .annotate import Annotator, Expression
-from .client import QuartzBioClient
+from .client import client, QuartzBioClient
+from .auth import authenticate
 from .resource import (
     Application,
     Beacon,
@@ -136,54 +119,61 @@ from .resource import (
 )
 
 
-def login(**kwargs):
+def login(
+    api_host: str = None,
+    api_key: str = None,
+    access_token: str = None,
+    name: str = None,
+    version: str = None,
+):
     """
-    Sets up the auth credentials using the provided key/token,
-    or checks the credentials file (if no token provided).
+    Function to login to the QuartzBio/EDP API when using EDP in a python script.
+    Note that another function is used when CLI command `quartzbio login` is used!
+    EDP checks user credentials & host URL from multiple sources, in the following order:
 
-    Lookup order:
-        1. access_token
-        2. api_key
-        3. local credentials
+    1) Parameters provided (e.g. the parameters of this function)
+    2) Environment variables (if the above parameters weren't provided)
+    3) quartzbio credentials file stored in the user's HOME directory
+        (if parameters and environment variables weren't found)
 
-    No errors are raised if no key is found.
+    :param api_host: the QuartzBio EDP instance's URL to access.
+    :param access_token: your user's access token, which you can generate at the EDP website
+        (user menu > `Personal Access Tokens`)
+    :param api_key: Your API key. You can use this instead of providing an access token
+    :param name: name
+    :param version: version
+
+    Example:
+        .. code-block:: python
+
+            import quartzbio
+            quartzbio.login(
+                api_host="https://solvebio.api.az.aws.quartz.bio",
+                api_key=YOUR_API_KEY
+            )
     """
-    from .cli.auth import get_credentials
 
-    global access_token, api_key, api_host
+    if access_token:
+        client._host, client._auth = authenticate(
+            api_host, access_token, token_type="Bearer"
+        )
+    elif api_key:
+        client._host, client._auth = authenticate(api_host, api_key, token_type="Token")
 
-    # Clear any existing auth keys
-    access_token, api_key = None, None
-    # Update the host
-    api_host = kwargs.get("api_host") or api_host
+    client.set_user_agent(name=name, version=version)
 
-    if kwargs.get("access_token"):
-        access_token = kwargs.get("access_token")
-    elif kwargs.get("api_key"):
-        api_key = kwargs.get("api_key")
+
+def whoami():
+    try:
+        user = client.whoami()
+    except Exception as e:
+        print("{} (code: {})".format(e.message, e.status_code))
     else:
-        creds = get_credentials()
-        # creds = (host, email, token_type, token)
-        if creds:
-            api_host = creds[0]
-            if creds[2] == "Bearer":
-                access_token = creds[3]
-            else:
-                # By default, assume it is an API key.
-                api_key = creds[3]
+        return user
 
-    # Always update the client host, version and agent
-    from quartzbio.client import client
 
-    client.set_host()
-    client.set_user_agent(name=kwargs.get("name"), version=kwargs.get("version"))
-
-    if not (api_key or access_token):
-        return False
-    else:
-        # Update the client token
-        client.set_token()
-        return True
+def get_api_host():
+    return client._host
 
 
 __all__ = [
@@ -218,4 +208,5 @@ __all__ = [
     "Vault",
     "User",
     "VERSION",
+    "login",
 ]

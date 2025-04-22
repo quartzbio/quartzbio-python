@@ -9,7 +9,6 @@ import mock
 
 from .helper import QuartzBioTestCase
 
-import quartzbio
 from quartzbio.cli import main
 from quartzbio import DatasetTemplate
 from quartzbio import Vault
@@ -38,9 +37,6 @@ def upload_path(*args, **kwargs):
 class CLITests(QuartzBioTestCase):
     def setUp(self):
         super(CLITests, self).setUp()
-        # Set the global key for CLI tests only
-        quartzbio.api_key = os.environ.get("QUARTZBIO_API_KEY", None)
-        quartzbio.api_host = os.environ.get("QUARTZBIO_API_HOST", None)
 
 
 class CreateDatasetTests(CLITests):

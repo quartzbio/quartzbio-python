@@ -7,12 +7,13 @@ import copy
 import argparse
 
 import quartzbio
+from quartzbio import QuartzBioError
 
 from . import auth
 from . import data
 from .tutorial import print_tutorial
 from .ipython import launch_ipython_shell
-from ..utils.validators import validate_api_host_url
+from ..auth import validate_api_host_url
 from ..utils.files import get_home_dir
 
 
@@ -505,23 +506,26 @@ class QuartzBioArgumentParser(argparse.ArgumentParser):
         return super(QuartzBioArgumentParser, self).parse_args(args, namespace)
 
     def api_host_url(self, value):
+        if not value:
+            raise QuartzBioError("No QuartzBio API host is set")
+
         validate_api_host_url(value)
         return value
 
 
-def main(argv=sys.argv[1:]):
+def main(argv):
     """Main entry point for QuartzBio CLI"""
     parser = QuartzBioArgumentParser()
     args = parser.parse_quartzbio_args(argv)
 
     quartzbio.login(
-        api_host=args.api_host or quartzbio.api_host,
-        api_key=args.api_key or quartzbio.api_key,
-        access_token=args.access_token or quartzbio.access_token,
+        api_host=args.api_host,
+        api_key=args.api_key,
+        access_token=args.access_token,
     )
 
     return args.func(args)
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

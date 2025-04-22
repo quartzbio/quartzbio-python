@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from __future__ import absolute_import
+
+from collections import namedtuple
+
 import six
 
 import quartzbio
@@ -73,7 +76,12 @@ class CredentialsError(BaseException):
     pass
 
 
-def get_credentials():
+ApiCredentials = namedtuple(
+    "ApiCredentials", ["api_host", "email", "token_type", "token"]
+)
+
+
+def get_credentials(api_host: str = None) -> ApiCredentials:
     """
     Returns the user's stored API key if a valid credentials file is found.
     Raises CredentialsError if no valid credentials file is found.
@@ -86,29 +94,37 @@ def get_credentials():
     except (IOError, TypeError, NetrcParseError) as e:
         raise CredentialsError("Could not open credentials file: " + str(e))
 
-    host = as_netrc_machine(quartzbio.api_host)
-    if host in netrc_obj.hosts:
-        proto = "http://" if "http://" in quartzbio.api_host else "https://"
-        return (proto + host,) + netrc_obj.authenticators(host)
+    netrc_host: str = None
+    if api_host is not None and api_host in netrc_obj.hosts:
+        netrc_host = api_host
+
+    if netrc_host is None:
+        # If there are no stored credentials for the default host,
+        # but there are other stored credentials, use the first
+        # available option that ends with '.api.quartzbio.com',
+        netrc_host = next(
+            filter(lambda h: h.endswith(".api.quartzbio.com"), netrc_obj.hosts), None
+        )
+
+    # Otherwise use the first available.
+    if netrc_host is None:
+        netrc_host = next(iter(netrc_obj.hosts))
+
+    if netrc_host is not None:
+        return ApiCredentials(
+            "https://" + netrc_host, *netrc_obj.authenticators(netrc_host)
+        )
+    return None
+
+    # api_host_no_schema = as_netrc_machine(api_host)
+    # if api_host_no_schema in netrc_obj.hosts:
+    #     proto = urlparse(api_host).scheme
+    #     return (proto + api_host_no_schema,) + netrc_obj.authenticators(api_host_no_schema)
 
     # If the preferred host is not the global default, don't try
     # to select any other.
-    if host != "api.quartzbio.com":
-        return None
-
-    # If there are no stored credentials for the default host,
-    # but there are other stored credentials, use the first
-    # available option that ends with '.api.quartzbio.com',
-    # Otherwise use the first available.
-    for h in netrc_obj.hosts:
-        if h.endswith(".api.quartzbio.com"):
-            return ("https://" + h,) + netrc_obj.authenticators(h)
-
-    # Return the first available
-    for host in netrc_obj.hosts:
-        return ("https://" + host,) + netrc_obj.authenticators(host)
-
-    return None
+    # if api_host_no_schema != "api.quartzbio.com":
+    #     return None
 
 
 def delete_credentials():
@@ -119,7 +135,7 @@ def delete_credentials():
         raise CredentialsError("Could not open netrc file: " + str(e))
 
     try:
-        del rc.hosts[as_netrc_machine(quartzbio.api_host)]
+        del rc.hosts[as_netrc_machine(quartzbio.get_api_host())]
     except KeyError:
         pass
     else:
@@ -127,7 +143,7 @@ def delete_credentials():
 
 
 def save_credentials(email, token, token_type="Token", api_host=None):
-    api_host = api_host or quartzbio.api_host
+    api_host = api_host or quartzbio.get_api_host()
 
     try:
         netrc_path = netrc.path()

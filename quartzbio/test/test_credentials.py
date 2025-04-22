@@ -30,11 +30,11 @@ class TestCredentials(unittest.TestCase):
         self.quartzbiodir = os.path.join(
             os.path.dirname(__file__), "data", ".quartzbio"
         )
-        self.api_host = quartzbio.api_host
-        quartzbio.api_host = "https://api.quartzbio.com"
+        self.api_host = quartzbio.get_api_host()
+        quartzbio.client._host = "https://api.quartzbio.com"
 
     def tearDown(self):
-        quartzbio.api_host = self.api_host
+        quartzbio.client._host = self.api_host
         if os.path.isdir(self.quartzbiodir):
             shutil.rmtree(self.quartzbiodir)
 
@@ -59,24 +59,22 @@ class TestCredentials(unittest.TestCase):
         auths = creds.get_credentials()
         self.assertTrue(auths is not None, "Should find credentials")
 
-        quartzbio.api_host = "https://example.com"
+        quartzbio.client._host = "https://example.com"
 
         auths = creds.get_credentials()
         self.assertEqual(
             auths,
             None,
-            "Should not find credentials for host {0}".format(quartzbio.api_host),
+            f"Should not find credentials for host {quartzbio.get_api_host()}",
         )
 
-        quartzbio.api_host = "https://api.quartzbio.com"
+        quartzbio.client._host = "https://api.quartzbio.com"
         creds.delete_credentials()
         auths = creds.get_credentials()
         self.assertEqual(
             auths,
             None,
-            "Should not find removed credentials for " "host {0}".format(
-                quartzbio.api_host
-            ),
+            f"Should not find removed credentials for host {quartzbio.get_api_host()}",
         )
 
         pair = (
@@ -88,9 +86,9 @@ class TestCredentials(unittest.TestCase):
         self.assertTrue(
             auths is not None,
             "Should get newly set credentials for " "host {0}".format(
-                quartzbio.api_host
+                quartzbio.get_api_host()
             ),
         )
 
-        expected = (quartzbio.api_host, pair[0], "Token", pair[1])
+        expected = (quartzbio.get_api_host(), pair[0], "Token", pair[1])
         self.assertEqual(auths, expected, "Should get back creds we saved")

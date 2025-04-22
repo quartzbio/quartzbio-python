@@ -12,7 +12,6 @@ Submodules
    quartzbio.utils.md5sum
    quartzbio.utils.printing
    quartzbio.utils.tabulate
-   quartzbio.utils.validators
 
 Module contents
 ---------------
