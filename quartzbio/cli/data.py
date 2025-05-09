@@ -274,9 +274,9 @@ def _create_file_job(args):
             return
         # Provides the global host, token, token_type
         client = QuartzBioClient(*client_auth)
-        
+
         remote_parent = None
-        try: 
+        try:
             remote_parent = Object.get_by_full_path(
                 remote_folder_full_path,
                 assert_type="folder",
@@ -315,9 +315,8 @@ def _create_file_job(args):
 def _object_exists(remote_parent, local_path, _client):
     if remote_parent is None:
         return False
-    full_path, path_dict = Object.validate_full_path(
-            os.path.join('{}:{}'.format(remote_parent.vault.full_path, remote_parent.path),
-                         os.path.basename(local_path)), client=_client)
+    full_path, path_dict = Object.validate_full_path(os.path.join('{}:{}'.format(
+        remote_parent.vault.full_path, remote_parent.path), os.path.basename(local_path)), client=_client)
     try:
         obj = Object.get_by_full_path(full_path, client=_client)
         if not obj.is_file:
