@@ -396,6 +396,7 @@ class Object(
                 parent_object_id = parent.id
 
             # Make the API call
+            print("Creating folder {}".format(full_path))
             new_obj = Object.create(
                 vault_id=vault.id,
                 parent_object_id=parent_object_id,
