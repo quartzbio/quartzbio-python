@@ -2,9 +2,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-
 import quartzbio
-from IPython.terminal.shortcuts.auto_suggest import accept_token
 
 from ..client import client
 from .credentials import get_credentials

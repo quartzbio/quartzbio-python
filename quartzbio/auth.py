@@ -40,8 +40,8 @@ def authenticate(
     token: str,
     token_type: Literal["Bearer", "Token"],
     *,
-    raise_on_missing=True,
-    debug: bool=False
+    raise_on_missing: bool = True,
+    debug: bool = False
 ) -> Tuple[str, QuartzBioTokenAuth]:
     """
     Sets login credentials for QuartzBio API authentication.
@@ -122,8 +122,8 @@ def authenticate(
             "\n   or the quartzbio.login function:",
             "   import quartzbio",
             "   quartzbio.login(debug=True)",
-            f"\n2) source: creds",
-            f"   Means that the QB client has saved your credentials in:",
+            "\n2) source: creds",
+            "   Means that the QB client has saved your credentials in:",
             f"   {creds_path}",
             "\n3) source: envvars",
             "   Means that you've set your credentials through environment variables:",
