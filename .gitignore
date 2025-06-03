@@ -20,3 +20,7 @@ tests/.coverage
 .eggs/
 venv*
 settings.json
+
+# spike dev scripts
+spike.sh
+spike.py

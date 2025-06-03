@@ -60,6 +60,14 @@ class QuartzBioArgumentParser(argparse.ArgumentParser):
         "login": {
             "func": auth.login_and_save_credentials,
             "help": "Login and save credentials",
+            "arguments": [
+                {
+                    "flags": "--debug",
+                    "action": "store_true",
+                    "default": False,
+                    "help": "Shows the source of the user credentials",
+                },
+            ]
         },
         "logout": {"func": auth.logout, "help": "Logout and delete saved credentials"},
         "whoami": {"func": auth.whoami, "help": "Show your QuartzBio email address"},
@@ -513,10 +521,11 @@ class QuartzBioArgumentParser(argparse.ArgumentParser):
         return value
 
 
-def main(argv):
+def main():
+
     """Main entry point for QuartzBio CLI"""
     parser = QuartzBioArgumentParser()
-    args = parser.parse_quartzbio_args(argv)
+    args = parser.parse_quartzbio_args(sys.argv[1:])
 
     quartzbio.login(
         api_host=args.api_host,
@@ -528,4 +537,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
