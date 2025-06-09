@@ -257,7 +257,7 @@ class QueryBase(object):
         It is like SQL:
         SELECT COUNT(*) FROM <table> [WHERE condition].
         See also __len__ for a function that is dependent on limit.
-        
+
         """
         # self.total will warm up the response if it needs to
         return self.total
