@@ -362,14 +362,14 @@ class Object(
         """Create a folder if not exists.
 
         Args:
-            vault (Vault): A Vault object.
+            vault (:class:`~quartzbio.resources.vault.Vault`): A Vault object.
             full_path (str): Full path including vault name.
             tags (list[str]): List of tags to put on folder.
             client: QuartzBio client configuration to use.
         Returns:
             Object: New folder object
         Raises:
-            QuartzBioError: if a file or dataset object already exists
+            :class:`~quartzbio.errors.QuartzBioError`: if a file or dataset object already exists
                 at the given full_path.
         """
         _client = kwargs.pop("client", None) or cls._client or client
@@ -423,7 +423,7 @@ class Object(
         Returns:
             Object: New shortcut object
         Raises:
-            QuartzBioError: if a object already exists at the given shortcut_full_path.
+            :class:`~quartzbio.errors.QuartzBioError`: if a object already exists at the given shortcut_full_path.
         """
         _client = kwargs.pop("client", None) or self._client or client
         full_path, path_dict = Object.validate_full_path(
