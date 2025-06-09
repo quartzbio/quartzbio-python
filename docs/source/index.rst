@@ -11,7 +11,6 @@ Module Documentation
 
    quartzbio.annotate
    quartzbio.client
-   quartzbio.contrib
    quartzbio.errors
    quartzbio.global_search
    quartzbio.query

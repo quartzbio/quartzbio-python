@@ -8,7 +8,6 @@ Subpackages
    :maxdepth: 4
 
    quartzbio.cli
-   quartzbio.contrib
    quartzbio.resource
    quartzbio.utils
 
