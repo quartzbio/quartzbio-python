@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 QuartzBio Python Client
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 This is the Python client & library for the QuartzBio API.
 
