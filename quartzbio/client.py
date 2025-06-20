@@ -204,15 +204,15 @@ class QuartzBioClient(object):
         ----------
 
         method : str
-           an HTTP method: GET, PUT, POST, DELETE, ...
+        an HTTP method: GET, PUT, POST, DELETE, ...
 
         url : str
-           the place to connect to. If the url doesn't start
-           with a protocol (https:// or http://), we'll slap
-                quartzbio.api_host in the front.
+        the place to connect to. If the url doesn't start
+        with a protocol (https:// or http://), we'll slap
+        quartzbio.api_host in the front.
 
         allow_redirects: bool, optional
-           set *False* we won't follow any redirects
+        set *False* we won't follow any redirects
 
         headers: dict, optional
 
