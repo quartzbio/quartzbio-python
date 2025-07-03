@@ -94,9 +94,9 @@ The following attributes are optional, and informational only, but encouraged:
 
 -   `title` \- The field's display name, shown in the UI and in CSV/Excel exports.
     
--   `d``escription` \- Describes the contents of the field, shown in the UI.
+-   `description` \- Describes the contents of the field, shown in the UI.
     
--   `o``rdering` \- The order in which this column appears when retrieving data from the dataset. Order is 0-based. Default is 0
+-   `ordering` \- The order in which this column appears when retrieving data from the dataset. Order is 0-based. Default is 0
     
 -   `is_hidden` \- Set to True if the field should be excluded by default from the UI.
     
