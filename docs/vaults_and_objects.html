@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Vaults and Objects &#8212; QuartzBio  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Creating and Migrating Datasets" href="creating_and_migrating_datasets.html" />
+    <link rel="prev" title="Importing Data via API" href="importing_data_via_api.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="vaults-and-objects">
+<h1>Vaults and Objects<a class="headerlink" href="#vaults-and-objects" title="Permalink to this heading">¶</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>Vaults are similar to filesystems in that they provide a unified directory structure where folders, files, and datasets can be stored. All items in a vault (the folders, <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613899">files</a>, and <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613900">datasets</a>) are collectively referred to as “objects”. All vault objects can be moved, copied, renamed, tagged, and assigned <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000614235">metadata</a>.</p>
+<p>Vaults also have an <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000605485">advanced permission</a> model that provides three different levels of access: read, write, and admin. Vaults can be shared and permissions can be set via the EDP UI; for more information about working with vaults on the web interface as well as vault basics such as vault types, users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224">Vaults via UI</a> documentation.</p>
+</section>
+<section id="creating-vaults">
+<h2>Creating Vaults<a class="headerlink" href="#creating-vaults" title="Permalink to this heading">¶</a></h2>
+<p>Users can create a vault as long as it has a unique name within their account domain. Vault and object names are case-insensitive. Once users create a vault, they’ll be able to add folders, upload files, and create datasets. To be safe, a special method is provided to retrieve the vault by name if it already exists:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vault</span>
+
+<span class="c1"># Create a vault by name (only if it doesn&#39;t exist) in your account domain</span>
+<span class="n">vault_x</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;Vault X&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create a vault (fails if it already exists)</span>
+<span class="n">vault_x</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Vault X&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="retrieving-vaults">
+<h2>Retrieving Vaults<a class="headerlink" href="#retrieving-vaults" title="Permalink to this heading">¶</a></h2>
+<p>Users can retrieve any shared vault by name or the full path (e.g. domain:name). The only exception is a user’s personal vault which has a special name, ~, which is also its full path. If a vault is shared with a user by someone from another organization, it must be retrieved by its full path (e.g. quartzbio:public). Users can also retrieve multiple vaults matching a given <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000603094">advanced search query</a> (e.g. user:username).</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vault</span>
+
+<span class="c1"># Retrieve your personal vault</span>
+<span class="n">my_vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_personal_vault</span><span class="p">()</span>
+
+<span class="c1"># Your personal vault also has the shortcut `~`</span>
+<span class="n">my_vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)</span>
+
+<span class="c1"># Retrieve a shared vault by name</span>
+<span class="n">vault_x</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;Vault X&#39;</span><span class="p">)</span>
+
+<span class="c1"># Retrieve a vault from a different domain</span>
+<span class="n">public_vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:public&#39;</span><span class="p">)</span>
+
+<span class="c1"># Retrieve a vault by ID</span>
+<span class="n">public_vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;19&#39;</span><span class="p">)</span>
+
+<span class="c1"># Retrieve all vaults which match a given Advanced search query</span>
+<span class="n">specific_user_vaults</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s1">&#39;user:john&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="creating-folders">
+<h2>Creating Folders<a class="headerlink" href="#creating-folders" title="Permalink to this heading">¶</a></h2>
+<p>Folders can only be created within a vault for which the user has write-level permission. Folder names are case-insensitive. If a user attempts to create a folder with a duplicate name, the vault will add an incrementing number to the name (i.e. folder, folder-1, folder-2, …).</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vault</span>
+
+<span class="c1"># First, retrieve the vault</span>
+<span class="n">vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_personal_vault</span><span class="p">()</span>
+
+<span class="c1"># Create the folder at the root of the vault (path is optional)</span>
+<span class="n">folder</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">create_folder</span><span class="p">(</span><span class="s1">&#39;new-folder&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="uploading-files">
+<h2>Uploading Files<a class="headerlink" href="#uploading-files" title="Permalink to this heading">¶</a></h2>
+<p>Users can upload files to any vault to which they have write-level access. File names are case-insensitive. Uploading a file with a duplicate name (or the same name as a folder) will cause the new file’s name to be auto-incremented (i.e. file, file-1, file-2, …).</p>
+<p>The max upload size is 5 GB. Users are recommended to gzip their files before uploading if they are large.</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vault</span>
+
+<span class="c1"># First retrieve the vault</span>
+<span class="n">vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_personal_vault</span><span class="p">()</span>
+
+<span class="c1"># Upload your file into the root of the vault</span>
+<span class="n">vault</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="s1">&#39;local/path/data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="batch-uploading-python-only">
+<h2>Batch Uploading (Python Only)<a class="headerlink" href="#batch-uploading-python-only" title="Permalink to this heading">¶</a></h2>
+<p>Users can upload many files at once using the upload command built into EDP’s Python module. This command is designed to be “idempotent”, which means that if called more than once it will cross-check the files and upload only the local files and folders that do not yet exist in the vault. The comparison is performed by file name and by file md5.</p>
+<p>In Terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Upload all the CSV files into the root of your personal vault</span>
+<span class="n">quartzbio</span> <span class="n">upload</span> <span class="o">--</span><span class="n">full</span><span class="o">-</span><span class="n">path</span> <span class="s2">&quot;~/&quot;</span> <span class="o">./*.</span><span class="n">csv</span>
+
+<span class="c1"># Create the target path if not exists</span>
+<span class="n">quartzbio</span> <span class="n">upload</span> <span class="o">--</span><span class="n">full</span><span class="o">-</span><span class="n">path</span> <span class="s2">&quot;~/some-non-existent-path&quot;</span> <span class="o">--</span><span class="n">create</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">path</span> <span class="o">./*.</span><span class="n">csv</span>
+
+<span class="c1"># Upload CSV files, but exclude some of them by name</span>
+<span class="n">quartzbio</span> <span class="n">upload</span> <span class="o">--</span><span class="n">full</span><span class="o">-</span><span class="n">path</span> <span class="s2">&quot;~/&quot;</span> <span class="o">--</span><span class="n">exclude</span> <span class="n">old</span><span class="o">-</span><span class="n">csv</span><span class="o">-</span><span class="n">files</span><span class="o">/*</span>  <span class="o">./*.</span><span class="n">csv</span>
+
+<span class="c1"># Run in dry run mode to see before running</span>
+<span class="n">quartzbio</span> <span class="n">upload</span> <span class="o">--</span><span class="n">full</span><span class="o">-</span><span class="n">path</span> <span class="s2">&quot;~/&quot;</span> <span class="o">--</span><span class="n">exclude</span> <span class="n">old</span><span class="o">-</span><span class="n">csv</span><span class="o">-</span><span class="n">files</span><span class="o">/*</span>  <span class="o">./*.</span><span class="n">csv</span> <span class="o">--</span><span class="n">dry</span><span class="o">-</span><span class="n">run</span>
+
+<span class="c1"># For full usage:</span>
+<span class="n">quartzbio</span> <span class="n">upload</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+</section>
+<section id="downloading-files">
+<h2>Downloading Files<a class="headerlink" href="#downloading-files" title="Permalink to this heading">¶</a></h2>
+<p>Users can download any existing file from a vault if they have read access to the vault:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span>
+
+<span class="c1"># Retrieve an existing file from your personal vault</span>
+<span class="n">csv_file</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/data.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Download it to the current directory</span>
+<span class="n">csv_file</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Users can also download more than one file in the same folder:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span><span class="p">,</span> <span class="n">Vault</span>
+
+<span class="c1"># Retrieve a vault</span>
+<span class="n">vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_personal_vault</span><span class="p">()</span>
+
+<span class="n">folder</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s2">&quot;vault:/path/to/folder&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">file_</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">files</span><span class="p">():</span>
+     <span class="n">file_</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+
+<span class="c1">#Search for a particular object in the vault</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The Python client can also be used to download individual files or entire folders:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download a single file</span>
+<span class="n">quartzbio</span> <span class="n">download</span> <span class="s2">&quot;~/path/to/file.txt&quot;</span> <span class="o">.</span>
+
+<span class="c1"># Download a folder</span>
+<span class="n">quartzbio</span> <span class="n">download</span> <span class="o">--</span><span class="n">recursive</span> <span class="s2">&quot;~/path/to/folder&quot;</span> <span class="n">local_folder</span>
+
+<span class="c1"># Download a folder, but exclude hidden files and folders</span>
+<span class="n">quartzbio</span> <span class="n">download</span> <span class="o">--</span><span class="n">recursive</span> <span class="s2">&quot;~/path/to/folder&quot;</span> <span class="n">local_folder</span> <span class="o">--</span><span class="n">exclude</span> <span class="s2">&quot;*/.*&quot;</span>
+
+<span class="c1"># Download a folder, but exclude DS_store files</span>
+<span class="n">quartzbio</span> <span class="n">download</span> <span class="o">--</span><span class="n">recursive</span> <span class="s2">&quot;~/path/to/folder&quot;</span> <span class="n">local_folder</span> <span class="o">--</span><span class="n">exclude</span> <span class="s2">&quot;*/.DS_store&quot;</span>
+
+<span class="c1"># Download only PDF files within a folder</span>
+<span class="c1"># --include always supersedes --exclude</span>
+<span class="n">quartzbio</span> <span class="n">download</span> <span class="o">--</span><span class="n">recursive</span> <span class="s2">&quot;~/path/to/folder&quot;</span> <span class="n">local_folder</span> <span class="o">--</span><span class="n">exclude</span> <span class="s2">&quot;*&quot;</span> <span class="o">--</span><span class="n">include</span> <span class="s2">&quot;*.pdf&quot;</span>
+
+<span class="c1"># The --delete flag will delete local files that do not match</span>
+<span class="c1"># those found in the vault. Always use the --dry-run mode first</span>
+<span class="c1"># with this option as it will delete files permanently.</span>
+<span class="n">quartzbio</span> <span class="n">download</span> <span class="o">--</span><span class="n">recursive</span> <span class="s2">&quot;~/path/to/folder&quot;</span> <span class="n">local_folder</span> <span class="o">--</span><span class="n">delete</span> <span class="o">--</span><span class="n">dry</span><span class="o">-</span><span class="n">run</span>
+
+<span class="c1"># For full usage:</span>
+<span class="n">quartzbio</span> <span class="n">download</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+</section>
+<section id="searching-within-vaults">
+<h2>Searching within Vaults<a class="headerlink" href="#searching-within-vaults" title="Permalink to this heading">¶</a></h2>
+<p>Users can search for files, folders, and datasets within any vault by name or other attributes.</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vault</span>
+
+<span class="c1"># Retrieve a vault</span>
+<span class="n">vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_personal_vault</span><span class="p">()</span>
+
+<span class="c1"># Search across files, folders, and datasets in the vault</span>
+<span class="n">objects</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">)</span>
+
+<span class="c1"># Search for a particular object type: file/folder/dataset</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;xyz AND type:file&#39;</span><span class="p">)</span>
+
+<span class="c1"># List all datasets in a vault</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">datasets</span><span class="p">()</span>
+
+<span class="c1"># List all datasets in a folder</span>
+<span class="n">folder</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">vault</span><span class="o">.</span><span class="n">folders</span><span class="p">())</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="n">folder</span><span class="o">.</span><span class="n">datasets</span><span class="p">()</span>
+
+<span class="c1"># Find all objects matching an exact filename</span>
+<span class="n">data_objects</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">objects</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Find files that contain a string</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s1">&#39;tumor_sample_x&#39;</span><span class="p">)</span>
+
+<span class="c1"># Find files with a specific path</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s1">&#39;/brca/october/samples&#39;</span><span class="p">)</span>
+
+<span class="c1"># Find datasets</span>
+<span class="n">public_vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:public&#39;</span><span class="p">)</span>
+<span class="n">clinvar</span> <span class="o">=</span> <span class="n">public_vault</span><span class="o">.</span><span class="n">datasets</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s1">&#39;clinvar&#39;</span><span class="p">)</span>
+
+<span class="c1"># List all the child folders of a specific folder (subfolders)</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;quartzbio:public:/ClinVar&#39;</span>
+<span class="n">folder</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">child_folders</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">filename</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">folders</span><span class="p">()]</span>
+
+<span class="c1"># Get all the files in a folder recursively</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;quartzbio:Public:/ClinVar&#39;</span>
+<span class="n">folder</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">folder</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-search">
+<h2>Advanced Search<a class="headerlink" href="#advanced-search" title="Permalink to this heading">¶</a></h2>
+<p>Users can list all objects within a vault that match a specific pattern (i.e. find all the files within a certain folder) by providing a case-insensitive regular expression to the regex parameter. It is highly recommended to use Object.search() instead of searching by regular expression, unless it is absolutely necessary.</p>
+<p>In Python:</p>
+<p>from quartzbio import Vault
+from quartzbio import Object</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the public vault</span>
+<span class="n">public_vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:public&#39;</span><span class="p">)</span>
+<span class="c1"># Find datasets using regex</span>
+<span class="n">clinvar_v2</span> <span class="o">=</span> <span class="n">public_vault</span><span class="o">.</span><span class="n">datasets</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="s1">&#39;/ClinVar/2.*&#39;</span><span class="p">)</span>
+
+<span class="c1"># Search for all XML files</span>
+<span class="n">xml_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">filename</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;*.xml.gz AND type:file&#39;</span><span class="p">)]</span>
+
+<span class="c1"># List the dataset ids of every dataset that has Outcome somewhere in the path</span>
+<span class="n">all_outcomes</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">Object</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="s2">&quot;.*Outcome.*&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">)]</span>
+
+<span class="c1"># List the filenames of all xml files within a specific path</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;quartzbio:Public:/MEDLINE/2.3.4-2018&#39;</span>
+<span class="n">folder</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">json_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">filename</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.*.json.gz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">path</span><span class="p">))]</span>
+
+<span class="c1"># Unix style wildcards are supported too</span>
+<span class="n">json_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">filename</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">folder</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">glob</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">*.json.gz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">path</span><span class="p">))]</span>
+</pre></div>
+</div>
+</section>
+<section id="move-files-between-folders">
+<h2>Move Files Between Folders<a class="headerlink" href="#move-files-between-folders" title="Permalink to this heading">¶</a></h2>
+<p>Users can search for files in one folder using the aforementioned querying and move them to another folder.</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span>
+
+<span class="c1"># Get the full path to the current and new folder where you want to move your files</span>
+<span class="n">new_folder</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s2">&quot;~/my/new/folder&quot;</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span>
+<span class="n">current_folder</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s2">&quot;~/my/existing/folder&quot;</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span>
+
+<span class="c1"># Query current folder for the specific files</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">current_folder</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;my_search_string&quot;</span><span class="p">)</span>
+
+<span class="c1"># Change the parent id of each folder in order to move it to the new folder</span>
+<span class="k">for</span> <span class="n">file_</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="n">file_</span><span class="o">.</span><span class="n">parent_object_id</span> <span class="o">=</span> <span class="n">new_folder</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">file_</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="deleting-vaults-and-objects">
+<h2>Deleting Vaults and Objects<a class="headerlink" href="#deleting-vaults-and-objects" title="Permalink to this heading">¶</a></h2>
+<p>Users can delete any vault or object (file, folder, or dataset) that they have admin-level permissions on. Deleting a vault or folder will automatically delete all its contents.</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>from quartzbio import Vault
+
+# Create an empty folder in your personal vault
+vault = Vault.get_personal_vault()
+folder = vault.create_folder(&#39;test-delete-folder&#39;, path=&#39;/&#39;)
+
+# Deletion of any object requires a confirmation from the user.
+# You can disable this confirmation by passing the `force=True` flag.
+folder.delete()
+&gt;&gt;&gt; Are you sure you want to delete this object? [y/N] y
+</pre></div>
+</div>
+</section>
+<section id="api-endpoints">
+<h2>API Endpoints<a class="headerlink" href="#api-endpoints" title="Permalink to this heading">¶</a></h2>
+<p>Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.</p>
+<p>Vaults</p>
+<p>Request Body:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>string</p></td>
+<td><p>The name of the vault. This must be unique to your account domain.</p></td>
+</tr>
+<tr class="row-odd"><td><p>description</p></td>
+<td><p>string</p></td>
+<td><p>(Optional) The description of the vault.</p></td>
+</tr>
+<tr class="row-even"><td><p>metadata</p></td>
+<td><p>object</p></td>
+<td><p>(Optional) A dictionary of key/value pairs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>tags</p></td>
+<td><p>object</p></td>
+<td><p>(Optional) A list of strings to organize the vault.</p></td>
+</tr>
+<tr class="row-even"><td><p>default_storage_class</p></td>
+<td><p>string</p></td>
+<td><p>(Optional) The default dataset storage class to apply to any datasets created</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>list</p></td>
+<td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/vaults</p></td>
+<td><p>List all available vaults.</p></td>
+<td><p>All public vaults are included in this response. If the request is sent by an authenticated user, vaults which the user has “read” permission or higher on are also returned.</p></td>
+<td><p>The response returns a list of vaults matching the provided filters.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>update</p></td>
+<td><p>PUT <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/vaults/{ID}</p></td>
+<td><p>Update a vault.</p></td>
+<td><p>This request requires an authorized user with “write” permission or higher on the vault.</p></td>
+<td><p>The response contains the updated Vault resource.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Request Body</p>
+<p>In the request body, provide a valid Vault object (see create above).</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>delete</p></td>
+<td><p>DELETE <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/vaults/{ID}</p></td>
+<td><p>Delete a vault.</p></td>
+<td><p>This request requires an authorized user with “admin” permission on the vault.</p></td>
+<td><p>The response returns “HTTP 200 OK” when successful.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>get</p></td>
+<td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/vaults/{ID}</p></td>
+<td><p>Retrieve a vault’s metadata.</p></td>
+<td><p>This request requires an authorized user with “read” permission or higher on the vault.</p></td>
+<td><p>The response contains a Vault resource.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Objects</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>create</p></td>
+<td><p>POST <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/objects</p></td>
+<td><p>Create an object.</p></td>
+<td><p>This request requires an authorized user with “write” permission or higher to the vault that the object will go into.</p></td>
+<td><p>The response contains a single Object resource.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Request Body:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>vault_id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of the vault that will contain the object.</p></td>
+</tr>
+<tr class="row-odd"><td><p>parent_object_id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of the existing folder object to place the new object into. To place at “/”, set this value to null.</p></td>
+</tr>
+<tr class="row-even"><td><p>filename</p></td>
+<td><p>string</p></td>
+<td><p>The filename of the object, not including its parent folder. This value cannot contain slashes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>object_type</p></td>
+<td><p>string</p></td>
+<td><p>The object_type of the object. Must be one of “file”, “folder”, or “dataset”.</p></td>
+</tr>
+<tr class="row-even"><td><p>description</p></td>
+<td><p>text</p></td>
+<td><p>(Optional) The description of the object.</p></td>
+</tr>
+<tr class="row-odd"><td><p>metadata</p></td>
+<td><p>object</p></td>
+<td><p>(Optional) A dictionary of key/value pairs.</p></td>
+</tr>
+<tr class="row-even"><td><p>tags</p></td>
+<td><p>object</p></td>
+<td><p>(Optional) A list of strings to organize the object.</p></td>
+</tr>
+<tr class="row-odd"><td><p>storage_class</p></td>
+<td><p>string</p></td>
+<td><p>(Optional) The dataset storage class.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>list</p></td>
+<td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/objects</p></td>
+<td><p>List all available objects.</p></td>
+<td><p>The response includes objects which exist inside vaults that the user has “read” permission or higher to.</p></td>
+<td><p>The response returns a list of objects matching the provided filters.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Parameters:</p>
+<p>This request accepts the following parameters:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of an object.</p></td>
+</tr>
+<tr class="row-odd"><td><p>vault_id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of the vault that will contain the object.</p></td>
+</tr>
+<tr class="row-even"><td><p>vault_name</p></td>
+<td><p>string</p></td>
+<td><p>The name of the vault containing objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p>vault_full_path</p></td>
+<td><p>text</p></td>
+<td><p>The full path of the vault containing objects.</p></td>
+</tr>
+<tr class="row-even"><td><p>parent_object_id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of the existing folder object to place the new object into. To place at “/”, set this value to null.</p></td>
+</tr>
+<tr class="row-odd"><td><p>filename</p></td>
+<td><p>string</p></td>
+<td><p>The filename of the object, not including its parent folder. This value cannot contain slashes.</p></td>
+</tr>
+<tr class="row-even"><td><p>path</p></td>
+<td><p>string</p></td>
+<td><p>The path of the object, including its parent folder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>object_type</p></td>
+<td><p>string</p></td>
+<td><p>The type of the object. Must be one of “file”, “folder”, or “dataset”.</p></td>
+</tr>
+<tr class="row-even"><td><p>depth</p></td>
+<td><p>integer</p></td>
+<td><p>The depth of the object in the Vault. Objects at the root have depth = 0.</p></td>
+</tr>
+<tr class="row-odd"><td><p>query</p></td>
+<td><p>string</p></td>
+<td><p>A string that matches any objects whose path contains that string.</p></td>
+</tr>
+<tr class="row-even"><td><p>regex</p></td>
+<td><p>regex</p></td>
+<td><p>A regular expression which searches objects for matching paths (case-insensitive).</p></td>
+</tr>
+<tr class="row-odd"><td><p>glob</p></td>
+<td><p>text (glob)</p></td>
+<td><p>A glob (full path with wildcard characters) which searches objects for matching paths (case-insensitive).</p></td>
+</tr>
+<tr class="row-even"><td><p>ancestor_id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of an ancestor object (parent folder, parent of parent folder, etc). For “/”, use “null”.</p></td>
+</tr>
+<tr class="row-odd"><td><p>min_distance</p></td>
+<td><p>integer</p></td>
+<td><p>Used in conjuction with the ancestor_id filter to only include objects at a minimum distance from the ancestor.</p></td>
+</tr>
+<tr class="row-even"><td><p>tags</p></td>
+<td><p>string</p></td>
+<td><p>A string representing a single vault tag. Matching vaults must have this tag set.</p></td>
+</tr>
+<tr class="row-odd"><td><p>storage_class</p></td>
+<td><p>string</p></td>
+<td><p>Returns datasets with this storage class.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>update</p></td>
+<td><p>PUT <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/objects/{ID}</p></td>
+<td><p>Update an object.</p></td>
+<td><p>This request requires an authorized user with “write” permission or higher to the vault that contains the object.</p></td>
+<td><p>The response contains the updated Object resource.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Request Body:</p>
+<p>In the request body, provide a valid Object body (see <em>create</em> above).</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>delete</p></td>
+<td><p>DELETE <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/objects/{ID}</p></td>
+<td><p>Delete an object.</p></td>
+<td><p>This request requires an authorized user with “write” permission or higher to the vault that contains the object.</p></td>
+<td><p>The response returns “HTTP 200 OK” when successful.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>get</p></td>
+<td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/objects/{ID}</p></td>
+<td><p>Retrieve metadata about an object.</p></td>
+<td><p>This request requires an authorized user with “read” permission or higher to the vault that contains the object.</p></td>
+<td><p>The response contains an Object resource.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>create (object copy task)</p></td>
+<td><p>POST <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/object_copy_tasks</p></td>
+<td><p>Copy an object from one vault into another. Datasets are ignored by object copy tasks. If you wish to copy a dataset, you must download it and re-import it.</p></td>
+<td><p>This request requires an authorized user with “read” permission or higher on the source vault, and “write” permission or higher on the target vault.</p></td>
+<td><p>The response contains a single object copy task.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Request Body</p>
+<p>In the request body, provide the following parameters:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>source_vault_id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of the vault that contains the object which will be copied.</p></td>
+</tr>
+<tr class="row-odd"><td><p>target_vault_id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of the vault that the object will be copied to.</p></td>
+</tr>
+<tr class="row-even"><td><p>source_object_id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of the object which will be copied. Must be a file or folder. Set to null to copy the entire vault.</p></td>
+</tr>
+<tr class="row-odd"><td><p>target_object_id</p></td>
+<td><p>integer</p></td>
+<td><p>The ID of the object into which the new objects will copied. Must be a folder. Set to null to copy objects to /.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>list (object copy task)</p></td>
+<td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/object_copy_tasks</p></td>
+<td><p>List object copy tasks created by the current user.</p></td>
+<td><p>This request requires an authorized user.</p></td>
+<td><p>The response contains a list of object copy tasks.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>HTTP Request</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Authorization</p></th>
+<th class="head"><p>Response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>get (object copy task)</p></td>
+<td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/object_copy_tasks/{ID}</p></td>
+<td><p>Retrieve metadata about an object copy task.</p></td>
+<td><p>This request requires that the authorized user is also the user who created the object copy task being retrieved.</p></td>
+<td><p>The response contains an object copy task resource.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">QuartzBio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Vaults and Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-vaults">Creating Vaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#retrieving-vaults">Retrieving Vaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-folders">Creating Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uploading-files">Uploading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#batch-uploading-python-only">Batch Uploading (Python Only)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-files">Downloading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#searching-within-vaults">Searching within Vaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-search">Advanced Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#move-files-between-folders">Move Files Between Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deleting-vaults-and-objects">Deleting Vaults and Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discoverty via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="importing_data_via_api.html" title="previous chapter">Importing Data via API</a></li>
+      <li>Next: <a href="creating_and_migrating_datasets.html" title="next chapter">Creating and Migrating Datasets</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025 Precision for Medicine, inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/vaults_and_objects.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Expression Functions &#8212; QuartzBio  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Expressions" href="expressions.html" />
+    <link rel="prev" title="Transforming Datasets" href="transforming_datasets.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="expression-functions">
+<h1>Expression Functions<a class="headerlink" href="#expression-functions" title="Permalink to this heading">¶</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>EDP expressions can use Python-like functions to pull data from any dataset, calculate statistics, or run advanced algorithms. Users are recommended to read the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023">Expressions documentation</a> for an in-depth review of use cases.</p>
+</section>
+<section id="function-details">
+<h2>Function Details<a class="headerlink" href="#function-details" title="Permalink to this heading">¶</a></h2>
+<section id="annotate">
+<h3><strong>annotate</strong><a class="headerlink" href="#annotate" title="Permalink to this heading">¶</a></h3>
+<p>Annotate a record with a template. Output data type: object</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>annotate(record, template, debug, include_errors)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>record: (object) The record to be annotated</p></li>
+<li><p>template: (str) The ID of the template</p></li>
+<li><p>debug: (bool) Enable debug mode (default: False)</p></li>
+<li><p>include_errors: (bool) Include errors in output (default: True)</p></li>
+</ul>
+</section>
+<section id="beacon">
+<h3><strong>beacon</strong><a class="headerlink" href="#beacon" title="Permalink to this heading">¶</a></h3>
+<p>Retrieves the beacon results for any entity. Output data type: object. Output object properties:</p>
+<ul class="simple">
+<li><p>failed_count: The number of datasets that failed (timed-out)</p></li>
+<li><p>failed: List of datasets that failed (timed-out)</p></li>
+<li><p>not_found_count: The number of datasets without results</p></li>
+<li><p>found_count: The number of datasets with results</p></li>
+<li><p>found: List of datasets with results</p></li>
+<li><p>not_found: List of datasets without results</p></li>
+</ul>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>beacon(entity, entity_type, beacon_set, datasets, visibility)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>entity: The entity value</p></li>
+<li><p>entity_type: A valid entity type</p></li>
+<li><p>beacon_set (optional): A valid beacon set ID</p></li>
+<li><p>datasets (optional): A list of datasets to beacon</p></li>
+<li><p>visibility (optional): Which datasets to beacon (default: vault)</p></li>
+</ul>
+</section>
+<section id="classify-variant">
+<h3><strong>classify_variant</strong><a class="headerlink" href="#classify-variant" title="Permalink to this heading">¶</a></h3>
+<p>Classify a variant using one of multiple classifiers. Output data type: object</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classify_variant(variant, classifier)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>variant: The variant</p></li>
+<li><p>classifier: The desired classifier (default: “germline”)</p></li>
+</ul>
+</section>
+<section id="coerce-list">
+<h3><strong>coerce_list</strong><a class="headerlink" href="#coerce-list" title="Permalink to this heading">¶</a></h3>
+<p>Coerce a value to a list. Single items will become a single value list. Lists will remain lists. None will return an empty list. Output data type: auto (list)</p>
+<p><strong>Syntax</strong></p>
+<ul class="simple">
+<li><p>value: The value to coerce to a list</p></li>
+</ul>
+</section>
+<section id="concat">
+<h3><strong>concat</strong><a class="headerlink" href="#concat" title="Permalink to this heading">¶</a></h3>
+<p>Combine text from multiple lists or strings. Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>concat(values, delimiter)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>values: The list of values to concatenate</p></li>
+<li><p>delimiter (default: “”): The character to use in between values</p></li>
+</ul>
+</section>
+<section id="crossmap">
+<h3><strong>crossmap</strong><a class="headerlink" href="#crossmap" title="Permalink to this heading">¶</a></h3>
+<p>Convert a variant or genomic region entity between different genome builds using the <a class="reference external" href="http://crossmap.sourceforge.net/">Ensembl CrossMap</a> tool. The functionality of this expression is the same as UCSC’s liftOver tool. Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>crossmap(entity, target_build)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>entity: The entity (either a valid quartzbio variant BUILD-CHROMOSOME-START-STOP-ALT or genomic region BUILD-CHROMOSOME-START-STOP)</p></li>
+<li><p>target_build: The target genome build (GRCH37 or GRCH38)</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">crossmap(&quot;GRCH38-13-32338647-32338647-T&quot;,</span> <span class="pre">&quot;GRCH37&quot;)</span></code></p>
+</section>
+<section id="dataset-count">
+<h3><strong>dataset_count</strong><a class="headerlink" href="#dataset-count" title="Permalink to this heading">¶</a></h3>
+<p>Calculate the total number of results (or “hits”) for a given query. Returns the number of results. Output data type: integer</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataset_count(dataset, entities, filters, query)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>dataset: Any dataset with query permissions</p></li>
+<li><p>entities (optional): A list of entity tuples: [(entity_type, entity)]</p></li>
+<li><p>filters (optional): A valid filter block</p></li>
+<li><p>query (optional): A query string</p></li>
+</ul>
+</section>
+<section id="dataset-entity-top-terms">
+<h3><strong>dataset_entity_top_terms</strong><a class="headerlink" href="#dataset-entity-top-terms" title="Permalink to this heading">¶</a></h3>
+<p>Retrieve the top entities for any entity field in a dataset. Returns a list of strings, in order of occurrence or None if the dataset can not be queried by this entity. Output data type: string (list)</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataset_entity_top_terms(dataset, entity, limit, filters, query)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>dataset: Any dataset with query permissions</p></li>
+<li><p>entity: The entity_type to return within the dataset</p></li>
+<li><p>limit (optional): The number of terms to retrieve (default: 1000)</p></li>
+<li><p>filters (optional): Dataset filters</p></li>
+<li><p>query (optional): A query string</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">dataset_entity_top_terms(&quot;quartzbio:public:/ClinVar/5.1.0-20200720/Variants-GRCH38&quot;,</span> <span class="pre">&quot;gene&quot;)</span></code></p>
+</section>
+<section id="dataset-field-percentiles">
+<h3><strong>dataset_field_percentiles</strong><a class="headerlink" href="#dataset-field-percentiles" title="Permalink to this heading">¶</a></h3>
+<p>Calculates the percentiles for any integer field. Returns an object containing the desired percentiles. Output data type: object</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataset_field_percentiles(dataset, field, percents, entities, filters, query)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>dataset: Any dataset with query permissions</p></li>
+<li><p>field: The field within the dataset</p></li>
+<li><p>percents: The percentiles to calculate (default: 1, 5, 25, 50, 75, 95, 99)</p></li>
+<li><p>entities (optional): A list of entity tuples: [(entity_type, entity)]</p></li>
+<li><p>filters (optional): Dataset filters</p></li>
+<li><p>query (optional): A query string</p></li>
+</ul>
+</section>
+<section id="dataset-field-stats">
+<h3><strong>dataset_field_stats</strong><a class="headerlink" href="#dataset-field-stats" title="Permalink to this heading">¶</a></h3>
+<p>Calculates statistics for any numeric field. Returns an object containing field statistics. Output data type: object. Output object properties:</p>
+<ul class="simple">
+<li><p>count: The total number of values</p></li>
+<li><p>max: The maximum value observed</p></li>
+<li><p>sum: The sum of all values</p></li>
+<li><p>avg: The average value</p></li>
+<li><p>min: The minimum value observed</p></li>
+</ul>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataset_field_stats(dataset, field, entities, filters, query)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>dataset: Any dataset with query permissions</p></li>
+<li><p>field: The field within the dataset</p></li>
+<li><p>entities (optional): A list of entity tuples: [(entity_type, entity)]</p></li>
+<li><p>filters (optional): Dataset filters</p></li>
+<li><p>query (optional): A query string</p></li>
+</ul>
+</section>
+<section id="dataset-field-terms-count">
+<h3><strong>dataset_field_terms_count</strong><a class="headerlink" href="#dataset-field-terms-count" title="Permalink to this heading">¶</a></h3>
+<p>Retrieve the number of unique terms for any string field in a dataset. Returns the number of unique terms. Output data type: integer</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataset_field_terms_count(dataset, field, entities, filters, query)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>dataset: Any dataset with query permissions</p></li>
+<li><p>field: The field within the dataset</p></li>
+<li><p>entities (optional): A list of entity tuples: [(entity_type, entity)]</p></li>
+<li><p>filters (optional): Dataset filters</p></li>
+<li><p>query (optional): A query string</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">dataset_field_terms_count(&quot;quartzbio:public:/ClinVar/5.1.0-20200720/Variants-GRCh38&quot;,</span> <span class="pre">&quot;clinical_significance&quot;)</span></code></p>
+</section>
+<section id="dataset-field-top-terms">
+<h3><strong>dataset_field_top_terms</strong><a class="headerlink" href="#dataset-field-top-terms" title="Permalink to this heading">¶</a></h3>
+<p>Retrieve the top terms for any string field in a dataset. Returns a list of objects containing the term and number of times it occurs, in order of occurrence. Output data type: object (list). Output object properties:</p>
+<ul class="simple">
+<li><p>count: Number of times it occurs</p></li>
+<li><p>term: Term value</p></li>
+</ul>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataset_field_top_terms(dataset, field, limit, entities, filters, query)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>dataset: Any dataset with query permissions</p></li>
+<li><p>field: The field within the dataset</p></li>
+<li><p>limit (optional): The number of terms to retrieve (default: 10)</p></li>
+<li><p>entities (optional): A list of entity tuples: [(entity_type, entity)]</p></li>
+<li><p>filters (optional): Dataset filters</p></li>
+<li><p>query (optional): A query string</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">dataset_field_top_terms(&quot;quartzbio:public:/ClinVar/5.1.0-20200720/Variants-GRCh38&quot;,</span> <span class="pre">&quot;clinical_significance&quot;)</span></code></p>
+</section>
+<section id="dataset-field-values">
+<h3><strong>dataset_field_values</strong><a class="headerlink" href="#dataset-field-values" title="Permalink to this heading">¶</a></h3>
+<p>Retrieves a list of non-empty values for a dataset field. Returns a list of values from the specified field. Output data type: auto (list)</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataset_field_values(dataset, field, limit, entities, filters, query)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>dataset: Any dataset with query permissions</p></li>
+<li><p>field: The field within the dataset</p></li>
+<li><p>limit (optional): The number of values to return (default: 10)</p></li>
+<li><p>entities (optional): A list of entity tuples: [(entity_type, entity)]</p></li>
+<li><p>filters (optional): Dataset filters</p></li>
+<li><p>query (optional): A query string</p></li>
+</ul>
+</section>
+<section id="dataset-query">
+<h3><strong>dataset_query</strong><a class="headerlink" href="#dataset-query" title="Permalink to this heading">¶</a></h3>
+<p>Query any dataset with optional filters and/or entities. Returns a list of results. Output data type: object (list)</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dataset_query(dataset, fields, limit, entities, filters, query)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>dataset: Any dataset with query permissions</p></li>
+<li><p>fields (optional): Fields to retrieve (default: all)</p></li>
+<li><p>limit (optional): The number of values to return (default: 1)</p></li>
+<li><p>entities (optional): A list of entity tuples: [(entity_type, entity)]</p></li>
+<li><p>filters (optional): Dataset filters</p></li>
+<li><p>query (optional): A query string</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">dataset_query(&quot;quartzbio:public:/ClinVar/5.1.0-20200720/Variants-GRCh38&quot;,</span> <span class="pre">fields=[&quot;clinical_significance&quot;],</span> <span class="pre">query=&quot;*cancer*&quot;)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">dataset_query(&quot;quartzbio:public:/ClinVar/5.1.0-20200720/Variants-GRCh38&quot;,</span> <span class="pre">entities=[[&quot;variant&quot;,</span> <span class="pre">&quot;GRCH38-13-32357842-32357842-TA&quot;]])</span></code></p>
+</section>
+<section id="datetime-format">
+<h3><strong>datetime_format</strong><a class="headerlink" href="#datetime-format" title="Permalink to this heading">¶</a></h3>
+<p>Format datetime strings. By default, it returns an ISO 8601 format date time string. To override, provide an optional input_format or output_format to be used. Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>datetime_format(value, input_format, output_format)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>value: (str) A string containing a date/time stamp</p></li>
+<li><p>input_format: (str) The input format of the date (e.g. “%d/%m/%y %H:%M”)</p></li>
+<li><p>output_format: (str) The output format of the date (ISO 8601 format is the default: “%Y-%m-%dT%H:%M:%S”)</p></li>
+</ul>
+</section>
+<section id="entity-ids">
+<h3><strong>entity_ids</strong><a class="headerlink" href="#entity-ids" title="Permalink to this heading">¶</a></h3>
+<p>Retrieve one or more entity IDs for a query. Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>entity_ids(entity_type, entity)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>entity_type: The entity type to retrieve</p></li>
+<li><p>entity: The entity or query string</p></li>
+</ul>
+</section>
+<section id="error">
+<h3><strong>error</strong><a class="headerlink" href="#error" title="Permalink to this heading">¶</a></h3>
+<p>Raise a FunctionError. Output data type: error</p>
+<p><strong>Syntax</strong></p>
+<ul class="simple">
+<li><p>message: An error message to raise</p></li>
+</ul>
+</section>
+<section id="explode">
+<h3><strong>explode</strong><a class="headerlink" href="#explode" title="Permalink to this heading">¶</a></h3>
+<p>Split N values from M list fields into N records. If _id is in the original record, each new record will have an integer appended to the _id with the index of each exploded record. Output data type: object (list)</p>
+<p><strong>Syntax</strong></p>
+<ul class="simple">
+<li><p>record: (object) The record to be splitted</p></li>
+<li><p>fields: (list or tuple) the fields IDs</p></li>
+</ul>
+</section>
+<section id="findall">
+<h3><strong>findall</strong><a class="headerlink" href="#findall" title="Permalink to this heading">¶</a></h3>
+<p>Returns all non-overlapping matches of pattern in string, as a list of strings. The string is scanned left-to-right, and matches are returned in the order found. If one or more groups are present in the pattern, returns a list of groups. Output data type: string (list)</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>findall(pattern, string, regex_ignorecase, regex_dotall, regex_multiline)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>pattern: The regular expression pattern</p></li>
+<li><p>string: The string to search</p></li>
+<li><p>regex_ignorecase (default: None): With a “regex” pattern, will perform a case insensitive matching.</p></li>
+<li><p>regex_dotall (default: None): With a “regex” pattern, will make the “.” special character match any character at all, including a newline; without this flag, “.” will match anything except a newline.</p></li>
+<li><p>regex_multiline (default: None): With a “regex” pattern, when specified, the pattern character “^” matches at the beginning of the string and at the beginning of each line (immediately following each newline); and the pattern character “” matches at the end of the string and at the end of each line (immediately preceding each newline). By default, “^” matches only at the beginning of the string, and “” only at the end of the string and immediately before the newline (if any) at the end of the string.</p></li>
+</ul>
+</section>
+<section id="genomic-sequence">
+<h3><strong>genomic_sequence</strong><a class="headerlink" href="#genomic-sequence" title="Permalink to this heading">¶</a></h3>
+<p>Retrieves a specific sequence from the genome. Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>genomic_sequence(genomic_region)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>genomic_region: A valid genomic region in the form: BUILD-CHROMOSOME-START-STOP</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">genomic_sequence(&quot;GRCh37-5-36241400-36241700&quot;)</span></code></p>
+</section>
+<section id="get">
+<h3><strong>get</strong><a class="headerlink" href="#get" title="Permalink to this heading">¶</a></h3>
+<p>Get the value at any depth of a nested object based on the path described by <code class="docutils literal notranslate"><span class="pre">path</span></code>. If path doesn’t exist, <code class="docutils literal notranslate"><span class="pre">default</span></code> is returned. Output data type: auto</p>
+<p><strong>Syntax</strong></p>
+<ul class="simple">
+<li><p>obj: (list|dict) The object to process</p></li>
+<li><p>path: (str|list) List or <code class="docutils literal notranslate"><span class="pre">.</span></code> delimited string of path describing path.</p></li>
+<li><p>default (keyword): Default value to return if path doesn’t exist. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</section>
+<section id="melt">
+<h3><strong>melt</strong><a class="headerlink" href="#melt" title="Permalink to this heading">¶</a></h3>
+<p>Convert a wide dataset to a long dataset by “melting” one or more fields into “key” and “value” fields. All fields must have the same data type. Output data type: object (list)</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>melt(record, fields, key_field, value_field, melt_list_values)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>record: (object) The record to be melted</p></li>
+<li><p>fields: (list or tuple) the fields IDs</p></li>
+<li><p>key_field: (str) key field (default: “key”)</p></li>
+<li><p>value_field: (str) value field (default: “value”)</p></li>
+<li><p>melt_list_values: (bool) (default: False)</p></li>
+</ul>
+</section>
+<section id="normalize-aa-change">
+<h3><strong>normalize_aa_change</strong><a class="headerlink" href="#normalize-aa-change" title="Permalink to this heading">¶</a></h3>
+<p>Normalize an amino acid change (beta). Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>normalize_aa_change(aa_change, ref, alt)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>aa_change: The aa_change</p></li>
+<li><p>ref: (optional) Reference allele</p></li>
+<li><p>alt: (optional) Alternate allele</p></li>
+</ul>
+</section>
+<section id="normalize-variant">
+<h3><strong>normalize_variant</strong><a class="headerlink" href="#normalize-variant" title="Permalink to this heading">¶</a></h3>
+<p>Normalize a variant ID (minimal representation and left shifting). Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>normalize_variant(variant)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>variant: The variant</p></li>
+</ul>
+</section>
+<section id="now">
+<h3><strong>now</strong><a class="headerlink" href="#now" title="Permalink to this heading">¶</a></h3>
+<p>Retrieves the current date and time. Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<ul class="simple">
+<li><p>timezone (default: EST): The timezone to use for the date</p></li>
+<li><p>template (default: ISO 8601): The format in which to represent the date/time, defaults to ISO 8601 format (%Y-%m-%dT%H:%M:%S)</p></li>
+</ul>
+</section>
+<section id="predict-variant-effects">
+<h3><strong>predict_variant_effects</strong><a class="headerlink" href="#predict-variant-effects" title="Permalink to this heading">¶</a></h3>
+<p>Predict the effects of a variant using Veppy. Output data type: object (list). Output object properties:</p>
+<ul class="simple">
+<li><p>so_term: The Sequence Ontology term</p></li>
+<li><p>impact: The effect impact</p></li>
+<li><p>so_accession: The Sequence Ontology accession number</p></li>
+<li><p>transcript: The affected transcript ID</p></li>
+<li><p>lof: True if the mutation is predicted to cause the protein to lose its function</p></li>
+</ul>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>predict_variant_effects(variant, default_transcript, gene_model)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>variant: The variant</p></li>
+<li><p>default_transcript (optional): If True, return effects for just the default transcript. If a specific transcript, then limits results to this transcript only. Otherwise returns effects for all transcripts.</p></li>
+<li><p>gene_model (optional): The desired gene model: refseq (default) or ensembl</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">predict_variant_effects(&quot;GRCH38-7-117559590-117559593-A&quot;)</span></code></p>
+</section>
+<section id="prevalence">
+<h3><strong>prevalence</strong><a class="headerlink" href="#prevalence" title="Permalink to this heading">¶</a></h3>
+<p>Calculates the frequency that a value occurs within a population. Typically used to calculate the prevalence of variants or genes across samples in a dataset. Returns the frequency of occurrence. <span class="raw-html-md"><u dir="ltr">Please note: in large datasets, the result is approximate and can have an error of up to 5%.&nbsp;</u></span> Output data type: double</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>prevalence(dataset, entity, sample_field, filters)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>dataset: Any dataset with discover permissions</p></li>
+<li><p>entity: A single entity tuple: (entity_type, entity)</p></li>
+<li><p>sample_field: The field containing the sample IDs</p></li>
+<li><p>filters (optional): Filters to apply on the dataset</p></li>
+</ul>
+</section>
+<section id="search">
+<h3><strong>search</strong><a class="headerlink" href="#search" title="Permalink to this heading">¶</a></h3>
+<p>Scan through string looking for the first location where the regular expression pattern produces a match. Returns True on a match and False if no position in the string matches the pattern. Output data type: boolean</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>search(pattern, string, regex_ignorecase, regex_dotall, regex_multiline)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>pattern: The regular expression pattern</p></li>
+<li><p>string: The string to search</p></li>
+<li><p>regex_ignorecase (default: None): With a “regex” pattern, will perform a case insensitive matching.</p></li>
+<li><p>regex_dotall (default: None): With a “regex” pattern, will make the “.” special character match any character at all, including a newline; without this flag, “.” will match anything except a newline.</p></li>
+<li><p>regex_multiline (default: None): With a “regex” pattern, when specified, the pattern character “^” matches at the beginning of the string and at the beginning of each line (immediately following each newline); and the pattern character “” matches at the end of the string and at the end of each line (immediately preceding each newline). By default, “^” matches only at the beginning of the string, and “” only at the end of the string and immediately before the newline (if any) at the end of the string.</p></li>
+</ul>
+</section>
+<section id="search-groups">
+<h3><strong>search_groups</strong><a class="headerlink" href="#search-groups" title="Permalink to this heading">¶</a></h3>
+<p>Scan through string looking for the first location where the regular expression pattern produces a match. Returns a list of strings corresponding to the groups in the pattern. Output data type: string (list)</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>search_groups(pattern, string, regex_ignorecase, regex_dotall, regex_multiline)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>pattern: The regular expression pattern</p></li>
+<li><p>string: The string to search</p></li>
+<li><p>regex_ignorecase (default: None): With a “regex” pattern, will perform a case insensitive matching.</p></li>
+<li><p>regex_dotall (default: None): With a “regex” pattern, will make the “.” special character match any character at all, including a newline; without this flag, “.” will match anything except a newline.</p></li>
+<li><p>regex_multiline (default: None): With a “regex” pattern, when specified, the pattern character “^” matches at the beginning of the string and at the beginning of each line (immediately following each newline); and the pattern character “” matches at the end of the string and at the end of each line (immediately preceding each newline). By default, “^” matches only at the beginning of the string, and “” only at the end of the string and immediately before the newline (if any) at the end of the string.</p></li>
+</ul>
+</section>
+<section id="split">
+<h3><strong>split</strong><a class="headerlink" href="#split" title="Permalink to this heading">¶</a></h3>
+<p>Split text based on a delimiter and optionally strip whitespace. Output data type: string (list)</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>split(value, delimiter, regex, strip, regex_ignorecase, regex_dotall, regex_multiline)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>value: The string to split</p></li>
+<li><p>delimiter (default: any whitespace): The character(s) to split on</p></li>
+<li><p>regex (default: None): A valid Python regular expression pattern to split on.</p></li>
+<li><p>strip (default: True): Strip whitespace from each resulting value</p></li>
+<li><p>regex_ignorecase (default: None): With a “regex” pattern, will perform a case insensitive matching.</p></li>
+<li><p>regex_dotall (default: None): With a “regex” pattern, will make the “.” special character match any character at all, including a newline; without this flag, “.” will match anything except a newline.</p></li>
+<li><p>regex_multiline (default: None): With a “regex” pattern, when specified, the pattern character “^” matches at the beginning of the string and at the beginning of each line (immediately following each newline); and the pattern character “” matches at the end of the string and at the end of each line (immediately preceding each newline). By default, “^” matches only at the beginning of the string, and “” only at the end of the string and immediately before the newline (if any) at the end of the string.</p></li>
+</ul>
+</section>
+<section id="sub">
+<h3><strong>sub</strong><a class="headerlink" href="#sub" title="Permalink to this heading">¶</a></h3>
+<p>Return the string obtained by replacing the leftmost non-overlapping occurrences of pattern in string by the replacement repl. If the pattern isn’t found, string is returned unchanged. Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sub(pattern, repl, string, count, regex_ignorecase, regex_dotall, regex_multiline)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>pattern: The regular expression pattern</p></li>
+<li><p>repl: The string to replace matches with</p></li>
+<li><p>string: The string to search</p></li>
+<li><p>count: (default: 0) The maximum number of pattern occurrences to be replaced.If zero, all occurrences will be replaces.</p></li>
+<li><p>regex_ignorecase (default: None): With a “regex” pattern, will perform a case insensitive matching.</p></li>
+<li><p>regex_dotall (default: None): With a “regex” pattern, will make the “.” special character match any character at all, including a newline; without this flag, “.” will match anything except a newline.</p></li>
+<li><p>regex_multiline (default: None): With a “regex” pattern, when specified, the pattern character “^” matches at the beginning of the string and at the beginning of each line (immediately following each newline); and the pattern character “” matches at the end of the string and at the end of each line (immediately preceding each newline). By default, “^” matches only at the beginning of the string, and “” only at the end of the string and immediately before the newline (if any) at the end of the string.</p></li>
+</ul>
+</section>
+<section id="tabulate">
+<h3><strong>tabulate</strong><a class="headerlink" href="#tabulate" title="Permalink to this heading">¶</a></h3>
+<p>Converts a list of objects into a table (i.e. a two-dimensional array). Output data type: object (list)</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>tabulate(objects, fields, header)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>objects: The list of objects</p></li>
+<li><p>fields (optional): List of fields to include (default: all)</p></li>
+<li><p>header (optional): Include a header row (default: True)</p></li>
+</ul>
+</section>
+<section id="today">
+<h3><strong>today</strong><a class="headerlink" href="#today" title="Permalink to this heading">¶</a></h3>
+<p>Returns the current date. Output data type: string</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>today(timezone, template)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>timezone (default: EST): The timezone to use for the date</p></li>
+<li><p>template (default: YYYY-MM-DD): The format in which to represent the date</p></li>
+</ul>
+</section>
+<section id="translate-variant">
+<h3><strong>translate_variant</strong><a class="headerlink" href="#translate-variant" title="Permalink to this heading">¶</a></h3>
+<p>Translate variant into a protein change. Output data type: object. Output object properties:</p>
+<ul class="simple">
+<li><p>protein_length: Number of amino acids in the protein</p></li>
+<li><p>cdna_change: cDNA change</p></li>
+<li><p>protein_change: Protein change</p></li>
+<li><p>protein_coordinates: A dictionary containing start and stop coordinatesand the affected transcript id</p></li>
+<li><p>gene: HUGO gene symbol</p></li>
+<li><p>transcript: The transcript ID</p></li>
+<li><p>effects: list of effects</p></li>
+</ul>
+<p><strong>Syntax</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>translate_variant(variant, gene_model, transcript, include_effects)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>variant: The variant</p></li>
+<li><p>gene_model (optional): The desired gene model: refseq (default) or ensembl</p></li>
+<li><p>transcript (optional): Limits results to this transcript only</p></li>
+<li><p>include_effects (optional): Returns the effects of the variant using Veppy</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">translate_variant(&quot;GRCH38-7-117559590-117559593-A&quot;)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">translate_variant(&quot;GRCH38-7-117559590-117559593-A&quot;,</span> <span class="pre">gene_model=&quot;ensembl&quot;)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">translate_variant(&quot;GRCH38-7-117559590-117559593-A&quot;,</span> <span class="pre">transcript=&quot;NM_000492.3&quot;)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">translate_variant(&quot;GRCH38-7-117559590-117559593-A&quot;,</span> <span class="pre">include_effects=True)</span></code></p>
+</section>
+<section id="user">
+<h3><strong>user</strong><a class="headerlink" href="#user" title="Permalink to this heading">¶</a></h3>
+<p>Returns the currently authenticated user.Output data type: object</p>
+<p>Output object properties:</p>
+<ul class="simple">
+<li><p>name: The user’s full name.</p></li>
+<li><p>email: The user’s email address</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">QuartzBio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Expression Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#function-details">Function Details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discoverty via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="transforming_datasets.html" title="previous chapter">Transforming Datasets</a></li>
+      <li>Next: <a href="expressions.html" title="next chapter">Expressions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025 Precision for Medicine, inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/expression_functions.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

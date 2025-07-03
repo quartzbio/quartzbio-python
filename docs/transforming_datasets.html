@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Transforming Datasets &#8212; QuartzBio  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Expression Functions" href="expression_functions.html" />
+    <link rel="prev" title="Joining and Aggregating Datasets" href="joining_and_aggregating_datasets.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="transforming-datasets">
+<h1>Transforming Datasets<a class="headerlink" href="#transforming-datasets" title="Permalink to this heading">¶</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>The EDP makes it easy to transform data using its dynamic, Python-based expression language. Users can employ expressions to transform data when importing files when copying data between (or within) datasets (using “migrations”), or even when querying datasets. In all scenarios, expressions can be provided through the target_fields parameter. Users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023">Expressions</a> documentation to learn more about using expressions.</p>
+<p>This article describes how to transform data using dataset migrations, but users can use the same techniques with dataset imports. With dataset migrations, users can copy data between datasets as well as modify datasets in-place. This makes it possible to add, edit, and remove fields as well as records. All dataset migrations have a source dataset and a target dataset (which can be the same when editing a single dataset). Users are recommended to review the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613900">Creating and Migrating Datasets</a> documentation before this article.</p>
+</section>
+<section id="modifying-fields">
+<h2>Modifying Fields<a class="headerlink" href="#modifying-fields" title="Permalink to this heading">¶</a></h2>
+<section id="add-fields">
+<h3>Add Fields<a class="headerlink" href="#add-fields" title="Permalink to this heading">¶</a></h3>
+<p>The most common dataset transformation is to add a field to a dataset (also known as annotating the dataset or inserting a column). Fields can be added or modified using the target_fields parameter, which should contain a list of valid dataset fields. Any new fields in target_fields will be automatically detected and added to the dataset’s schema. Adding fields requires the use of the upsert or overwrite commit mode, depending on the desired effect. This will ensure that the records are updated in-place (based on their _id value), and not duplicated. To add multiple fields and transform data in a specific way, users can also create a reusable <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606022">Dataset Template</a>.</p>
+<p>In the following example, a new field will be added to a dataset “in-place”, using the upsert commit mode:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="c1"># Retrieve the source dataset</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create a new target dataset in personal vault</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/clinvar&#39;</span><span class="p">)</span>
+
+<span class="c1"># Apply filter to copy only subset of records from source</span>
+<span class="c1"># Copy all variants in BRCA1</span>
+<span class="n">query</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA1&#39;</span><span class="p">)</span>
+<span class="n">query</span><span class="o">.</span><span class="n">migrate</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">)</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/clinvar&#39;</span><span class="p">)</span>
+
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;clinsig_clone&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;expression&#39;</span><span class="p">:</span> <span class="s1">&#39;record.clinical_significance&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;A copy of the current clinical_significance value&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># The source and target are the same dataset, which edits the dataset in-place</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">migrate</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">target_fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span> <span class="n">commit_mode</span><span class="o">=</span><span class="s1">&#39;upsert&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="edit-fields">
+<h3>Edit Fields<a class="headerlink" href="#edit-fields" title="Permalink to this heading">¶</a></h3>
+<p>In the following example, an existing field in the dataset from the previous example (clinsig_clone) is modified (converted to uppercase). Similar to the example above, a commit mode of overwrite or upsert is required to avoid duplicating records.</p>
+<p>This example uses an expression that references a pre-existing field in the dataset; users can learn more about expression context by reviewing the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023">Expressions</a> documentation.</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/clinvar&#39;</span><span class="p">)</span>
+
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="c1"># Convert your copied &quot;clinical_significance&quot; values to uppercase.</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;clinsig_clone&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;data_type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;expression&#39;</span><span class="p">:</span> <span class="s1">&#39;value.upper()&#39;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># The source and target are the same dataset, which edits the dataset in-place</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">migrate</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">target_fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span> <span class="n">commit_mode</span><span class="o">=</span><span class="s1">&#39;upsert&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="remove-fields">
+<h3>Remove Fields<a class="headerlink" href="#remove-fields" title="Permalink to this heading">¶</a></h3>
+<p>Fields cannot be removed from a dataset in-place so removing a field requires a new empty target dataset; all the data must be migrated to a new target dataset with the removed field(s) excluded from the source dataset.</p>
+<p>In the following example, the field (clinsig_clone) in the source dataset is removed by the dataset migration. Since a field is removed, the target dataset must be a new dataset (or one without the field). In this scenario, any commit mode can be used unless the user intends to overwrite records in the target dataset.</p>
+<p>The example follows from the previous one:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="c1"># Use the dataset from the example above</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/clinvar&#39;</span><span class="p">)</span>
+
+<span class="c1"># To remove a field, you need to create a new, empty dataset first.</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/clinvar_lite&#39;</span><span class="p">)</span>
+
+<span class="c1"># Exclude the copied field from the example above</span>
+<span class="n">query</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">exclude_fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;clinsig_clone&#39;</span><span class="p">])</span>
+<span class="n">query</span><span class="o">.</span><span class="n">migrate</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">commit_mode</span><span class="o">=</span><span class="s1">&#39;upsert&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To only remove the data (field values) from a specified field, users can run an upsert migration and use an expression to set the values to None (Python’s equivalent to NULL).</p>
+</section>
+<section id="transient-fields">
+<h3>Transient Fields<a class="headerlink" href="#transient-fields" title="Permalink to this heading">¶</a></h3>
+<p>Transient fields are like variables in a programming language. They can be used in a complex transform that requires intermediate values that are not meant to be stored in the dataset. Transient fields can be referenced by other expressions, but are not added to the dataset’s schema or stored. Users can set the parameter is_transient to True and ensure that the field’s ordering parameter evaluates the transient fields in the right order.</p>
+<p>The following example uses transient fields to structure a few VCF records, leaving the variant IDs and dbSNP rsIDs in the resulting dataset:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/transient_test&#39;</span><span class="p">)</span>
+
+<span class="c1"># Sample of a VCF file</span>
+<span class="n">vcf</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;CHROM POS     ID        REF ALT    QUAL FILTER INFO                              FORMAT      NA00001        NA00002        NA00003</span>
+<span class="s2">20     14370   rs6054257 G      A       29   PASS   NS=3;DP=14;AF=0.5;DB;H2           GT:GQ:DP:HQ 0|0:48:1:51,51 1|0:48:8:51,51 1/1:43:5:.,.</span>
+<span class="s2">20     17330   .         T      A       3    q10    NS=3;DP=11;AF=0.017               GT:GQ:DP:HQ 0|0:49:3:58,50 0|1:3:5:65,3   0/0:41:3</span>
+<span class="s2">20     1110696 rs6040355 A      G     67   PASS   NS=2;DP=10;AF=0.333,0.667;AA=T;DB GT:GQ:DP:HQ 1|2:21:6:23,27 2|1:2:0:18,2   2/2:35:4</span>
+<span class="s2">20     1230237 .         T      T       47   PASS   NS=3;DP=13;AA=T                   GT:GQ:DP:HQ 0|0:54:7:56,60 0|0:48:4:51,51 0/0:61:2</span>
+<span class="s2">20     1234567 microsat1 GTCT   GTACT 50   PASS   NS=3;DP=9;AA=G                    GT:GQ:DP    0/1:35:4       0/2:17:2       1/1:40:3</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+<span class="c1"># Extract the records (without the header)</span>
+<span class="n">records</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;row&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">}</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">vcf</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+
+<span class="n">target_fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;header&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;is_transient&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;ordering&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;is_list&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="n">vcf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;row&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;is_transient&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;ordering&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="s2">&quot;dict(zip(record.header, value.split()))&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;build&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;is_transient&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;ordering&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;GRCh37&#39;&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;variant&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ordering&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;entity_type&quot;</span><span class="p">:</span> <span class="s2">&quot;variant&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &#39;-&#39;.join([</span>
+<span class="s2">                record.build,</span>
+<span class="s2">                record.row[&#39;CHROM&#39;],</span>
+<span class="s2">                record.row[&#39;POS&#39;],</span>
+<span class="s2">                record.row[&#39;POS&#39;],</span>
+<span class="s2">                record.row[&#39;ALT&#39;]</span>
+<span class="s2">            ])</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;rsid&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ordering&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="s2">&quot;get(record, &#39;row.ID&#39;) if get(record, &#39;row.ID&#39;) != &#39;.&#39; else None&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">imp</span> <span class="o">=</span> <span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">records</span><span class="o">=</span><span class="n">records</span><span class="p">,</span>
+    <span class="n">target_fields</span><span class="o">=</span><span class="n">target_fields</span><span class="p">)</span>
+
+<span class="n">dataset</span><span class="o">.</span><span class="n">activity</span><span class="p">(</span><span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">exclude_fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">,</span> <span class="s1">&#39;_commit&#39;</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+<span class="c1"># {&#39;rsid&#39;: &#39;rs6054257&#39; , &#39;variant&#39;: &#39;GRCh37-20-14370-14370-A&#39;}</span>
+<span class="c1"># {&#39;rsid&#39;: None        , &#39;variant&#39;: &#39;GRCh37-20-17330-17330-A&#39;}</span>
+<span class="c1"># {&#39;rsid&#39;: &#39;rs6040355&#39; , &#39;variant&#39;: &#39;GRCh37-20-1110696-1110696-G&#39;}</span>
+<span class="c1"># {&#39;rsid&#39;: None        , &#39;variant&#39;: &#39;GRCh37-20-1230237-1230237-T&#39;}</span>
+<span class="c1"># {&#39;rsid&#39;: &#39;microsat1&#39; , &#39;variant&#39;: &#39;GRCh37-20-1234567-1234567-GTACT&#39;}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="modifying-records">
+<h2>Modifying Records<a class="headerlink" href="#modifying-records" title="Permalink to this heading">¶</a></h2>
+<section id="overwrite-records">
+<h3>Overwrite Records<a class="headerlink" href="#overwrite-records" title="Permalink to this heading">¶</a></h3>
+<p>In order to completely overwrite specific records in a dataset, users can utilize the overwrite commit mode. Users will need to know the _id of the records they wish to overwrite, which can be retrieved by querying the dataset.</p>
+<p>In the following example, a few records will be imported and then edited:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetImport</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/edit_records&#39;</span><span class="p">)</span>
+
+<span class="c1"># Initial Import</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">records</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Francis Crick&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_year&#39;</span><span class="p">:</span> <span class="s1">&#39;1916&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;James Watson&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_year&#39;</span><span class="p">:</span> <span class="s1">&#39;1928&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Rosalind Franklin&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_year&#39;</span><span class="p">:</span> <span class="s1">&#39;1920&#39;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Retrieve the record to edit</span>
+<span class="n">record</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Francis Crick&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">record</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Francis Harry Compton Crick&#39;</span>
+<span class="n">record</span><span class="p">[</span><span class="s1">&#39;awards&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Order of Merit&#39;</span><span class="p">,</span> <span class="s1">&#39;Fellow of the Royal Society&#39;</span><span class="p">]</span>
+
+<span class="c1"># Overwrite mode</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">records</span><span class="o">=</span><span class="p">[</span><span class="n">record</span><span class="p">],</span>
+    <span class="n">commit_mode</span><span class="o">=</span><span class="s1">&#39;overwrite&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Lookup record by ID and see the edited record</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</section>
+<section id="upsert-edit-records">
+<h3>Upsert (Edit) Records<a class="headerlink" href="#upsert-edit-records" title="Permalink to this heading">¶</a></h3>
+<p>In order to only update (or add) specific field values in a dataset, users can utilize the upsert commit mode. Users will need to know the _id of the records they wish to upsert, which can be retrieved by querying the dataset.</p>
+<p>Similar to the example above, in the following example a few records will be imported and then edited:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetImport</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/upsert_records&#39;</span><span class="p">)</span>
+
+<span class="c1"># Initial Import</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">records</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Francis Crick&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_year&#39;</span><span class="p">:</span> <span class="s1">&#39;1916&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;James Watson&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_year&#39;</span><span class="p">:</span> <span class="s1">&#39;1928&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Rosalind Franklin&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_year&#39;</span><span class="p">:</span> <span class="s1">&#39;1920&#39;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Retrieve the record to edit</span>
+<span class="n">record</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Francis Crick&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># Change existing field</span>
+<span class="n">record</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Francis Harry Compton Crick&#39;</span>
+<span class="c1"># Add a new field</span>
+<span class="n">record</span><span class="p">[</span><span class="s1">&#39;birthplace&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Northampton, England&#39;</span>
+
+<span class="c1"># Upsert mode</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">records</span><span class="o">=</span><span class="p">[</span><span class="n">record</span><span class="p">],</span>
+    <span class="n">commit_mode</span><span class="o">=</span><span class="s1">&#39;upsert&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Lookup record by ID and see the edited record</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</section>
+<section id="delete-records">
+<h3>Delete Records<a class="headerlink" href="#delete-records" title="Permalink to this heading">¶</a></h3>
+<p>In order to completely delete a record from a dataset, users may use the delete commit mode and pass a list of record IDs (from their _id field).</p>
+<p>Users can delete records via an import if they have a file or list of record IDs or via a migration if they are deleting the results of a dataset query.</p>
+<p>The following provides an example of Delete via Import:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetImport</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/data_delete&#39;</span><span class="p">)</span>
+
+<span class="c1"># Initial Import</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">records</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;six&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;seven&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;eight&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;nine&#39;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="c1"># {&#39;name&#39;: &#39;six&#39;}</span>
+<span class="c1"># {&#39;name&#39;: &#39;seven&#39;}</span>
+<span class="c1"># {&#39;name&#39;: &#39;eight&#39;}</span>
+<span class="c1"># {&#39;name&#39;: &#39;nine&#39;}</span>
+
+<span class="c1"># Get the record ID for &#39;nine&#39;</span>
+<span class="n">record</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;nine&#39;</span><span class="p">)</span>
+
+<span class="c1"># Delete the record</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">records</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">record</span><span class="p">),</span>
+    <span class="n">commit_mode</span><span class="o">=</span><span class="s1">&#39;delete&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Why was six afraid of seven?</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="c1"># {&#39;name&#39;: &#39;six&#39;}</span>
+<span class="c1"># {&#39;name&#39;: &#39;seven&#39;}</span>
+<span class="c1"># {&#39;name&#39;: &#39;eight&#39;}</span>
+</pre></div>
+</div>
+<p>The following provides an example of Delete via Migration:</p>
+<p>In Python:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetImport</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/data_delete_migration&#39;</span><span class="p">)</span>
+
+<span class="c1"># Initial Import</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">records</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Alice&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Carol&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Chuck&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Craig&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Dan&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Eve&#39;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Get the records where names begin with C</span>
+<span class="n">query</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name__prefix</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+
+<span class="c1"># Use migration shortcut to Delete</span>
+<span class="n">migration</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">migrate</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">commit_mode</span><span class="o">=</span><span class="s2">&quot;delete&quot;</span><span class="p">)</span>
+
+<span class="c1"># The above shortcut is equivalent to:</span>
+<span class="c1"># migration = DatasetMigration.create(</span>
+<span class="c1">#    source_id=dataset.id,</span>
+<span class="c1">#    target_id=dataset.id,</span>
+<span class="c1">#    commit_mode=&quot;delete&quot;,</span>
+<span class="c1">#    source_params=dict(filters=[(&#39;name__prefix&#39;, &#39;C&#39;)])</span>
+<span class="c1"># )</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+<span class="c1"># {&#39;name&#39;: &#39;Alice&#39;},</span>
+<span class="c1"># {&#39;name&#39;: &#39;Bob&#39;},</span>
+<span class="c1"># {&#39;name&#39;: &#39;Dan&#39;},</span>
+<span class="c1"># {&#39;name&#39;: &#39;Eve&#39;}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">QuartzBio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Transforming Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-fields">Modifying Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-records">Modifying Records</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discoverty via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="joining_and_aggregating_datasets.html" title="previous chapter">Joining and Aggregating Datasets</a></li>
+      <li>Next: <a href="expression_functions.html" title="next chapter">Expression Functions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025 Precision for Medicine, inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/transforming_datasets.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

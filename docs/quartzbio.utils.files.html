@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>quartzbio.utils.files module &#8212; QuartzBio  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="quartzbio.utils.humanize module" href="quartzbio.utils.humanize.html" />
+    <link rel="prev" title="quartzbio.utils package" href="quartzbio.utils.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-quartzbio.utils.files">
+<span id="quartzbio-utils-files-module"></span><h1>quartzbio.utils.files module<a class="headerlink" href="#module-quartzbio.utils.files" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="quartzbio.utils.files.check_gzip_path">
+<span class="sig-prename descclassname"><span class="pre">quartzbio.utils.files.</span></span><span class="sig-name descname"><span class="pre">check_gzip_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.utils.files.check_gzip_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if we have a gzipped file path</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quartzbio.utils.files.get_home_dir">
+<span class="sig-prename descclassname"><span class="pre">quartzbio.utils.files.</span></span><span class="sig-name descname"><span class="pre">get_home_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.utils.files.get_home_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quartzbio.utils.files.separate_filename_extension">
+<span class="sig-prename descclassname"><span class="pre">quartzbio.utils.files.</span></span><span class="sig-name descname"><span class="pre">separate_filename_extension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.utils.files.separate_filename_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Separates filename into base name
+and extension while handling compressed
+filename extensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – A filename, can also
+be a full filepath.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Base filename (or path)</dt><dd><p>without extension.</p>
+</dd>
+<dt>extension (str): File extension beginning</dt><dd><p>with leading period (e.g. ‘.txt’).</p>
+</dd>
+<dt>compression (str): Compression extension</dt><dd><p>with leading period (e.x. ‘.gz’).</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>base name (str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">QuartzBio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discoverty via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="quartzbio.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.utils.html#module-quartzbio.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="quartzbio.utils.html">quartzbio.utils package</a><ul>
+      <li>Previous: <a href="quartzbio.utils.html" title="previous chapter">quartzbio.utils package</a></li>
+      <li>Next: <a href="quartzbio.utils.humanize.html" title="next chapter">quartzbio.utils.humanize module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025 Precision for Medicine, inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/quartzbio.utils.files.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
