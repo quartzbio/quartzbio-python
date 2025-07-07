@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>QuartzBio Python Client &#8212; QuartzBio  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Authentication" href="authentication.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="quartzbio-python-client">
+<h1>QuartzBio Python Client<a class="headerlink" href="#quartzbio-python-client" title="Permalink to this heading">¶</a></h1>
+<p>This is the QuartzBio Python package and command-line interface (CLI).</p>
+<section id="installation-setup">
+<h2>Installation &amp; Setup<a class="headerlink" href="#installation-setup" title="Permalink to this heading">¶</a></h2>
+<p>Install <code class="docutils literal notranslate"><span class="pre">quartzbio</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">quartzbio</span>
+</pre></div>
+</div>
+<p>For interactive use, we recommend installing <code class="docutils literal notranslate"><span class="pre">IPython</span></code> and <code class="docutils literal notranslate"><span class="pre">gnureadline</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ipython</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">gnureadline</span>
+</pre></div>
+</div>
+<p>To log in, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">quartzbio</span> <span class="n">login</span>
+</pre></div>
+</div>
+<p>Enter your QuartzBio credentials and you should be good to go!</p>
+</section>
+<section id="install-from-git">
+<h2>Install from Git<a class="headerlink" href="#install-from-git" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">quartzbio</span><span class="o">/</span><span class="n">quartzbio</span><span class="o">-</span><span class="n">python</span><span class="o">.</span><span class="n">git</span><span class="c1">#egg=quartzbio</span>
+</pre></div>
+</div>
+</section>
+<section id="development">
+<h2>Development<a class="headerlink" href="#development" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">quartzbio</span><span class="o">/</span><span class="n">quartzbio</span><span class="o">-</span><span class="n">python</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">quartzbio</span><span class="o">-</span><span class="n">python</span><span class="o">/</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">develop</span>
+</pre></div>
+</div>
+<p>Or install <code class="docutils literal notranslate"><span class="pre">tox</span></code> and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">tox</span>
+<span class="n">tox</span>
+</pre></div>
+</div>
+</section>
+<section id="releasing">
+<h2>Releasing<a class="headerlink" href="#releasing" title="Permalink to this heading">¶</a></h2>
+<p>You will need to <a class="reference external" href="https://twine.readthedocs.io/en/latest/#installation">configure Twine</a> in order to push to PyPI.</p>
+<p>Maintainers can release quartzbio-python to PyPI with the following steps:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bumpversion</span> <span class="o">&lt;</span><span class="n">major</span><span class="o">|</span><span class="n">minor</span><span class="o">|</span><span class="n">patch</span><span class="o">&gt;</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">--</span><span class="n">tags</span>
+<span class="n">make</span> <span class="n">changelog</span>
+<span class="n">make</span> <span class="n">release</span>
+</pre></div>
+</div>
+</section>
+<section id="support">
+<h2>Support<a class="headerlink" href="#support" title="Permalink to this heading">¶</a></h2>
+<p>For requests, please email QuartzBio Product Support.</p>
+</section>
+<section id="configuring-the-quartzbio-client">
+<h2>Configuring the QuartzBio Client<a class="headerlink" href="#configuring-the-quartzbio-client" title="Permalink to this heading">¶</a></h2>
+<p>The QuartzBio python client can be configured by setting system environment variables.
+Supported environment variables are:</p>
+<p><code class="docutils literal notranslate"><span class="pre">QUARTZBIO_API_HOST</span></code></p>
+<ul class="simple">
+<li><p>The URL of the target API backend.
+If not specified the value from the local credentials file will be used.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">QUARTZBIO_ACCESS_TOKEN</span></code></p>
+<ul class="simple">
+<li><p>The OAuth2 access token for authenticating with the API.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">QUARTZBIO_API_KEY</span></code></p>
+<ul class="simple">
+<li><p>The API Key to use for authenticating with the API. We strongly recommend using access tokens.</p></li>
+</ul>
+<p>The lookup order for credentials is:</p>
+<ol class="arabic simple">
+<li><p>Access Token environment variable</p></li>
+<li><p>API Key environment variable</p></li>
+<li><p>Local Credentials file entry for the specific API host</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">QUARTZBIO_LOGLEVEL</span></code></p>
+<ul class="simple">
+<li><p>The log level at which to log messages.
+If not specified the default log level will be WARN.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">QUARTZBIO_LOGFILE</span></code></p>
+<ul class="simple">
+<li><p>The file in which to write log messages.
+If the file does not exist it will be created.
+If not specified ‘~/.quartzbio/quartzbio-python.log’ will be used by default.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">QUARTZBIO_RETRY_ALL</span></code></p>
+<ul class="simple">
+<li><p>Flag for enabling aggressive retries for failed requests to the API.
+When truthy, the client will attempt to retry a failed request regardless of the type of operation.
+This includes idempotent and nonidempotent operations:
+“HEAD”, “GET”, “PUT”, “POST”, “PATCH”, “DELETE”, “OPTIONS”, “TRACE”
+If this value is not set it will default to false and retries will only be enabled for idempotent operations.</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">¶</a></h2>
+<p>Project documentation is powered by Sphinx + Sphinx Autobuild.</p>
+<p>To build the docs locally and view them in a browser:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">autobuild</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="module-documentation">
+<h1>Module Documentation<a class="headerlink" href="#module-documentation" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#pre-requisites">Pre-Requisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#python-authentication">Python Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#testing-credentials">Testing Credentials</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="exporting_data_via_api.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting_data_via_api.html#export-limits">Export Limits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting_data_via_api.html#flattened-fields-csv-xlsx">Flattened Fields (CSV/XLSX)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting_data_via_api.html#export-a-dataset">Export a Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting_data_via_api.html#exporting-large-amounts-of-data">Exporting Large Amounts of Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting_data_via_api.html#export-in-batches">Export in Batches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting_data_via_api.html#api-endpoints">API Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting_data_via_api.html#dataset-exports">Dataset Exports</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="import_parameters.html#reader-parameters">Reader Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="import_parameters.html#entity-detection-parameters">Entity Detection Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#supported-formats">Supported Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#reader-parameters">Reader Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#importing-from-files">Importing from Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#importing-from-urls">Importing from URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#importing-from-records">Importing from Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#command-line-tools">Command Line Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#transforming-imported-data">Transforming Imported Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#validating-imported-data">Validating Imported Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#committing-imported-data">Committing Imported Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#performance-tips">Performance Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importing_data_via_api.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#creating-vaults">Creating Vaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#retrieving-vaults">Retrieving Vaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#creating-folders">Creating Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#uploading-files">Uploading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#batch-uploading-python-only">Batch Uploading (Python Only)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#downloading-files">Downloading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#searching-within-vaults">Searching within Vaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#advanced-search">Advanced Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#move-files-between-folders">Move Files Between Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#deleting-vaults-and-objects">Deleting Vaults and Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vaults_and_objects.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="creating_and_migrating_datasets.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_and_migrating_datasets.html#creating-datasets">Creating Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_and_migrating_datasets.html#dataset-fields">Dataset Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_and_migrating_datasets.html#migrating-datasets">Migrating Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_and_migrating_datasets.html#copying-datasets">Copying Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_and_migrating_datasets.html#modifying-fields">Modifying Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dataset_templates.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_templates.html#retrieving-templates">Retrieving Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_templates.html#template-fields">Template Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_templates.html#template-permissions">Template Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_templates.html#create-a-template">Create a Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_templates.html#create-a-dataset-with-a-template">Create a Dataset with a Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_templates.html#update-a-template">Update a Template:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_templates.html#building-and-testing-templates-with-the-annotator">Building and Testing Templates with the Annotator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_templates.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dataset_versioning_via_api.html#dataset-activity">Dataset Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_versioning_via_api.html#reverting-datasets">Reverting Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_versioning_via_api.html#archiving-datasets">Archiving Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset_versioning_via_api.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="joining_and_aggregating_datasets.html#joining-datasets">Joining Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="joining_and_aggregating_datasets.html#aggregating-datasets">Aggregating Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="joining_and_aggregating_datasets.html#numeric-aggregations">Numeric Aggregations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="transforming_datasets.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transforming_datasets.html#modifying-fields">Modifying Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transforming_datasets.html#modifying-records">Modifying Records</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="expression_functions.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expression_functions.html#function-details">Function Details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html#expressions-print">Expressions Print</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html#expression-syntax">Expression Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html#data-types-and-lists">Data Types and Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html#using-expressions">Using Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html#expression-functions">Expression Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html#api-endpoints">API Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html#common-issues">Common Issues</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discoverty via API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_discovery_via.html#global-search-basics">Global Search Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_discovery_via.html#applying-filters-for-global-search">Applying filters for Global Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_discovery_via.html#advanced-search-query">Advanced Search Query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_discovery_via.html#global-beacon-search">Global Beacon Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_discovery_via.html#retrieving-subjects-with-global-search">Retrieving Subjects with Global Search</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metadata_and_global_beacons.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata_and_global_beacons.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata_and_global_beacons.html#entities">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata_and_global_beacons.html#global-beacons">Global Beacons</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#string-filters">String Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#text-filters">Text Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#numeric-date-filters">Numeric &amp; Date Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#entity-filters">Entity Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#genomic-coordinate-filters">Genomic Coordinate Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#combining-filters">Combining Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#query-strings">Query Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html#advanced-filters">Advanced Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="querying_datasets_and_files.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="querying_datasets_and_files.html#querying-datasets">Querying Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="querying_datasets_and_files.html#saving-queries">Saving Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="querying_datasets_and_files.html#querying-files">Querying Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="querying_datasets_and_files.html#supported-file-extensions-and-compressions">Supported File Extensions and Compressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="querying_datasets_and_files.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.errors.html#quartzbio.errors.FileUploadError"><code class="docutils literal notranslate"><span class="pre">FileUploadError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.errors.html#quartzbio.errors.NotFoundError"><code class="docutils literal notranslate"><span class="pre">NotFoundError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.errors.html#quartzbio.errors.QuartzBioError"><code class="docutils literal notranslate"><span class="pre">QuartzBioError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.resource.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.resource.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.utils.html#module-quartzbio.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">QuartzBio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discoverty via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="authentication.html" title="next chapter">Authentication</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025 Precision for Medicine, inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

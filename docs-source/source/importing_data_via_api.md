@@ -2,9 +2,9 @@
 
 ## Overview
 
-The EDP specializes in harmonizing a variety of data sources through its robust import system. Importing data is the process of converting a flat file into a dataset that can be queried in real time. The EDP supports data in the most common formats, including JSONL, VCF, CSV, TSV, XML, GTF, and GFF3. Users can contact QuartzBio Support for assistance with importing many other formats (including custom, proprietary formats, and unstructured data).[](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608614)
+The EDP specializes in harmonizing a variety of data sources through its robust import system. Importing data is the process of converting a flat file into a dataset that can be queried in real time. The EDP supports data in the most common formats, including JSONL, VCF, CSV, TSV, XML, GTF, and GFF3. Users can contact QuartzBio Support for assistance with importing many other formats (including custom, proprietary formats, and unstructured data).
 
-The EDP's import system automates the traditional ETL (Extract, Transform, Load) process. The process typically starts by uploading files into a vault. An import task can then be configured and launched. The import system automatically handles data extraction (file parsing), [](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000614234)[data transformation](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000614234), data validation, and finally data loading. Users can refer to the [Import Parameters documentation](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000629949) for more information about configuring optional parameters for data parsing, entity detection, validation, and annotation.
+The EDP's import system automates the traditional ETL (Extract, Transform, Load) process. The process typically starts by uploading files into a vault. An import task can then be configured and launched. The import system automatically handles data extraction (file parsing), data transformation, data validation, and finally data loading. Users can refer to the Import Parameters documentation for more information about configuring optional parameters for data parsing, entity detection, validation, and annotation.
 
 ## Supported Formats
 
@@ -31,8 +31,7 @@ The following file formats and extensions are supported:
 
 EDP automatically detects the file format based on the extension, except for the Nirvana JSON file, and parses the file using a specialized "reader". It is possible to manually specify a reader and modify reader parameters using the [reader\_params](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000629949) attribute of the DatasetImport resource. 
 
-| **Reader**  | **Reader name  
-** |    **Extension**     |
+| Reader  |   Reader name  |    Extension     |
 |---------|----------------|------------------|
 |   VCF   |      vcf       |       .vcf       |
 |  JSONL  |      json      |      .json       |

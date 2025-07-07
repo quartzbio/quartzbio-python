@@ -1,4 +1,4 @@
-# Joingin and Aggregating Datasets
+# Joining and Aggregating Datasets
 
 ## Joining Datasets
 
