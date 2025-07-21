@@ -109,7 +109,7 @@ def authenticate(
             if token:
                 source_token = 'creds'
 
-    if (not host and raise_on_missing) or debug:
+    if debug:
         # this will tell the user where QB Client found the credentials from
         creds_path = netrc.path()
         print('\n'.join([
@@ -132,8 +132,11 @@ def authenticate(
             "   QUARTZBIO_API_KEY",
         ]))
 
-        if not debug:
+    if not host:
+        if raise_on_missing and not debug:
             raise QuartzBioError("No QuartzBio API host is set")
+        else:
+            return host, None
 
     host = validate_api_host_url(host)
 

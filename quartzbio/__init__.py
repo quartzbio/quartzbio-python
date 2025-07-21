@@ -15,6 +15,7 @@ __docformat__ = "restructuredtext"
 
 import os as _os
 import logging as _logging
+from typing import Literal
 
 # Capture warnings (specifically from urllib3)
 try:
@@ -93,7 +94,6 @@ from .query import Query, BatchQuery, Filter, GenomicFilter
 from .global_search import GlobalSearch
 from .annotate import Annotator, Expression
 from .client import client, QuartzBioClient
-from .auth import authenticate
 from .resource import (
     Application,
     Beacon,
@@ -153,8 +153,8 @@ def login(
                 api_key=YOUR_API_KEY
             )
     """
-    token_type = None
-    token = None
+    token_type: Literal["Bearer", "Token"] = None
+    token: str = None
 
     if access_token:
         token_type = "Bearer"
@@ -164,8 +164,8 @@ def login(
         token = api_key
 
     if api_host or token or debug:
-        client._host, client._auth = authenticate(
-            api_host, token, token_type=token_type, debug=debug
+        client.set_credentials(
+            api_host, token, token_type=token_type, raise_on_missing=not debug, debug=debug
         )
 
     client.set_user_agent(name=name, version=version)
