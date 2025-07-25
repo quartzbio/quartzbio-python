@@ -847,8 +847,8 @@ class Query(QueryBase):
         target_fields = kwargs.pop("target_fields", None) or params.pop(
             "target_fields", None
         )
-        annotator_params = kwargs.pop("annotator_params", None) or params.pop(
-            "annotator_params", None
+        annotator_params = kwargs.pop("annotator_params", {}) or params.pop(
+            "annotator_params", {}
         )
 
         export = DatasetExport.create(
@@ -903,8 +903,8 @@ class Query(QueryBase):
         target_fields = kwargs.pop("target_fields", None) or params.pop(
             "target_fields", None
         )
-        annotator_params = kwargs.pop("annotator_params", None) or params.pop(
-            "annotator_params", None
+        annotator_params = kwargs.pop("annotator_params", {}) or params.pop(
+            "annotator_params", {}
         )
 
         migration_resp = DatasetMigration.create(
