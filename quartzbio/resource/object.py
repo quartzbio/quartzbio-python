@@ -456,9 +456,9 @@ class Object(
     @classmethod
     def upload_file(cls, local_path, remote_path, vault_full_path, **kwargs):
         """Upload a file to a QuartzBio vault.
-        
+
         Automatically uses multipart upload for files larger than the multipart_threshold.
-        
+
         Args:
             local_path (str): Path to the local file to upload
             remote_path (str): Remote path within the vault
@@ -471,10 +471,10 @@ class Object(
                 description (str): Description for the uploaded file
                 tags (list): Tags to apply to the uploaded file
                 client: QuartzBio client instance to use
-                
+
         Returns:
             Object: The uploaded file object
-            
+
         Raises:
             FileUploadError: If upload fails
             QuartzBioError: If API request fails
@@ -490,8 +490,10 @@ class Object(
         vault = Vault.get_by_full_path(vault_full_path, client=_client)
 
         # Get MD5 and check if multipart upload is needed
-        multipart_threshold = kwargs.get('multipart_threshold', 64 * 1024 * 1024)  # 64MB default
-        local_md5, block_count = md5sum(local_path, multipart_threshold=multipart_threshold)
+        multipart_threshold = kwargs.get(
+            "multipart_threshold", 64 * 1024 * 1024
+        )  # 64MB default
+        local_md5, _ = md5sum(local_path, multipart_threshold=multipart_threshold)
         # Get a mimetype of file
         mime_tuple = mimetypes.guess_type(local_path)
         # If a file is compressed get a compression type, otherwise a file type
@@ -574,9 +576,8 @@ class Object(
         print("Notice: Upload initialized")
 
         # Check if multipart upload is needed
-        if block_count and block_count > 1:
-            print("Notice: Using multipart upload for large file ({} parts)".format(block_count))
-            return cls._upload_multipart(obj, local_path, local_md5, block_count, **kwargs)
+        if obj.is_multipart:
+            return cls._upload_multipart(obj, local_path, local_md5, **kwargs)
         else:
             return cls._upload_single_part(obj, local_path, **kwargs)
 
@@ -584,17 +585,17 @@ class Object(
     def _upload_single_part(cls, obj, local_path, **kwargs):
         """Handle single-part upload for smaller files"""
         import mimetypes
-        
+
         # Get a mimetype of file
         mime_tuple = mimetypes.guess_type(local_path)
         # If a file is compressed get a compression type, otherwise a file type
         mimetype = mime_tuple[1] if mime_tuple[1] else mime_tuple[0]
         # Get file size
         size = os.path.getsize(local_path)
-        
+
         # Get MD5 for single part upload
         local_md5, _ = md5sum(local_path, multipart_threshold=None)
-        
+
         upload_url = obj.upload_url
 
         headers = {
@@ -655,117 +656,105 @@ class Object(
         return obj
 
     @classmethod
-    def _upload_multipart(cls, obj, local_path, multipart_md5, block_count, **kwargs):
+    def _upload_multipart(cls, obj, local_path, local_md5, **kwargs):
         """Handle multipart upload for larger files"""
-        from quartzbio.utils.md5sum import MULTIPART_CHUNKSIZE
-        
-        chunk_size = kwargs.get('multipart_chunksize', MULTIPART_CHUNKSIZE)
-        _client = kwargs.get('client') or cls._client or client
-        upload_id = None
-        
+        _client = kwargs.get("client") or cls._client or client
+        print(f"Notice: Upload ID {obj.upload_id}")
         try:
-            # Step 1: Initiate multipart upload
-            print("Notice: Initiating multipart upload...")
-            try:
-                multipart_data = _client.post(
-                    obj.instance_url() + "/multipart-upload", 
-                    {"parts": block_count}
+            # Get presigned URLs from the object
+            presigned_urls = obj.presigned_urls
+
+            print(
+                "Notice: Starting multipart upload with {} parts...".format(
+                    len(presigned_urls)
                 )
-            except QuartzBioError as e:
-                if e.status_code == 404:
-                    print("Notice: Multipart upload not supported by API, falling back to single-part upload")
-                    return cls._upload_single_part(obj, local_path, **kwargs)
-                else:
-                    raise e
-                
-            upload_id = multipart_data.get('upload_id')
-            part_urls = multipart_data.get('part_urls', [])
-            
-            if not upload_id or len(part_urls) != block_count:
-                print("Notice: Multipart upload initialization failed, falling back to single-part upload")
-                return cls._upload_single_part(obj, local_path, **kwargs)
-                
-            print("Notice: Upload ID: {}".format(upload_id))
-            
-            # Step 2: Upload each part
+            )
+
+            # Step 2: Upload each part using presigned URLs
             parts = []
-            with open(local_path, 'rb') as f:
-                for part_number in range(block_count):
-                    print("Notice: Uploading part {}/{}...".format(part_number + 1, block_count))
-                    
-                    # Read chunk
-                    chunk_data = f.read(chunk_size)
+            with open(local_path, "rb") as f:
+                for part_info in presigned_urls:
+                    part_number = part_info.part_number
+                    start_byte = part_info.start_byte
+                    end_byte = part_info.end_byte
+                    part_size = part_info.size
+                    upload_url = part_info.upload_url
+
+                    print(
+                        "Notice: Uploading part {}/{}... (bytes {}-{})".format(
+                            part_number, len(presigned_urls), start_byte, end_byte
+                        )
+                    )
+
+                    # Seek to start position and read the exact part size
+                    f.seek(start_byte)
+                    chunk_data = f.read(part_size)
                     if not chunk_data:
                         break
-                    
-                    # Calculate MD5 for this part
-                    part_md5 = hashlib.md5(chunk_data).hexdigest()
-                    
+
                     # Upload part with retry logic
                     session = requests.Session()
                     retry = Retry(
                         total=3,
                         backoff_factor=2,
                         status_forcelist=(500, 502, 503, 504),
-                        allowed_methods=["PUT"]
+                        allowed_methods=["PUT"],
                     )
-                    session.mount("https://", requests.adapters.HTTPAdapter(max_retries=retry))
-                    
+                    session.mount(
+                        "https://", requests.adapters.HTTPAdapter(max_retries=retry)
+                    )
+
                     headers = {
-                        "Content-MD5": base64.b64encode(binascii.unhexlify(part_md5)),
                         "Content-Length": str(len(chunk_data)),
                     }
-                    
+
                     upload_resp = session.put(
-                        part_urls[part_number], 
-                        data=chunk_data, 
-                        headers=headers
+                        upload_url, data=chunk_data, headers=headers
                     )
-                    
+
                     if upload_resp.status_code != 200:
                         raise FileUploadError(
                             "Failed to upload part {}: {}".format(
-                                part_number + 1, upload_resp.content
+                                part_number, upload_resp.content
                             )
                         )
-                    
+
                     # Get ETag from response
-                    etag = upload_resp.headers.get('ETag', '').strip('"')
-                    parts.append({
-                        "part_number": part_number + 1,
-                        "etag": etag
-                    })
-            
+                    etag = upload_resp.headers.get("ETag", "").strip('"')
+                    parts.append({"part_number": part_number, "etag": etag})
+
             # Step 3: Complete multipart upload
-            print("Notice: Completing multipart upload...")
+            print("Notice: Completing multipart upload....")
             complete_data = {
-                "upload_id": upload_id,
+                "upload_id": obj.upload_id,
+                "physical_object_id": obj.upload_key,
                 "parts": parts,
-                "md5": multipart_md5
             }
-            
-            complete_resp = _client.post(
-                obj.instance_url() + "/multipart-upload/complete",
-                complete_data
-            )
-            
-            if complete_resp.get('status') == 'completed':
-                print("Notice: Successfully uploaded {} using multipart upload".format(local_path))
+
+            print(f"Notice: {complete_data}")
+
+            complete_resp = _client.post("/v2/complete_multi_part", complete_data)
+
+            if "message" in complete_resp:
+                print(
+                    "Notice: Successfully uploaded {0} to {1} with multipart upload.".format(
+                        local_path, obj.path
+                    )
+                )
                 return obj
             else:
-                raise FileUploadError("Failed to complete multipart upload")
-                
+                raise Exception(complete_resp)
+
         except Exception as e:
-            # Clean up failed upload
+            # Clean up failed upload - best effort cleanup
             try:
-                if upload_id:
-                    _client.delete(
-                        obj.instance_url() + "/multipart-upload",
-                        {"upload_id": upload_id}
-                    )
+                _client.delete(
+                    obj.instance_url() + "/multipart-upload",
+                    {},
+                )
             except Exception:
                 pass  # Best effort cleanup
-            
+
             obj.delete(force=True)
             raise FileUploadError("Multipart upload failed: {}".format(str(e)))
 
