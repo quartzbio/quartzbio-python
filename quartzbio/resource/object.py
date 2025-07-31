@@ -4,7 +4,6 @@ import os
 import re
 import base64
 import binascii
-import hashlib
 import mimetypes
 import sys
 import time
