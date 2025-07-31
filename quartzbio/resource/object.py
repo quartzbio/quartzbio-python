@@ -813,7 +813,6 @@ class Object(
             # helpers
             "activity",
             "saved_queries",
-            "is_multipart",
         ]
 
         try:
