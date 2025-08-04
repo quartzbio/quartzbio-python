@@ -575,13 +575,13 @@ class Object(
         print("Notice: Upload initialized")
 
         # Check if multipart upload is needed
-        if obj.is_multipart:
+        if hasattr(obj, "is_multipart") and obj.is_multipart:
             return cls._upload_multipart(obj, local_path, local_md5, **kwargs)
         else:
-            return cls._upload_single_part(obj, local_path, **kwargs)
+            return cls._upload_single_file(obj, local_path, **kwargs)
 
     @classmethod
-    def _upload_single_part(cls, obj, local_path, **kwargs):
+    def _upload_single_file(cls, obj, local_path, **kwargs):
         """Handle single-part upload for smaller files"""
         import mimetypes
 
