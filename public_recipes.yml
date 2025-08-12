@@ -422,7 +422,7 @@ recipes:
       ]  if get(record, 'variant') else None
     name: cancer_beacons
 - name: Map variant entity (GRCh38)
-  description: Use SolveBio's entity mapping engine to find the matching variant for
+  description: Use QuartzBio's entity mapping engine to find the matching variant for
     a field named alteration containing HGVS, rs ID, or gene and amino acid change.
     This will return a GRCh38 variant.
   template_type: recipe

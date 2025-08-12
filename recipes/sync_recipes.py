@@ -6,14 +6,14 @@ __version__ = '1.0.0'
 
 
 @click.group()
-@click.option('--access-token', help='Manually provide a SolveBio Access Token')
-@click.option('--api-host', help='Override the default SolveBio API host')
-@click.option('--api-key', help='Manually provide a SolveBio API key')
+@click.option('--access-token', help='Manually provide a QuartzBio Access Token')
+@click.option('--api-host', help='Override the default QuartzBio API host')
+@click.option('--api-key', help='Manually provide a QuartzBio API key')
 @click.pass_context
 def sync_recipes(ctx, api_key=None, access_token=None, api_host=None):
 
     sb.login(api_key=api_key, access_token=access_token, api_host=api_host,
-             version=__version__, name="SolveBio Recipes")
+             version=__version__, name="QuartzBio Recipes")
     user = sb.User.retrieve()
 
     click.echo('Logged-in as: {} ({})'.format(
@@ -116,7 +116,7 @@ def prompt_delete(name):
         else:
             click.echo("Aborted.")
     else:
-        click.echo("Requested recipe {} doesn't exist in SolveBio!".format(name))
+        click.echo("Requested recipe {} doesn't exist in EDP!".format(name))
 
 
 if __name__ == '__main__':

@@ -12,4 +12,4 @@ tox-pyenv
 six
 requests[security]
 flake8
-solvebio>=2.2.1
+quartzbio>=2.2.1

@@ -1,12 +1,12 @@
 {
-  "name": "Example SolveBio import template",
+  "name": "Example QuartzBio import template",
   "fields": [
     {
       "name": "gene_id",
       "entity_type": "gene"
     },
     {
-      "name": "solvebio_variant_id",
+      "name": "quartzbio_variant_id",
       "entity_type": "variant"
     }
   ]

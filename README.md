@@ -39,6 +39,10 @@ Development
     cd quartzbio-python/
     python setup.py develop
 
+    or 
+
+    pip install -e .
+
 
 Or install `tox` and run:
 
