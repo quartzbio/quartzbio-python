@@ -41,7 +41,7 @@ def test_sync_recipe(mock_dataset_template_retrieve,
         sync_recipes.sync_recipes(["--help"])
     assert e.value.code == 0
 
-    mock.patch('Solvebio.login', mock.MagicMock())
+    mock.patch('Quartzbio.login', mock.MagicMock())
 
     # Invalid file
     with pytest.raises(SystemExit) as e:
@@ -61,7 +61,7 @@ def test_sync_recipe(mock_dataset_template_retrieve,
                            args=["--name", "cDNA Change (v1.0.2)", config],
                            input="y")
     assert result.exit_code == 0
-    assert "Requested recipe cDNA Change (v1.0.2) doesn't exist in SolveBio!" in result.output
+    assert "Requested recipe cDNA Change (v1.0.2) doesn't exist in EDP!" in result.output
 
     result = runner.invoke(sync_recipes.sync,
                            args=["--all", config],
@@ -74,7 +74,7 @@ def test_sync_recipe(mock_dataset_template_retrieve,
                            args=["--all", config],
                            input="y")
     assert result.exit_code == 0
-    assert "Requested recipe cDNA Change (v1.0.2) doesn't exist in SolveBio!" in result.output
+    assert "Requested recipe cDNA Change (v1.0.2) doesn't exist in EDP!" in result.output
 
     config2 = get_input("valid2.yml")
     result = runner.invoke(sync_recipes.sync,
@@ -89,8 +89,8 @@ def test_sync_recipe(mock_dataset_template_retrieve,
                            args=["--all", config2],
                            input="y")
     assert result.exit_code == 0
-    assert "Requested recipe Gene (v1.0.3) doesn't exist in SolveBio!" in result.output
-    assert "Requested recipe Protein Change (v1.0.4) doesn't exist in SolveBio!" in result.output
+    assert "Requested recipe Gene (v1.0.3) doesn't exist in EDP!" in result.output
+    assert "Requested recipe Protein Change (v1.0.4) doesn't exist in EDP!" in result.output
 
     yml_export_file = get_input("export.yml")
     # Test export mode with public/account recipes

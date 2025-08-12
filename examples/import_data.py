@@ -26,7 +26,7 @@ imp = quartzbio.DatasetImport.create(
 )
 
 # Prints updates as the data is processed
-# and indexed into SolveBio
+# and indexed into QuartzBio
 dataset.activity(follow=True)
 
 #

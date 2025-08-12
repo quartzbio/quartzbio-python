@@ -2,8 +2,8 @@ include LICENSE
 include AUTHORS
 include README.md
 include MANIFEST.in
-recursive-include solvebio *.md
-recursive-include solvebio *.py
-recursive-include solvebio/test/data *
-include solvebio/contrib/dash/login.js
-include solvebio/contrib/dash/oauth-redirect.js
+recursive-include quartzbio *.md
+recursive-include quartzbio *.py
+recursive-include quartzbio/test/data *
+include quartzbio/contrib/dash/login.js
+include quartzbio/contrib/dash/oauth-redirect.js
