@@ -11,13 +11,11 @@ The EDP Global Search performs a search based on the provided set of parameters 
 -   entities: List of entity tuples to filter on (entity type, entity)
 -   limit: Maximum number of query results to return
 
-Python
 ```Python
 from quartzbio import GlobalSearch
 
 # Search returns all objects by default
 results = GlobalSearch()
-Python
 ```
 
 Users may use the limit parameter to limit the number of returned objects:
@@ -31,7 +29,6 @@ results = GlobalSearch(limit = 200)
 
 Similar to the web application, users can apply filters with Python and R clients:
 
-Python
 ```Python
 from quartzbio import GlobalSearch
 
@@ -49,7 +46,6 @@ objects = search.filter(created_at__range=["2023-01-01","2023-12-31"])
 
 Users can refer to the [Advanced Search](https://quartzbio.freshdesk.com/a/solutions/articles/73000603094) documentation to learn how to write their own queries using the Query String syntax. This is also possible to do using Python and R clients by providing query parameters:
 
-Python
 
 ```Python
 from quartzbio import GlobalSearch
@@ -65,8 +61,6 @@ results = GlobalSearch("test")
 
 Global Beacon Search, which is explained in the [Global Beacon Search article](https://quartzbio.freshdesk.com/a/solutions/articles/73000603092), can be performed as well with both Python and R clients by using the entities parameter. Please note that Global Beacon Search works only on datasets enabled by Global Beacons. To search for subjects or samples, users should also set the vault\_scope parameter to "any".
 
-Python
-
 ```Python
  Entity search example
 GlobalSearch(entities=[["gene", "BRCA2"]])
@@ -80,7 +74,6 @@ GlobalSearch(entities=[["sample", "A00001"]], vault_scope='any')
 
 ## Retrieving Subjects with Global Search 
 
-Python
 ```Python
 # Getting the subjects
 search = GlobalSearch(entities=[["gene","BRCA2"]])

@@ -65,8 +65,6 @@ export.download('./')
 
 # Exports can also be saved to a path in a vault
 dataset.export(target_full_path='my_vault:/path/to/json_files_folder/my_export')
-Python
-
 ```
 
 ## Exporting Large Amounts of Data
