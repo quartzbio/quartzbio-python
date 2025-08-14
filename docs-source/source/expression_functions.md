@@ -295,7 +295,7 @@ Split N values from M list fields into N records. If \_id is in the original re
 
 **Syntax**
 
--   record: (object) The record to be splitted
+-   record: (object) The record to be split
 -   fields: (list or tuple) the fields IDs
 
 ### **findall**
@@ -532,7 +532,7 @@ Translate variant into a protein change. Output data type: object. Output obje
 -   protein\_length: Number of amino acids in the protein
 -   cdna\_change: cDNA change
 -   protein\_change: Protein change
--   protein\_coordinates: A dictionary containing start and stop coordinatesand the affected transcript id
+-   protein\_coordinates: A dictionary containing start and stop coordinates and the affected transcript id
 -   gene: HUGO gene symbol
 -   transcript: The transcript ID
 -   effects: list of effects
