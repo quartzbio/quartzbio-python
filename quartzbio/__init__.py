@@ -149,7 +149,7 @@ def login(
 
             import quartzbio
             quartzbio.login(
-                api_host="https://solvebio.api.az.aws.quartz.bio",
+                api_host="https://quartzbio.api.az.aws.quartz.bio",
                 api_key=YOUR_API_KEY
             )
     """
