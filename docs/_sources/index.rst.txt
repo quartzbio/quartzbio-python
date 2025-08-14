@@ -52,19 +52,6 @@ Module Documentation
    filters
    querying_datasets_and_files
    
-.. toctree::
-   :maxdepth: 2
-   :caption: API Reference
-
-   quartzbio.annotate
-   quartzbio.client
-   quartzbio.errors
-   quartzbio.global_search
-   quartzbio.query
-   quartzbio.resource
-   quartzbio.utils
-
-
 
 Indices and tables
 ==================

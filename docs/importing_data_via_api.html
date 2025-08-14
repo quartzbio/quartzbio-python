@@ -173,7 +173,13 @@
 <h2>Importing from Files<a class="headerlink" href="#importing-from-files" title="Permalink to this heading">¶</a></h2>
 <p>The first step to getting data onto EDP is by uploading files into a vault. Users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224">Vaults documentation</a> for more information.</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vaultfrom</span> <span class="n">quartzbio</span> <span class="kn">import</span><span class="w"> </span><span class="nn">Object</span><span class="c1"># Upload a local file to the root of the personal Vaultvault = Vault.get_personal_vault()uploaded_file = vault.upload_file(&#39;local/path/file.vcf.gz&#39;, &#39;/&#39;)# Retrieve the file by its full path:uploaded_file = Object.get_by_full_path(&#39;~/file.vcf.gz&#39;)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vault</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span>
+<span class="c1"># Upload a local file to the root of the personal Vault</span>
+<span class="n">vault</span> <span class="o">=</span> <span class="n">Vault</span><span class="o">.</span><span class="n">get_personal_vault</span><span class="p">()</span>
+<span class="n">uploaded_file</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="s1">&#39;local/path/file.vcf.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="c1"># Retrieve the file by its full path:</span>
+<span class="n">uploaded_file</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/file.vcf.gz&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Once the files have been uploaded, they can be imported into any new or existing dataset (<a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613900">Learn how to create a dataset</a>). To launch an import, users can utilize the DatasetImport method. The user will need to provide the uploaded file and target dataset as inputs. Once the import has been launched, it is possible to track the progress through the API on the web interface through the Activity tab.</p>
@@ -678,23 +684,13 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discoverty via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a></li>
 </ul>
 
 <div class="relations">

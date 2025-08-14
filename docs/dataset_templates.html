@@ -41,7 +41,8 @@
 <h2>Retrieving Templates<a class="headerlink" href="#retrieving-templates" title="Permalink to this heading">¶</a></h2>
 <p>To list all templates:</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">template</span> <span class="ow">in</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">template_type</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">):</span>    <span class="nb">print</span><span class="p">(</span><span class="n">template</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;account&#39;</span><span class="p">],</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;is_public&#39;</span><span class="p">])</span><span class="k">for</span> <span class="n">template</span> <span class="ow">in</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">template_type</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">):</span>    <span class="nb">print</span><span class="p">(</span><span class="n">template</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;account&#39;</span><span class="p">],</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;is_public&#39;</span><span class="p">])</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">template</span> <span class="ow">in</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">template_type</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">template</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;account&#39;</span><span class="p">],</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;is_public&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>It will return all available dataset templates with their names, template id, organization, account id and status.</p>
@@ -70,12 +71,16 @@
 </div>
 <p>If users would like to make the template private (accessible only to your user), then they can set the account_id parameter to None.</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;id of your template&#39;</span><span class="p">)</span><span class="n">template</span><span class="o">.</span><span class="n">account_id</span> <span class="o">=</span> <span class="n">Nonetemplate</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;id of your template&#39;</span><span class="p">)</span>
+<span class="n">template</span><span class="o">.</span><span class="n">account_id</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">template</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>If users would like to make the template accessible to all users on EDP (including those outside of your organization) then they can set the is_public parameter to True. As always, users should not share anything sensitive outside of their organization.</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;id of your template&#39;</span><span class="p">)</span><span class="n">template</span><span class="o">.</span><span class="n">is_public</span> <span class="o">=</span> <span class="n">Truetemplate</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;id of your template&#39;</span><span class="p">)</span>
+<span class="n">template</span><span class="o">.</span><span class="n">is_public</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">template</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -114,7 +119,12 @@
 <p>The template_type should be set to “dataset”.</p>
 <p>After that, users can create the template:</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetTemplatetemplate</span> <span class="o">=</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">template</span><span class="p">)</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;your dataset path&#39;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span><span class="c1"># Dataset will now have the non-transient fields from the template# with desired titles/descriptions and expressionsprint(dataset.fields())# But no recordsprint(dataset.documents_count)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetTemplate</span>
+<span class="n">template</span> <span class="o">=</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">template</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;your dataset path&#39;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
+<span class="c1"># Dataset will now have the non-transient fields from the template</span>
+<span class="c1"># with desired titles/descriptions and expressions print(dataset.fields())</span>
+<span class="c1"># But no records print(dataset.documents_count)</span>
 </pre></div>
 </div>
 <p>Printing the template object will show the template’s ID and contents.</p>
@@ -123,12 +133,30 @@
 <h2>Create a Dataset with a Template<a class="headerlink" href="#create-a-dataset-with-a-template" title="Permalink to this heading">¶</a></h2>
 <p>Users can create a dataset and set the structure with a template.</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;id of your template&#39;</span><span class="p">)</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;your dataset path&#39;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span><span class="c1"># Dataset will now have the non-transient fields from the template# with desired titles/descriptions and expressionsprint(dataset.fields())# But no recordsprint(dataset.documents_count)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;id of your template&#39;</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;your dataset path&#39;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
+<span class="c1"># Dataset will now have the non-transient fields from the template</span>
+<span class="c1"># with desired titles/descriptions and expressions print(dataset.fields())</span>
+<span class="c1"># But no records print(dataset.documents_count)</span>
 </pre></div>
 </div>
 <p>Users can also create and a dataset and add the fields during file import:</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;id of your template&#39;</span><span class="p">)</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;your dataset path&#39;</span><span class="p">)</span><span class="c1"># Only field should be &quot;id&quot;print(dataset.fields())file_object = Object.retrieve(&#39;id of file uploaded to EDP&#39;)DatasetImport.create(    dataset_id=dataset.id,    object_id=file_object.id,    target_fields=template.fields,    commit_mode=&#39;append&#39;,)# Wait for import to finishdataset.activity(follow=True)# Should now see all the non-transient fields from the template!print(dataset.fields())</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;id of your template&#39;</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;your dataset path&#39;</span><span class="p">)</span>
+<span class="c1"># Only field should be &quot;id&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
+<span class="n">file_object</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;id of file uploaded to EDP&#39;</span><span class="p">)</span>
+<span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">object_id</span><span class="o">=</span><span class="n">file_object</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="n">target_fields</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">fields</span><span class="p">,</span>
+    <span class="n">commit_mode</span><span class="o">=</span><span class="s1">&#39;append&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Wait for import to finish</span>
+    <span class="n">dataset</span><span class="o">.</span><span class="n">activity</span><span class="p">(</span><span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Should now see all the non-transient fields from the template!</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
 </pre></div>
 </div>
 </section>
@@ -136,7 +164,30 @@
 <h2>Update a Template:<a class="headerlink" href="#update-a-template" title="Permalink to this heading">¶</a></h2>
 <p>Template attributes such as the list of fields can be edited. For example, new fields can be added to an existing template. In this example, a new field called “phase_numeric” is added to the template to transform roman numerals to numbers in the phase field of the dataset.</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quartzbiofrom</span> <span class="n">quartzbio</span> <span class="kn">import</span><span class="w"> </span><span class="nn">Datasetfrom</span> <span class="n">quartzbio</span> <span class="kn">import</span><span class="w"> </span><span class="nn">DatasetTemplate</span><span class="c1"># Retrieve a template by ID my_template = quartzbio.DatasetTemplate.retrieve(&#39;dataset_id&#39;)#Create updated list of fields as an empty listupdated_fields=[]#Get fields from my_template and add to listfor x in my_template.fields:    updated_fields.append(dict(x))# Write a new fieldphase_numeric={  &quot;title&quot;: &quot;phase_numeric&quot;,  &quot;name&quot;: &quot;phase_numeric&quot;,  &quot;data_type&quot;: &quot;string&quot;,  &quot;depends_on&quot;: [&quot;phase&quot;],  &quot;expression&quot;: &quot;record.phase.replace(&#39;III&#39;, &#39;3&#39;).replace(&#39;II&#39;, &#39;2&#39;).replace(&#39;I&#39;, &#39;1&#39;)&quot;}#Add new field to updated fields listupdated_fields.append(phase_numeric)#Update template fieldsmy_template.fields=updated_fields#Save templatemy_template.save()# Test the template by applying it to a few records dataset = Dataset.get_by_full_path(&quot;vault:/my/dataset/&quot;)records=dataset.query()for record in records.annotate(my_template.fields):    print(record)#Update other attributes such as version and savemy_template.version=&#39;2.00&#39;my_template.save()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quartzbio</span> <span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span>
+<span class="kn">import</span> <span class="n">Dataset</span> <span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span>
+<span class="kn">import</span> <span class="n">DatasetTemplate</span>
+<span class="c1"># Retrieve a template by ID</span>
+<span class="n">my_template</span> <span class="o">=</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;dataset_id&#39;</span><span class="p">)</span>
+<span class="c1">#Create updated list of fields as an empty list</span>
+<span class="n">updated_fields</span><span class="o">=</span><span class="p">[]</span>
+<span class="c1">#Get fields from my_template and add to list</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">my_template</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
+    <span class="n">updated_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="c1"># Write a new field</span>
+    <span class="n">phase_numeric</span><span class="o">=</span><span class="p">{</span>  <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;phase_numeric&quot;</span><span class="p">,</span>  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;phase_numeric&quot;</span><span class="p">,</span>  <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>  <span class="s2">&quot;depends_on&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;phase&quot;</span><span class="p">],</span>  <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="s2">&quot;record.phase.replace(&#39;III&#39;, &#39;3&#39;).replace(&#39;II&#39;, &#39;2&#39;).replace(&#39;I&#39;, &#39;1&#39;)&quot;</span><span class="p">}</span>
+    <span class="c1">#Add new field to updated fields list</span>
+    <span class="n">updated_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">phase_numeric</span><span class="p">)</span>
+    <span class="c1">#Update template fields</span>
+    <span class="n">my_template</span><span class="o">.</span><span class="n">fields</span><span class="o">=</span><span class="n">updated_fields</span>
+    <span class="c1">#Save template</span>
+    <span class="n">my_template</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="c1"># Test the template by applying it to a few records</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s2">&quot;vault:/my/dataset/&quot;</span><span class="p">)</span><span class="n">records</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">my_template</span><span class="o">.</span><span class="n">fields</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+        <span class="c1">#Update other attributes such as version and save</span>
+        <span class="n">my_template</span><span class="o">.</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;2.00&#39;</span><span class="n">my_template</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -144,7 +195,21 @@
 <h2>Building and Testing Templates with the Annotator<a class="headerlink" href="#building-and-testing-templates-with-the-annotator" title="Permalink to this heading">¶</a></h2>
 <p>When creating new templates it it is useful to use the annotator to test and validate the fields and their expressions. The below snippet will use the annotator to process records in real time with the template fields.</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Datasetfrom</span> <span class="n">quartzbio</span> <span class="kn">import</span><span class="w"> </span><span class="nn">DatasetTemplate</span><span class="c1"># Load fields from a templatedataset = Dataset.get_by_full_path(&#39;vault:/my/dataset/&#39;)template = DatasetTemplate.retrieve(template_id)# Retrieve and annotate records with the dataset template fieldsrecords = dataset.query()for record in records.annotate(template.fields):    print(record)# Annotate records server side (most efficient)records = dataset.query(target_fields=template.fields)# Use the Annotator classann = Annotator(fields=template.fields)records = dataset.query()for record in ann.annotate(records):    print(record)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetTemplate</span>
+<span class="c1"># Load fields from a template</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;vault:/my/dataset/&#39;</span><span class="p">)</span>
+<span class="n">template</span> <span class="o">=</span> <span class="n">DatasetTemplate</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">template_id</span><span class="p">)</span>
+<span class="c1"># Retrieve and annotate records with the dataset template fields</span>
+<span class="n">records</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">fields</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+    <span class="c1"># Annotate records server side (most efficient)</span>
+    <span class="n">records</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">target_fields</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
+    <span class="c1"># Use the Annotator class</span>
+    <span class="n">ann</span> <span class="o">=</span> <span class="n">Annotator</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span><span class="n">records</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">ann</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -372,23 +437,13 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discoverty via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a></li>
 </ul>
 
 <div class="relations">
