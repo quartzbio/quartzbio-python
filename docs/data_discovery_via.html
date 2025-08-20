@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Data Discoverty via API &#8212; QuartzBio  documentation</title>
+    <title>Data Discovery via API &#8212; QuartzBio  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
@@ -31,8 +31,8 @@
 
           <div class="body" role="main">
             
-  <section id="data-discoverty-via-api">
-<h1>Data Discoverty via API<a class="headerlink" href="#data-discoverty-via-api" title="Permalink to this heading">¶</a></h1>
+  <section id="data-discovery-via-api">
+<h1>Data Discovery via API<a class="headerlink" href="#data-discovery-via-api" title="Permalink to this heading">¶</a></h1>
 <p>Global Search allows users to search for vaults, files, folders, and datasets by name, tags, user, date, and other metadata that can be customized. Similarly to <a class="reference external" href="https://quartzbio.freshdesk.com/a/solutions/articles/73000597713">Global Search on the web application</a>, the search functionality is available through EDP Python and R clients as well. Users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608178">EDP Access and Search Programmatic Guide</a> to get started with using EDP clients.</p>
 <section id="global-search-basics">
 <h2>Global Search Basics<a class="headerlink" href="#global-search-basics" title="Permalink to this heading">¶</a></h2>
@@ -43,12 +43,10 @@
 <li><p>entities: List of entity tuples to filter on (entity type, entity)</p></li>
 <li><p>limit: Maximum number of query results to return</p></li>
 </ul>
-<p>Python</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlobalSearch</span>
 
 <span class="c1"># Search returns all objects by default</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">GlobalSearch</span><span class="p">()</span>
-<span class="n">Python</span>
 </pre></div>
 </div>
 <p>Users may use the limit parameter to limit the number of returned objects:</p>
@@ -60,7 +58,6 @@
 <section id="applying-filters-for-global-search">
 <h2>Applying filters for Global Search<a class="headerlink" href="#applying-filters-for-global-search" title="Permalink to this heading">¶</a></h2>
 <p>Similar to the web application, users can apply filters with Python and R clients:</p>
-<p>Python</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlobalSearch</span>
 
 <span class="c1"># Global Search object</span>
@@ -77,7 +74,6 @@
 <section id="advanced-search-query">
 <h2>Advanced Search Query<a class="headerlink" href="#advanced-search-query" title="Permalink to this heading">¶</a></h2>
 <p>Users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/a/solutions/articles/73000603094">Advanced Search</a> documentation to learn how to write their own queries using the Query String syntax. This is also possible to do using Python and R clients by providing query parameters:</p>
-<p>Python</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlobalSearch</span>
 
 <span class="c1"># Advanced search (using keyword argument)</span>
@@ -91,7 +87,6 @@
 <section id="global-beacon-search">
 <h2>Global Beacon Search<a class="headerlink" href="#global-beacon-search" title="Permalink to this heading">¶</a></h2>
 <p>Global Beacon Search, which is explained in the <a class="reference external" href="https://quartzbio.freshdesk.com/a/solutions/articles/73000603092">Global Beacon Search article</a>, can be performed as well with both Python and R clients by using the entities parameter. Please note that Global Beacon Search works only on datasets enabled by Global Beacons. To search for subjects or samples, users should also set the vault_scope parameter to “any”.</p>
-<p>Python</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span> <span class="n">Entity</span> <span class="n">search</span> <span class="n">example</span>
 <span class="n">GlobalSearch</span><span class="p">(</span><span class="n">entities</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;gene&quot;</span><span class="p">,</span> <span class="s2">&quot;BRCA2&quot;</span><span class="p">]])</span>
 
@@ -105,7 +100,6 @@
 </section>
 <section id="retrieving-subjects-with-global-search">
 <h2>Retrieving Subjects with Global Search<a class="headerlink" href="#retrieving-subjects-with-global-search" title="Permalink to this heading">¶</a></h2>
-<p>Python</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Getting the subjects</span>
 <span class="n">search</span> <span class="o">=</span> <span class="n">GlobalSearch</span><span class="p">(</span><span class="n">entities</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;gene&quot;</span><span class="p">,</span><span class="s2">&quot;BRCA2&quot;</span><span class="p">]])</span>
 <span class="n">search</span><span class="o">.</span><span class="n">subjects</span><span class="p">()</span>
@@ -158,7 +152,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Discoverty via API</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Discovery via API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#global-search-basics">Global Search Basics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#applying-filters-for-global-search">Applying filters for Global Search</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-search-query">Advanced Search Query</a></li>
@@ -172,16 +166,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a></li>
 </ul>
 
 <div class="relations">

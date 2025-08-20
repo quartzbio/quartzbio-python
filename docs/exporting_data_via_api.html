@@ -91,7 +91,7 @@
 <h2>Export a Dataset<a class="headerlink" href="#export-a-dataset" title="Permalink to this heading">¶</a></h2>
 <p>To export a dataset, users can retrieve it by name or ID and initiate the export. Exports can take a few minutes for large datasets. Users can always start a large export and check back when it finishes on the Activity tab of the EDP web interface. Exports can also be saved directly into a vault (with target_full_path keyword argument) and accessed from there.</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">solvebio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/HGNC/3.3.1-2021-08-25/HGNC&#39;</span><span class="p">)</span>
 
@@ -105,7 +105,6 @@
 
 <span class="c1"># Exports can also be saved to a path in a vault</span>
 <span class="n">dataset</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">target_full_path</span><span class="o">=</span><span class="s1">&#39;my_vault:/path/to/json_files_folder/my_export&#39;</span><span class="p">)</span>
-<span class="n">Python</span>
 </pre></div>
 </div>
 </section>
@@ -115,7 +114,7 @@
 <p>Export a Filtered Dataset</p>
 <p>Users can leverage the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000612356">dataset filtering</a> system to export a slice of a dataset:</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">solvebio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20221105/Variants-GRCH37&#39;</span><span class="p">)</span>
 
@@ -135,7 +134,19 @@
 <section id="export-in-batches">
 <h2>Export in Batches<a class="headerlink" href="#export-in-batches" title="Permalink to this heading">¶</a></h2>
 <p>Users can export in batches using the Python client library, such as to export data by chromosome:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">solvebio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Datasetdataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20221105/Variants-GRCH37&#39;</span><span class="p">)</span><span class="c1"># Get available chromosomesfacets = dataset.query().facets(**{&#39;genomic_coordinates.chromosome&#39;: {&#39;facet_type&#39;: &#39;terms&#39;, &#39;limit&#39;: 100}})print(&quot;Found {} chromosomes&quot;.format(len(facets[&#39;genomic_coordinates.chromosome&#39;])))for chromosome, records_count in facets[&#39;genomic_coordinates.chromosome&#39;]:    # Defines a location on EDP to export to (&quot;~/&quot; represents a shortcut to the user&#39;s personal vault)    # Appends chromosome to the filename    target_full_path = &quot;~/clinvar_{}.csv.gz&quot;.format(chromosome)    # Filter the query by chromosome    filtered_query = query.filter(**{&#39;genomic_coordinates.chromosome&#39;: chromosome})    # Export    filtered_query.export(format=&#39;csv-gz&#39;, follow=False, send_email_on_completion=True, target_full_path=target_full_path)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20221105/Variants-GRCH37&#39;</span><span class="p">)</span>
+<span class="c1"># Get available chromosomes</span>
+<span class="n">facets</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">facets</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;genomic_coordinates.chromosome&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;facet_type&#39;</span><span class="p">:</span> <span class="s1">&#39;terms&#39;</span><span class="p">,</span> <span class="s1">&#39;limit&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">}})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found </span><span class="si">{}</span><span class="s2"> chromosomes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">facets</span><span class="p">[</span><span class="s1">&#39;genomic_coordinates.chromosome&#39;</span><span class="p">])))</span>
+<span class="k">for</span> <span class="n">chromosome</span><span class="p">,</span> <span class="n">records_count</span> <span class="ow">in</span> <span class="n">facets</span><span class="p">[</span><span class="s1">&#39;genomic_coordinates.chromosome&#39;</span><span class="p">]:</span>
+    <span class="c1"># Defines a location on EDP to export to (&quot;~/&quot; represents a shortcut to the user&#39;s personal vault)</span>
+    <span class="c1"># Appends chromosome to the filename</span>
+    <span class="n">target_full_path</span> <span class="o">=</span> <span class="s2">&quot;~/clinvar_</span><span class="si">{}</span><span class="s2">.csv.gz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chromosome</span><span class="p">)</span>
+    <span class="c1"># Filter the query by chromosome</span>
+    <span class="n">filtered_query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;genomic_coordinates.chromosome&#39;</span><span class="p">:</span> <span class="n">chromosome</span><span class="p">})</span>
+    <span class="c1"># Export</span>
+    <span class="n">filtered_query</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csv-gz&#39;</span><span class="p">,</span> <span class="n">follow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">send_email_on_completion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">target_full_path</span><span class="o">=</span><span class="n">target_full_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -414,23 +425,13 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discoverty via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a></li>
 </ul>
 
 <div class="relations">

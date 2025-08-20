@@ -51,7 +51,7 @@ To export a dataset, users can retrieve it by name or ID and initiate the export
 
 In Python:
 ```Python
-from solvebio import Dataset
+from quartzbio import Dataset
 
 dataset = Dataset.get_by_full_path('quartzbio:Public:/HGNC/3.3.1-2021-08-25/HGNC')
 
@@ -65,8 +65,6 @@ export.download('./')
 
 # Exports can also be saved to a path in a vault
 dataset.export(target_full_path='my_vault:/path/to/json_files_folder/my_export')
-Python
-
 ```
 
 ## Exporting Large Amounts of Data
@@ -79,7 +77,7 @@ Users can leverage the [dataset filtering](https://quartzbio.freshdesk.com/en/su
 
 In Python:
 ```Python
-from solvebio import Dataset
+from quartzbio import Dataset
 
 dataset = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20221105/Variants-GRCH37')
 
@@ -99,7 +97,19 @@ export.download(path='./my_variants.json.gz')
 
 Users can export in batches using the Python client library, such as to export data by chromosome:
 ```Python
-from solvebio import Datasetdataset = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20221105/Variants-GRCH37')# Get available chromosomesfacets = dataset.query().facets(**{'genomic_coordinates.chromosome': {'facet_type': 'terms', 'limit': 100}})print("Found {} chromosomes".format(len(facets['genomic_coordinates.chromosome'])))for chromosome, records_count in facets['genomic_coordinates.chromosome']:    # Defines a location on EDP to export to ("~/" represents a shortcut to the user's personal vault)    # Appends chromosome to the filename    target_full_path = "~/clinvar_{}.csv.gz".format(chromosome)    # Filter the query by chromosome    filtered_query = query.filter(**{'genomic_coordinates.chromosome': chromosome})    # Export    filtered_query.export(format='csv-gz', follow=False, send_email_on_completion=True, target_full_path=target_full_path)
+from quartzbio import Dataset
+dataset = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20221105/Variants-GRCH37')
+# Get available chromosomes
+facets = dataset.query().facets(**{'genomic_coordinates.chromosome': {'facet_type': 'terms', 'limit': 100}})
+print("Found {} chromosomes".format(len(facets['genomic_coordinates.chromosome'])))
+for chromosome, records_count in facets['genomic_coordinates.chromosome']:    
+    # Defines a location on EDP to export to ("~/" represents a shortcut to the user's personal vault)    
+    # Appends chromosome to the filename    
+    target_full_path = "~/clinvar_{}.csv.gz".format(chromosome)    
+    # Filter the query by chromosome    
+    filtered_query = query.filter(**{'genomic_coordinates.chromosome': chromosome})    
+    # Export    
+    filtered_query.export(format='csv-gz', follow=False, send_email_on_completion=True, target_full_path=target_full_path)
 ```
 
 ## API Endpoints

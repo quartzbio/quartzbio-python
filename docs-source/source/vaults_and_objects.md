@@ -365,7 +365,7 @@ This request accepts the following parameters:
 |      regex       |    regex    |                A regular expression which searches objects for matching paths (case-insensitive).                |
 |       glob       | text (glob) |    A glob (full path with wildcard characters) which searches objects for matching paths (case-insensitive).     |
 |   ancestor\_id   |   integer   |         The ID of an ancestor object (parent folder, parent of parent folder, etc). For "/", use "null".         |
-|  min\_distance   |   integer   | Used in conjuction with the ancestor\_id filter to only include objects at a minimum distance from the ancestor. |
+|  min\_distance   |   integer   | Used in conjunction with the ancestor\_id filter to only include objects at a minimum distance from the ancestor. |
 |       tags       |   string    |                A string representing a single vault tag. Matching vaults must have this tag set.                 |
 |  storage\_class  |   string    |                                    Returns datasets with this storage class.                                     |
 

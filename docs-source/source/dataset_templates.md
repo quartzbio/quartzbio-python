@@ -11,7 +11,8 @@ To list all templates:
 
 In Python:
 ```Python
-for template in DatasetTemplate.all(template_type="dataset"):    print(template['name'], template['id'], template['account'], template['is_public'])for template in DatasetTemplate.all(template_type="dataset"):    print(template['name'], template['id'], template['account'], template['is_public'])
+for template in DatasetTemplate.all(template_type="dataset"):    
+    print(template['name'], template['id'], template['account'], template['is_public'])
 ```
 
 
@@ -51,14 +52,18 @@ If users would like to make the template private (accessible only to your user),
 
 In Python:
 ```Python
-template = DatasetTemplate.retrieve('id of your template')template.account_id = Nonetemplate.save()
+template = DatasetTemplate.retrieve('id of your template') 
+template.account_id = None 
+template.save()
 ```
 
 If users would like to make the template accessible to all users on EDP (including those outside of your organization) then they can set the is\_public parameter to True. As always, users should not share anything sensitive outside of their organization.
 
 In Python:
 ```Python
-template = DatasetTemplate.retrieve('id of your template')template.is_public = Truetemplate.save()
+template = DatasetTemplate.retrieve('id of your template')
+template.is_public = True
+template.save()
 ```
 
 ## Create a Template
@@ -113,7 +118,12 @@ After that, users can create the template:
 
 In Python:
 ```Python
-from quartzbio import DatasetTemplatetemplate = quartzbio.DatasetTemplate.create(**template)dataset = Dataset.get_or_create_by_full_path('your dataset path', fields=template.fields)# Dataset will now have the non-transient fields from the template# with desired titles/descriptions and expressionsprint(dataset.fields())# But no recordsprint(dataset.documents_count)
+from quartzbio import DatasetTemplate 
+template = quartzbio.DatasetTemplate.create(**template)
+dataset = Dataset.get_or_create_by_full_path('your dataset path', fields=template.fields)
+# Dataset will now have the non-transient fields from the template
+# with desired titles/descriptions and expressions print(dataset.fields())
+# But no records print(dataset.documents_count)
 ```
 
 Printing the template object will show the template's ID and contents.
@@ -124,14 +134,32 @@ Users can create a dataset and set the structure with a template.
 
 In Python:
 ```Python
-template = DatasetTemplate.retrieve('id of your template')dataset = Dataset.get_or_create_by_full_path('your dataset path', fields=template.fields)# Dataset will now have the non-transient fields from the template# with desired titles/descriptions and expressionsprint(dataset.fields())# But no recordsprint(dataset.documents_count)
+template = DatasetTemplate.retrieve('id of your template')
+dataset = Dataset.get_or_create_by_full_path('your dataset path', fields=template.fields)
+# Dataset will now have the non-transient fields from the template
+# with desired titles/descriptions and expressions print(dataset.fields())
+# But no records print(dataset.documents_count)
 ```
 
 Users can also create and a dataset and add the fields during file import:
 
 In Python:
 ```Python
-template = DatasetTemplate.retrieve('id of your template')dataset = Dataset.get_or_create_by_full_path('your dataset path')# Only field should be "id"print(dataset.fields())file_object = Object.retrieve('id of file uploaded to EDP')DatasetImport.create(    dataset_id=dataset.id,    object_id=file_object.id,    target_fields=template.fields,    commit_mode='append',)# Wait for import to finishdataset.activity(follow=True)# Should now see all the non-transient fields from the template!print(dataset.fields())
+template = DatasetTemplate.retrieve('id of your template')
+dataset = Dataset.get_or_create_by_full_path('your dataset path')
+# Only field should be "id"
+print(dataset.fields())
+file_object = Object.retrieve('id of file uploaded to EDP')
+DatasetImport.create(    
+    dataset_id=dataset.id,    
+    object_id=file_object.id,    
+    target_fields=template.fields,    
+    commit_mode='append',
+    )
+    # Wait for import to finish 
+    dataset.activity(follow=True)
+    # Should now see all the non-transient fields from the template!
+    print(dataset.fields())
 ```
 
 ## Update a Template:
@@ -140,7 +168,30 @@ Template attributes such as the list of fields can be edited. For example, new f
 
 In Python:
 ```Python
-import quartzbiofrom quartzbio import Datasetfrom quartzbio import DatasetTemplate# Retrieve a template by ID my_template = quartzbio.DatasetTemplate.retrieve('dataset_id')#Create updated list of fields as an empty listupdated_fields=[]#Get fields from my_template and add to listfor x in my_template.fields:    updated_fields.append(dict(x))# Write a new fieldphase_numeric={  "title": "phase_numeric",  "name": "phase_numeric",  "data_type": "string",  "depends_on": ["phase"],  "expression": "record.phase.replace('III', '3').replace('II', '2').replace('I', '1')"}#Add new field to updated fields listupdated_fields.append(phase_numeric)#Update template fieldsmy_template.fields=updated_fields#Save templatemy_template.save()# Test the template by applying it to a few records dataset = Dataset.get_by_full_path("vault:/my/dataset/")records=dataset.query()for record in records.annotate(my_template.fields):    print(record)#Update other attributes such as version and savemy_template.version='2.00'my_template.save()
+import quartzbio from quartzbio 
+import Dataset from quartzbio 
+import DatasetTemplate
+# Retrieve a template by ID 
+my_template = quartzbio.DatasetTemplate.retrieve('dataset_id')
+#Create updated list of fields as an empty list
+updated_fields=[]
+#Get fields from my_template and add to list
+for x in my_template.fields:    
+    updated_fields.append(dict(x))
+    # Write a new field
+    phase_numeric={  "title": "phase_numeric",  "name": "phase_numeric",  "data_type": "string",  "depends_on": ["phase"],  "expression": "record.phase.replace('III', '3').replace('II', '2').replace('I', '1')"}
+    #Add new field to updated fields list
+    updated_fields.append(phase_numeric)
+    #Update template fields
+    my_template.fields=updated_fields
+    #Save template
+    my_template.save()
+    # Test the template by applying it to a few records 
+    dataset = Dataset.get_by_full_path("vault:/my/dataset/")records=dataset.query()
+    for record in records.annotate(my_template.fields):    
+        print(record)
+        #Update other attributes such as version and save
+        my_template.version='2.00'my_template.save()
 ```
 
 ## Building and Testing Templates with the Annotator
@@ -149,7 +200,21 @@ When creating new templates it it is useful to use the annotator to test and val
 
 In Python:
 ```Python
-from quartzbio import Datasetfrom quartzbio import DatasetTemplate# Load fields from a templatedataset = Dataset.get_by_full_path('vault:/my/dataset/')template = DatasetTemplate.retrieve(template_id)# Retrieve and annotate records with the dataset template fieldsrecords = dataset.query()for record in records.annotate(template.fields):    print(record)# Annotate records server side (most efficient)records = dataset.query(target_fields=template.fields)# Use the Annotator classann = Annotator(fields=template.fields)records = dataset.query()for record in ann.annotate(records):    print(record)
+from quartzbio import Dataset
+from quartzbio import DatasetTemplate
+# Load fields from a template
+dataset = Dataset.get_by_full_path('vault:/my/dataset/')
+template = DatasetTemplate.retrieve(template_id)
+# Retrieve and annotate records with the dataset template fields
+records = dataset.query()
+for record in records.annotate(template.fields):    
+    print(record)
+    # Annotate records server side (most efficient)
+    records = dataset.query(target_fields=template.fields)
+    # Use the Annotator class
+    ann = Annotator(fields=template.fields)records = dataset.query()
+    for record in ann.annotate(records):    
+        print(record)
 ```
 
 ## API Endpoints

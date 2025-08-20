@@ -52,7 +52,13 @@ The first step to getting data onto EDP is by uploading files into a vault. User
 
 In Python:
 ```Python
-from quartzbio import Vaultfrom quartzbio import Object# Upload a local file to the root of the personal Vaultvault = Vault.get_personal_vault()uploaded_file = vault.upload_file('local/path/file.vcf.gz', '/')# Retrieve the file by its full path:uploaded_file = Object.get_by_full_path('~/file.vcf.gz')
+from quartzbio import Vault
+from quartzbio import Object
+# Upload a local file to the root of the personal Vault
+vault = Vault.get_personal_vault()
+uploaded_file = vault.upload_file('local/path/file.vcf.gz', '/')
+# Retrieve the file by its full path:
+uploaded_file = Object.get_by_full_path('~/file.vcf.gz')
 ```
 
 Once the files have been uploaded, they can be imported into any new or existing dataset ([Learn how to create a dataset](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613900)). To launch an import, users can utilize the DatasetImport method. The user will need to provide the uploaded file and target dataset as inputs. Once the import has been launched, it is possible to track the progress through the API on the web interface through the Activity tab.

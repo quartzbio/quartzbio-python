@@ -127,7 +127,7 @@ Users can also use the download\_url() method to load files into readers such as
 
 In Python:
 ```Python
-from solvebio import *
+from quartzbio import *
 import pandas
 
 # Get file using ID or full path
