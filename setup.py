@@ -44,6 +44,7 @@ setup(
     description='The QuartzBio Python client',
     long_description=long_description,
     long_description_content_type='text/markdown',
+    python_requires='>=3.8',
     author='Precision for Medicine, Inc.',
     author_email='qb-help@precisionformedicine.com',
     url='https://github.com/quartzbio/quartzbio-python',
