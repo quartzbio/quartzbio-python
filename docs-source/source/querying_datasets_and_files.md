@@ -53,7 +53,7 @@ The Saved Queries API
 
 To retrieve Saved Queries that apply to a dataset, or all those available:
 
-In Python:
+
 ```Python
 dataset_queries = SavedQuery.all(dataset="<DATASET_ID>")
 
@@ -62,7 +62,7 @@ all_saved_queries = SavedQuery.all()
 
 To use a saved query, users can retrieve the SavedQuery object and then apply the parameters.
 
-In Python:
+
 ```Python
 saved_query = SavedQuery.retrieve("SAVED_QUERY_ID")
 
@@ -75,7 +75,7 @@ results = Dataset.retrieve("<DATASET_ID").query(**saved_query.params)
 
 To create a SavedQuery, users can define the query parameters and provide a valid dataset, as well as give it a name and description.
 
-In Python:
+
 
 ```Python
 params = {
@@ -102,7 +102,7 @@ File objects can be queried and filtered on one or more fields. The query result
 
 A basic query returns a page of results from the specified file object:
 
-In Python:
+
 ```Python
 clinvar = Object.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz')
 clinvar.query()
@@ -110,7 +110,7 @@ clinvar.query()
 
 Users can retrieve a specified number of records from the file by setting the limit query parameter:
 
-In Python:
+
 ```Python
 clinvar = Object.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz')
 q = clinvar.query(limit=50)
@@ -118,14 +118,14 @@ q = clinvar.query(limit=50)
 
 All fields from the file can be retrieved by calling the fields method:
 
-In Python:
+
 ```Python
 fields = Object.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz').query().fields()
 ```
 
 Users can also use the download\_url() method to load files into readers such as pandas:
 
-In Python:
+
 ```Python
 from quartzbio import *
 import pandas
@@ -164,7 +164,7 @@ The output format of the query can be provided by using the output\_format param
 
 Example:
 
-In Python:
+
 ```Python
 clinvar = Object.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz')
 clinvar.query(output_format='json')

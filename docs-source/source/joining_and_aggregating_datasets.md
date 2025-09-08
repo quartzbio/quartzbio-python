@@ -156,7 +156,7 @@ There are various aggregation options are available for numerical fields (such a
 -   **histogram**: values are binned according to a provided interval. For numerical fields, the default interval is 100. For dates, the default interval is 'month'. Histogram intervals must be integers, and will therefore not work for fields with values between 0 and 1 (such as allele frequencies).
 -   **percentiles**: calculates estimated percentiles for a field. By default, returns the following percentiles: 1, 5, 25, 50, 75, 95, 99. Percentiles are approximated and have an 1-5% error for very large datasets.
 
-Examples in Python:
+Examples 
 
 ```Python
 from quartzbio import Dataset
@@ -184,7 +184,7 @@ At this time, users may only nest term and histogram facets under terms facets. 
 
 The following example  yields the top ten genes associated with each disease in the public TCGA somatic mutations dataset:
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 

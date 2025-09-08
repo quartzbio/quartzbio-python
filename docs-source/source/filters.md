@@ -69,7 +69,7 @@ q.filter(gene__prefix='BRCA')
 
 Long (paragraph-length) fields typically use the `text` data type. The "`contains"` filter in text fields works more like a search than a filter. Results that match the search term are brought back in the order of relevance.
 
-In Python:
+
 ```Python
 q = Dataset.get_by_full_path('quartzbio:Public:/MEDLINE/2.3.4-2018/MEDLINE-sample').query()
 
@@ -81,7 +81,7 @@ q.filter(abstract__contains='diabetes')
 
 Numeric and date fields can be filtered by exact match, exact match in a list (`in`), half-open range match (`range`), and standard operators (`gt`, `lt`, `gte`, `lte`). Dates are in the format `YYYY-MM-DD`.
 
-In Python:
+
 ```Python
 q = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37').query()
 
@@ -102,7 +102,7 @@ q.filter(info.ORIGIN__gt=4)
 
 EDP-supported [Entities](https://quartzbio.github.io/quartzbio-python/metadata_and_global_beacons.html#entities) can be used for filtering, without requiring the exact field name that the Entity resides in. The entity filters are only compatible with datasets.
 
-In Python:
+
 ```Python
 clinvar = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37'')
 
@@ -117,7 +117,7 @@ clinvar.query(entities=[['variant', 'GRCH37-13-32890599-32890599-C']])
 
 A dataset's genomic build is indicated by the suffix of the dataset's full\_path. The genomic coordinate filters are only compatible with datasets.
 
-In Python:
+
 ```Python
 # GRCh37
 q = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37'').query()
@@ -146,7 +146,7 @@ The examples below show how to filter a dataset on one or two fields. In many ca
 
 When manually writing queries in JSON, users can combine and nest filters using boolean operators ('and', 'or', 'not'). In the Python client, users can combine filters using the `Filter` and `GenomicFilter` classes ("`&`" for "and", "`|`" for "or", and "`~`" for "not").
 
-In Python:
+
 ```Python
 q = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37').query()
 
@@ -273,7 +273,7 @@ For example, to search for the string `(1+1)=2`, the query should be written as
 
 Users can also compose filters in JSON and apply these filters via R, Python, or the EDP UI:
 
-In Python:
+
 ```Python
 dataset = Dataset.get_by_full_path('quartzbio:Public:/MEDLINE/2.3.4-2018/MEDLINE-sample')
 

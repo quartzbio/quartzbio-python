@@ -75,7 +75,6 @@ Export a Filtered Dataset
 
 Users can leverage the [dataset filtering](https://quartzbio.github.io/quartzbio-python/filters.html) system to export a slice of a dataset:
 
-In Python:
 ```Python
 from quartzbio import Dataset
 

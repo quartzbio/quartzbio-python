@@ -177,7 +177,6 @@ Users can annotate a list of records in real time (i.e. without saving them to a
 
 Examples
 
-In Python:
 ```Python
 from quartzbio import Annotator
 

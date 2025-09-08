@@ -25,7 +25,7 @@ vault_x = Vault.create(name='Vault X')
 
 Users can retrieve any shared vault by name or the full path (e.g. domain:name). The only exception is a user's personal vault which has a special name, ~, which is also its full path. If a vault is shared with a user by someone from another organization, it must be retrieved by its full path (e.g. quartzbio:public). Users can also retrieve multiple vaults matching a given [advanced search query](https://quartzbio.github.io/quartzbio-python/vaults_and_objects.html#advanced-search) (e.g. user:username). 
 
-In Python:
+
 
 ```Python
 from quartzbio import Vault
@@ -53,7 +53,7 @@ specific_user_vaults = Vault.all(query='user:john')
 
 Folders can only be created within a vault for which the user has write-level permission. Folder names are case-insensitive. If a user attempts to create a folder with a duplicate name, the vault will add an incrementing number to the name (i.e. folder, folder-1, folder-2, ...).
 
-In Python:
+
 ```Python
 from quartzbio import Vault
 
@@ -70,7 +70,7 @@ Users can upload files to any vault to which they have write-level access. File 
 
 There is no maximum upload size limit. Users are recommended to gzip their files before uploading if they are large.
 
-In Python:
+
 
 ```Python
 from quartzbio import Vault
@@ -109,7 +109,7 @@ quartzbio upload --help
 
 Users can download any existing file from a vault if they have read access to the vault:
 
-In Python:
+
 ```Python
 from quartzbio import Object
 
@@ -121,7 +121,7 @@ csv_file.download('./')
 ```
 Users can also download more than one file in the same folder:
 
-In Python:
+
 ```Python
 from quartzbio import Object, Vault
 
@@ -170,7 +170,7 @@ quartzbio download --help
 
 Users can search for files, folders, and datasets within any vault by name or other attributes. 
 
-In Python:
+
 
 ```Python
 from quartzbio import Vault
@@ -219,7 +219,7 @@ files = folder.files(recursive=True)
 
 Users can list all objects within a vault that match a specific pattern (i.e. find all the files within a certain folder) by providing a case-insensitive regular expression to the regex parameter. It is highly recommended to use Object.search() instead of searching by regular expression, unless it is absolutely necessary.
 
-In Python:
+
 
 from quartzbio import Vault
 from quartzbio import Object
@@ -250,7 +250,7 @@ json_files = [i.filename for i in folder.files(glob="{}*.json.gz".format(folder.
 
 Users can search for files in one folder using the aforementioned querying and move them to another folder.
 
-In Python:
+
 ```Python
 from quartzbio import Object
 
@@ -271,7 +271,7 @@ for file_ in files:
 
 Users can delete any vault or object (file, folder, or dataset) that they have admin-level permissions on. Deleting a vault or folder will automatically delete all its contents.
 
-In Python:
+
 ```Python
 from quartzbio import Vault
 

@@ -30,7 +30,7 @@ The function sleeps in between each check for activity. The default is 3 seconds
 
 The function also limits the activity check to one task. This can be modified using the limit parameter.
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 Dataset.retrieve(<DATASET ID>).activity(follow=True)
@@ -108,7 +108,7 @@ Users can easily archive and restore a dataset through the UI or through the API
 
 A Dataset can be archived using the archive() function within Python, or by changing the storage class to "Archive" within the R client.
 
-In Python:
+
 ```Python
 import quartzbio as sb
 
@@ -126,7 +126,7 @@ for dataset in folder.datasets(recursive=True):
 
 Restoring the archived dataset can be done using the restore() function on the archived dataset. By default, the Python client will use the "Standard" storage class. However, users may restore to any [storage class](https://quartzbio.github.io/quartzbio-python/dataset_versioning_via_api.html#archiving-datasets) that is available.
 
-In Python:
+
 ```Python
 import quartzbio as sb
 
@@ -138,7 +138,7 @@ dataset.restore()
 
 [Storage classes](https://quartzbio.github.io/quartzbio-python/dataset_versioning_via_api.html#archiving-datasets) can be modified from the Python/R clients as follows:
 
-In Python:
+
 ```Python
 import quartzbio as sb
 
@@ -155,7 +155,7 @@ After the introduction of dataset archiving & restoring and of dataset [storage 
 
 See examples below:
 
-In Python:
+
 ```Python
 # Explicitly check availability
 datasets = vault.datasets()

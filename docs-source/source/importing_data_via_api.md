@@ -63,7 +63,7 @@ uploaded_file = Object.get_by_full_path('~/file.vcf.gz')
 
 Once the files have been uploaded, they can be imported into any new or existing dataset ([Learn how to create a dataset](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#creating-datasets)). To launch an import, users can utilize the DatasetImport method. The user will need to provide the uploaded file and target dataset as inputs. Once the import has been launched, it is possible to track the progress through the API on the web interface through the Activity tab.
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetImport
@@ -85,7 +85,7 @@ dataset.activity(follow=True)
 
 If the files are on a remote server and accessible by URL, they can be imported using a manifest. A manifest is simply a list of files (URLs and other attributes) to import:
 
-In Python:
+
 ```Python
 from quartzbio import Manifest
 
@@ -97,7 +97,7 @@ manifest.add_url(source_url)
 
 Once the manifest has been created, it can be imported into any new or existing dataset. To launch an import, users can employ the DatasetImport resource, providing the manifest and target dataset as input. Once the import has been launched it is available to track the progress through the API or on the web. 
 
-In Python:
+
 
 ```Python
 from quartzbio import Dataset
@@ -122,7 +122,7 @@ The EDP can also pull data from DNAnexus, SevenBridges, and many other pipelines
 
 The EDP can also import data as a list of records, i.e. a list of Python dictionaries or R data. Users should note that the EDP supports only importing up to 5000 records at a time through this method. Importing from records is most optimal for importing small datasets and making edits to datasets. For larger imports and transforms, users are recommended to import from compressed JSONL files.
 
-In Python:
+
 
 ```Python
 from quartzbio import DatasetImport
@@ -190,7 +190,7 @@ Imported data can be transformed (fields added or edited) by providing a list of
 
 The following example imports a list of records and transforms the contents in a single step:
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetImport
@@ -257,7 +257,7 @@ The following settings can be passed to the [validation\_params](https://quartzb
 
 The following example fails an import as soon as invalid data is detected:
 
-In Python:
+
 
 ```Python
 imp = DatasetImport.create(
@@ -271,7 +271,7 @@ imp = DatasetImport.create(
 
 The following example disables validation from running, which can improve import performance.
 
-In Python:
+
 
 ```Python
 imp = DatasetImport.create(

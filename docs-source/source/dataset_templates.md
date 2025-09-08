@@ -20,7 +20,7 @@ It will return all available dataset templates with their names, template id, or
 
 To retrieve a template by known ID:
 
-In Python:
+
 ```Python
 template = quartzbio.DatasetTemplate.retrieve('template_id')print(template)
 ```
@@ -31,7 +31,7 @@ The list of fields is the most important part of a template. Each field describe
 
 Example:
 
-In Python:
+
 ```Python
 fields = [{    "name": "reason",    "title": "Reason"    "description": "The reasons for the significance value",    "data_type": "string",    "depends_on": [        "reason_list"    ],    "expression": "', '.join(record.reason_list) if record.reason_list else None",    "ordering": 1,}{...}]
 ```
@@ -42,7 +42,7 @@ By default, all newly created templates are accessible by everyone at the user's
 
 If users want the template to be shown in the UI (in the modal used for transforming files), then they can add the import tag to the template.
 
-In Python:
+
 
 ```Python
 template = DatasetTemplate.retrieve('id of your template')template.tags = ['import']template.save()
@@ -50,7 +50,7 @@ template = DatasetTemplate.retrieve('id of your template')template.tags = ['impo
 
 If users would like to make the template private (accessible only to your user), then they can set the account\_id parameter to None.
 
-In Python:
+
 ```Python
 template = DatasetTemplate.retrieve('id of your template') 
 template.account_id = None 
@@ -59,7 +59,7 @@ template.save()
 
 If users would like to make the template accessible to all users on EDP (including those outside of your organization) then they can set the is\_public parameter to True. As always, users should not share anything sensitive outside of their organization.
 
-In Python:
+
 ```Python
 template = DatasetTemplate.retrieve('id of your template')
 template.is_public = True
@@ -72,7 +72,7 @@ To create a template, users should prepare the list of DatasetFields with info
 
 Example of list of fields:
 
-In Python:
+
 ```Python
 fields = [{    'name': 'sample',    "depends_on": ['subject'],    "entity_type": "sample",    'description': 'Sample ID from SUBJECT',    'data_type': 'string',    'ordering': 1 ,    'expression': "record.subject"},{    'name': 'study',    'title': 'STUDY',    'description': 'Study Code',    'ordering': 2 ,    'expression': "None if value == 'UNASSIGNED' else value",    'data_type': 'string'},{    "data_type": "string",    "depends_on": [        "hgvs_c"    ],    "description": "EDP variant entity, computed from the short variant CDS change",    "expression": "entity_ids('variant', record.hgvs_c) if record.hgvs_c else None",    "is_transient": True,    "name": "variant_cdna_grch38"}]
 ```
@@ -108,7 +108,7 @@ The following attributes are optional, and informational only, but encouraged:
 
 After the list of the fields is prepared, other information about a template can be added:
 
-In Python:
+
 ```Python
 template = {    "name": "My Variant Template",    "version": '1.2.0',    "description": 'Import a special CSV file. Genome is assumed to be GRCh38, also has variant entity for GRCh37.',    "template_type": "dataset",    "is_public": False,    "entity_params": {        'disable': True    },    "fields": fields}
 ```
@@ -116,7 +116,7 @@ The template\_type should be set to "dataset".
 
 After that, users can create the template:
 
-In Python:
+
 ```Python
 from quartzbio import DatasetTemplate 
 template = quartzbio.DatasetTemplate.create(**template)
@@ -132,7 +132,7 @@ Printing the template object will show the template's ID and contents.
 
 Users can create a dataset and set the structure with a template.
 
-In Python:
+
 ```Python
 template = DatasetTemplate.retrieve('id of your template')
 dataset = Dataset.get_or_create_by_full_path('your dataset path', fields=template.fields)
@@ -143,7 +143,7 @@ dataset = Dataset.get_or_create_by_full_path('your dataset path', fields=templat
 
 Users can also create and a dataset and add the fields during file import:
 
-In Python:
+
 ```Python
 template = DatasetTemplate.retrieve('id of your template')
 dataset = Dataset.get_or_create_by_full_path('your dataset path')
@@ -166,7 +166,7 @@ DatasetImport.create(
 
 Template attributes such as the list of fields can be edited. For example, new fields can be added to an existing template. In this example, a new field called "phase\_numeric" is added to the template to transform roman numerals to numbers in the phase field of the dataset.
 
-In Python:
+
 ```Python
 import quartzbio from quartzbio 
 import Dataset from quartzbio 
@@ -198,7 +198,7 @@ for x in my_template.fields:
 
 When creating new templates it it is useful to use the annotator to test and validate the fields and their expressions. The below snippet will use the annotator to process records in real time with the template fields.
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetTemplate

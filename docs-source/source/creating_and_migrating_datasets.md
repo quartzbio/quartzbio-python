@@ -74,7 +74,6 @@ Users should note that double underscores ("\_\_") should not be used in dataset
 
 The following example creates a new dataset using a template with two fields:
 
-In Python:
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetField
@@ -136,7 +135,6 @@ Copying a dataset is the simplest dataset migration. In this case, a new dataset
 
 If users do not want to copy the entire source dataset, they can provide filter parameters to copy a subset. This example copies all BRCA1 variants from ClinVar into a new dataset:
 
-In Python:
 ```Python
 from quartzbio import Dataset
 
@@ -156,7 +154,6 @@ The title, description, url\_template, ordering, and entity\_type of a field can
 
 The following example renames the field of the dataset through a dataset migration:
 
-In Python:
 ```Python
 import quartzbio as sb
 

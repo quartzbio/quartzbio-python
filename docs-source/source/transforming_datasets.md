@@ -50,7 +50,7 @@ In the following example, an existing field in the dataset from the previous exa
 
 This example uses an expression that references a pre-existing field in the dataset; users can learn more about expression context by reviewing the [Expressions](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023) documentation.
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 
@@ -77,7 +77,7 @@ In the following example, the field (clinsig\_clone) in the source dataset is re
 
 The example follows from the previous one:
 
-In Python:
+
 
 ```Python
 from quartzbio import Dataset
@@ -101,7 +101,7 @@ Transient fields are like variables in a programming language. They can be used 
 
 The following example uses transient fields to structure a few VCF records, leaving the variant IDs and dbSNP rsIDs in the resulting dataset:
 
-In Python:
+
 
 ```Python
 from quartzbio import Dataset
@@ -190,7 +190,7 @@ In order to completely overwrite specific records in a dataset, users can utiliz
 
 In the following example, a few records will be imported and then edited:
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetImport
@@ -229,7 +229,7 @@ In order to only update (or add) specific field values in a dataset, users can u
 
 Similar to the example above, in the following example a few records will be imported and then edited:
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetImport
@@ -272,7 +272,7 @@ Users can delete records via an import if they have a file or list of record IDs
 
 The following provides an example of Delete via Import:
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetImport
@@ -317,7 +317,7 @@ for r in dataset.query(fields=['name']):
 
 The following provides an example of Delete via Migration:
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetImport

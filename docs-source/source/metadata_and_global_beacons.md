@@ -30,7 +30,7 @@ csv_file.untag('tag1')
 
 Metadata is represented by key/value pairs. While nested value pairs are allowed, users are recommended to use a flat metadata structure.
 
-In Python:
+
 ```Python
 from quartzbio import Vault
 
@@ -88,7 +88,7 @@ The EDP Python and R clients provide the functionality to work with Global Beaco
 
 When working with Global Beacons via API, the output will display the status attribute, which is either indexing, completed, or destroying, as well as the progress\_percent attribute which describes the percentage of the task completed. While indexing is still in progress, users won't be able to perform Global Beacon Search for that dataset. A dataset is available for Global Beacon Search when the progress\_percent is 100 and the status is completed.
 
-In Python:
+
 ```Python
  Getting the dataset
 dataset = Dataset.get_by_full_path('~/beacon-test-dataset')
