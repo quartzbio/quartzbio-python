@@ -10,9 +10,9 @@ __version__ = '1.0.0'
 @click.option('--api-host', help='Override the default QuartzBio API host')
 @click.option('--api-key', help='Manually provide a QuartzBio API key')
 @click.pass_context
-def sync_recipes(ctx, api_key=None, access_token=None, api_host=None):
+def sync_recipes(ctx, access_token=None, api_host=None):
 
-    sb.login(api_key=api_key, access_token=access_token, api_host=api_host,
+    sb.login(access_token=access_token, api_host=api_host,
              version=__version__, name="QuartzBio Recipes")
     user = sb.User.retrieve()
 

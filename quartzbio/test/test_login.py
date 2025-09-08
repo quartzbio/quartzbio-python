@@ -49,7 +49,7 @@ class TestLogin(unittest.TestCase):
         _auth = client._auth
 
         client._auth = None
-        login(api_key="TEST_KEY")
+        login()
         self.assertEqual(client._auth.token, "TEST_KEY")
 
         # Reset the key
