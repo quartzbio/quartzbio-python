@@ -4,9 +4,9 @@
 
 A dataset on the EDP represents a collection of records indexed with a specific schema (i.e. a list of fields). Datasets make it easy to query and filter datasets of any size in real-time.
 
-Datasets can be created with a predefined schema (using a [Dataset template](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606022)) or without any fields. The platform will always detect new fields in imported records and assign data types; however, users are recommended to use templates so that the data types of fields can be set in advance. Records can be added to datasets in multiple ways such as transforming files into datasets, programmatically generating records, or copying records from other datasets using "dataset migrations".
+Datasets can be created with a predefined schema (using a [Dataset template](https://quartzbio.github.io/quartzbio-python/dataset_templates.html#overview)) or without any fields. The platform will always detect new fields in imported records and assign data types; however, users are recommended to use templates so that the data types of fields can be set in advance. Records can be added to datasets in multiple ways such as transforming files into datasets, programmatically generating records, or copying records from other datasets using "dataset migrations".
 
-Datasets are designed to be a flexible and scalable solution for storing structured JSON-compatible data. The molecular data landscape is filled with a large variety of unique file formats, each with its own subtleties and quirks. On the EDP, almost any data source can be imported into a dataset as long as it can be transformed into JSON. The EDP supports many formats, making it easy to import data into a dataset. Once the data has been imported into a dataset, users can take advantage of the many features they offer: scalability, portability, version control, flexibility of schemas, querying and filtering of data as well as annotation and analysis using [Expressions](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023).
+Datasets are designed to be a flexible and scalable solution for storing structured JSON-compatible data. The molecular data landscape is filled with a large variety of unique file formats, each with its own subtleties and quirks. On the EDP, almost any data source can be imported into a dataset as long as it can be transformed into JSON. The EDP supports many formats, making it easy to import data into a dataset. Once the data has been imported into a dataset, users can take advantage of the many features they offer: scalability, portability, version control, flexibility of schemas, querying and filtering of data as well as annotation and analysis using [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html#overview).
 
 ## Creating Datasets
 
@@ -128,7 +128,7 @@ If users add a url\_template value to the dataset field, the dataset table will 
 
 ## Migrating Datasets
 
-Users can perform dataset "migrations" to copy data between or within datasets as well as use Python-based EDP [Expressions](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023) to transform data during migrations. As such, migrations allow users to modify datasets in-place, making it possible to add, edit, and remove fields. All dataset migrations have a source dataset and a target dataset (which can be the same when editing a single dataset).
+Users can perform dataset "migrations" to copy data between or within datasets as well as use Python-based EDP [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html#overview) to transform data during migrations. As such, migrations allow users to modify datasets in-place, making it possible to add, edit, and remove fields. All dataset migrations have a source dataset and a target dataset (which can be the same when editing a single dataset).
 
 ## Copying Datasets
 

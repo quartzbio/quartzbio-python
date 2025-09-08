@@ -16,8 +16,8 @@ Module Documentation
    :caption: Vaults and Files
 
    exporting_data_via_api
-   import_parameters
    importing_data_via_api
+   import_parameters
    vaults_and_objects
 
 .. toctree::
@@ -34,8 +34,8 @@ Module Documentation
    :maxdepth: 2
    :caption: Expressions
 
-   expression_functions
    expressions
+   expression_functions
 
 .. toctree::
    :maxdepth: 2

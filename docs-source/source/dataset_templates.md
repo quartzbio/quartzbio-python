@@ -88,7 +88,7 @@ The following attributes should be added:
 
 The following attributes are optional, but responsible for much of the data transformation:
 
--   `expression` \- The expression that will be evaluated to populate this field's value. Put "value" to use the current value. Users can refer to the [Expressions documentation](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023) for more information. In order to use data from another field (for comparison, splits, etc), users should make sure that they also add it to the list of fields, which will allow them to retrieve it using expression context variables: `record.name_of_field`. Users should also add the field in the depends\_on parameter.
+-   `expression` \- The expression that will be evaluated to populate this field's value. Put "value" to use the current value. Users can refer to the [Expressions documentation](https://quartzbio.github.io/quartzbio-python/expressions.html#overview) for more information. In order to use data from another field (for comparison, splits, etc), users should make sure that they also add it to the list of fields, which will allow them to retrieve it using expression context variables: `record.name_of_field`. Users should also add the field in the depends\_on parameter.
     
 -   `depends_on` \- This is a list of fields that the expression depends on. Users can add any field names here. This will ensure that those fields expressions are evaluated before its dependents. The template creation will fail if there is a circular dependency.
     

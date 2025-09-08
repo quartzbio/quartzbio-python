@@ -29,7 +29,7 @@ The following file formats and extensions are supported:
 
 ## Reader Parameters
 
-EDP automatically detects the file format based on the extension, except for the Nirvana JSON file, and parses the file using a specialized "reader". It is possible to manually specify a reader and modify reader parameters using the [reader\_params](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000629949) attribute of the DatasetImport resource. 
+EDP automatically detects the file format based on the extension, except for the Nirvana JSON file, and parses the file using a specialized "reader". It is possible to manually specify a reader and modify reader parameters using the [reader\_params](https://quartzbio.github.io/quartzbio-python/import_parameters.html) attribute of the DatasetImport resource. 
 
 | Reader  |   Reader name  |    Extension     |
 |---------|----------------|------------------|
@@ -48,7 +48,7 @@ EDP supports GZip compression for all file types. Gzipped files must have the .g
 
 ## Importing from Files
 
-The first step to getting data onto EDP is by uploading files into a vault. Users can refer to the [Vaults documentation](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224) for more information.
+The first step to getting data onto EDP is by uploading files into a vault. Users can refer to the [Vaults documentation](https://quartzbio.github.io/quartzbio-python/vaults_and_objects.html) for more information.
 
 In Python:
 ```Python
@@ -61,7 +61,7 @@ uploaded_file = vault.upload_file('local/path/file.vcf.gz', '/')
 uploaded_file = Object.get_by_full_path('~/file.vcf.gz')
 ```
 
-Once the files have been uploaded, they can be imported into any new or existing dataset ([Learn how to create a dataset](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613900)). To launch an import, users can utilize the DatasetImport method. The user will need to provide the uploaded file and target dataset as inputs. Once the import has been launched, it is possible to track the progress through the API on the web interface through the Activity tab.
+Once the files have been uploaded, they can be imported into any new or existing dataset ([Learn how to create a dataset](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#creating-datasets)). To launch an import, users can utilize the DatasetImport method. The user will need to provide the uploaded file and target dataset as inputs. Once the import has been launched, it is possible to track the progress through the API on the web interface through the Activity tab.
 
 In Python:
 ```Python
@@ -116,7 +116,7 @@ imp = DatasetImport.create(
 dataset.activity(follow=True)
 ```
 
-The EDP can also pull data from DNAnexus, SevenBridges, and many other pipelines. [](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608614)Users can contact QuartzBio Support for more information.
+The EDP can also pull data from DNAnexus, SevenBridges, and many other pipelines. Users can contact QuartzBio Support for more information.
 
 ## Importing from Records
 
@@ -177,11 +177,11 @@ An easy way to upload files to a vault in batches is to use the quartzbio upload
 quartzbio upload ./local_folder
 ```
 
-If multiple files are uploaded, the command will cross-check the files and upload only the missing files and folders. Users should note that comparison is performed by filename, not by file contents. Users can refer to the [Vaults and Objects](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000615717) documentation for more information about batch uploading. 
+If multiple files are uploaded, the command will cross-check the files and upload only the missing files and folders. Users should note that comparison is performed by filename, not by file contents. Users can refer to the [Vaults and Objects](https://quartzbio.github.io/quartzbio-python/vaults_and_objects.html) documentation for more information about batch uploading. 
 
 ## Transforming Imported Data
 
-Imported data can be transformed (fields added or edited) by providing a list of fields to the target\_fields parameter. [Expressions](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023) can be used to dynamically modify the data as it is imported, making it possible to
+Imported data can be transformed (fields added or edited) by providing a list of fields to the target\_fields parameter. [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html) can be used to dynamically modify the data as it is imported, making it possible to
 
 -   Modify data types (numbers to strings or vice-versa)
 -   Add new fields with static or dynamic content
@@ -248,7 +248,7 @@ When importing data, every record is validated to ensure it can be committed int
 
 During validation, a field's data\_type and is\_list values are checked. All records are evaluated (although users may override this to fail fast on the first error). A commit will not be created if there are any validation errors.
 
-The following settings can be passed to the [validation\_params](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000629949) field.
+The following settings can be passed to the [validation\_params](https://quartzbio.github.io/quartzbio-python/import_parameters.html#entity-detection-parameters) field.
 
 -   disable - (boolean) default False - Disables validation completely
 -   raise\_on\_errors - (boolean) default False - Will fail the import on first validation error encountered.

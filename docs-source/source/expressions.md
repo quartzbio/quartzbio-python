@@ -144,7 +144,7 @@ For return values compatible with the required data type, the final result shoul
 
 ## Using Expressions
 
-Most commonly, expressions are used to [transform datasets](https://quartzbio.freshdesk.com/a/solutions/articles/73000614234).
+Most commonly, expressions are used to [transform datasets](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#modifying-fields).
 
 Dataset imports and migrations are asynchronous tasks that can take time to run. There are two ways to run expressions in real time:
 
@@ -173,7 +173,7 @@ expr.evaluate(data=data, data_type='string', is_list=False)
 
 ### Annotating Records
 
-Users can annotate a list of records in real time (i.e. without saving them to a dataset) using the `annotate` endpoint. This provides a way to quickly test one or more expressions on a list of records. To annotate an entire dataset, see [Transforming Datasets](https://quartzbio.freshdesk.com/a/solutions/articles/73000614234).
+Users can annotate a list of records in real time (i.e. without saving them to a dataset) using the `annotate` endpoint. This provides a way to quickly test one or more expressions on a list of records. To annotate an entire dataset, see [Transforming Datasets](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#modifying-fields).
 
 Examples
 
@@ -243,7 +243,7 @@ for r in Annotator(fields=fields).annotate(records):
 
 ## Expression Functions
 
-Users are encouraged to review the [Expression Functions article](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000611524) to access a list of all built-in EDP expression functions along with details about each function.
+Users are encouraged to review the [Expression Functions article](https://quartzbio.github.io/quartzbio-python/expression_functions.html) to access a list of all built-in EDP expression functions along with details about each function.
 
 ## Use Cases
 
@@ -251,16 +251,16 @@ Expressions can be evaluated using the EDP Python and R client libraries, such a
 
 Expression Recipes
 
-Recipes are expressions that are used to add or modify a dataset field and may be accessed from the EDP web interface to insert or modify a column (field) in a dataset. Recipes can also be used to join datasets by adding multiple fields to a dataset from other datasets based on join conditions. Users are recommended to read the [Recipes](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000611683) documentation for an in-depth review of Recipes.
+Recipes are expressions that are used to add or modify a dataset field and may be accessed from the EDP web interface to insert or modify a column (field) in a dataset. Recipes can also be used to join datasets by adding multiple fields to a dataset from other datasets based on join conditions. Users are recommended to read the [Recipes](https://quartzbio.github.io/quartzbio-python/expressions.html#use-cases) documentation for an in-depth review of Recipes.
 
   
 Dataset Templates
 
-Templates describe how data should be transformed. A template is a collection of fields (columns) that describe the desired format of some input data. Templates are used to import, export, query, or migrate data. Expressions can be used in templates for field normalization and transformation, as well as for adding additional fields and annotations to input data. Users are recommended to read the [Dataset Templates](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606022) documentation for an in-depth review of Templates.
+Templates describe how data should be transformed. A template is a collection of fields (columns) that describe the desired format of some input data. Templates are used to import, export, query, or migrate data. Expressions can be used in templates for field normalization and transformation, as well as for adding additional fields and annotations to input data. Users are recommended to read the [Dataset Templates](https://quartzbio.github.io/quartzbio-python/dataset_templates.html) documentation for an in-depth review of Templates.
 
 ## API Endpoints
 
-There are two endpoints that can be used to run expressions in real-time: annotate and evaluate. Annotate can be used to transform a list of records, and evaluate can be used for running individual expressions. These two endpoints are primarily designed for testing expressions and dataset templates but they can also be used when data outside of datasets need to be processed. To annotate entire datasets or imported files, see [Transforming Data](https://quartzbio.freshdesk.com/a/solutions/articles/73000614234). Also, see [Expression Functions](https://quartzbio.freshdesk.com/a/solutions/articles/73000611524) for a list of functions available for use in expressions.
+There are two endpoints that can be used to run expressions in real-time: annotate and evaluate. Annotate can be used to transform a list of records, and evaluate can be used for running individual expressions. These two endpoints are primarily designed for testing expressions and dataset templates but they can also be used when data outside of datasets need to be processed. To annotate entire datasets or imported files, see [Transforming Data](https://quartzbio.freshdesk.com/a/solutions/articles/73000614234). Also, see [Expression Functions](https://quartzbio.github.io/quartzbio-python/expression_functions.html) for a list of functions available for use in expressions.
 
 Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
 

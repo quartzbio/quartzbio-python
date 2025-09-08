@@ -90,7 +90,7 @@ If users were to revert Commit C, then the dataset would be restored to the know
 
 Overview
 
-Archiving gives users the ability to safely store the datasets that they do not use frequently, without consuming their organization's active storage space quota. When users decide that they want to use the dataset again, they can quickly and easily restore it. Depending on the [storage class](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224) used, a dataset may be archived automatically.
+Archiving gives users the ability to safely store the datasets that they do not use frequently, without consuming their organization's active storage space quota. When users decide that they want to use the dataset again, they can quickly and easily restore it. Depending on the [storage class](https://quartzbio.github.io/quartzbio-python/dataset_versioning_via_api.html#archiving-datasets) used, a dataset may be archived automatically.
 
 Permissions
 
@@ -124,7 +124,7 @@ for dataset in folder.datasets(recursive=True):
 
 **Restore**
 
-Restoring the archived dataset can be done using the restore() function on the archived dataset. By default, the Python client will use the "Standard" storage class. However, users may restore to any [storage class](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224) that is available.
+Restoring the archived dataset can be done using the restore() function on the archived dataset. By default, the Python client will use the "Standard" storage class. However, users may restore to any [storage class](https://quartzbio.github.io/quartzbio-python/dataset_versioning_via_api.html#archiving-datasets) that is available.
 
 In Python:
 ```Python
@@ -136,7 +136,7 @@ dataset.restore()
 
 **Switching the Storage Class**
 
-[Storage classes](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224) can be modified from the Python/R clients as follows:
+[Storage classes](https://quartzbio.github.io/quartzbio-python/dataset_versioning_via_api.html#archiving-datasets) can be modified from the Python/R clients as follows:
 
 In Python:
 ```Python
@@ -151,7 +151,7 @@ dataset.save()
 
 **Supporting Archived Datasets**
 
-After the introduction of dataset archiving & restoring and of dataset [storage classes](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224) (December 2020), a dataset may now be in an unavailable state. Scripts and apps must now check for this state before querying or explicitly handling query failures. Both the Dataset and the Object resources now contain the "availability" parameter which returns "available", "unavailable", "restoring" or "archived" for a dataset.
+After the introduction of dataset archiving & restoring and of dataset [storage classes](https://quartzbio.github.io/quartzbio-python/dataset_versioning_via_api.html#archiving-datasets) (December 2020), a dataset may now be in an unavailable state. Scripts and apps must now check for this state before querying or explicitly handling query failures. Both the Dataset and the Object resources now contain the "availability" parameter which returns "available", "unavailable", "restoring" or "archived" for a dataset.
 
 See examples below:
 

@@ -72,7 +72,7 @@ for record in join_query:
 
 ### Advanced Example
 
-The EDP join method enables users to join two datasets whose keys are lists. However, users must apply the explode [expression function](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000611524) before joining:
+The EDP join method enables users to join two datasets whose keys are lists. However, users must apply the explode [expression function](https://quartzbio.github.io/quartzbio-python/expression_functions.html) before joining:
 
 ```Python
 import quartzbio as sb
@@ -110,7 +110,7 @@ The join method has the following attributes:
 
 ### Overview
 
-Both the EDP Python and R client libraries enable users to perform aggregations to build complex summaries of data. Aggregation queries can be run on datasets with the help of facets. Facets can be used to generate aggregated summaries of string (and date) fields as well as numeric fields, and they automatically work on top of [queries and filters](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000612356). Facets can also be nested, which provides an incredibly efficient mechanism to summarize binned or rolled-up data (i.e. data summarized by term or by date).
+Both the EDP Python and R client libraries enable users to perform aggregations to build complex summaries of data. Aggregation queries can be run on datasets with the help of facets. Facets can be used to generate aggregated summaries of string (and date) fields as well as numeric fields, and they automatically work on top of [queries and filters](https://quartzbio.github.io/quartzbio-python/filters.html#overview). Facets can also be nested, which provides an incredibly efficient mechanism to summarize binned or rolled-up data (i.e. data summarized by term or by date).
 
 ### String and Date Aggregations
 

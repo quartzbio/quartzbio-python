@@ -100,7 +100,7 @@ q.filter(info.ORIGIN__gt=4)
 
 ## Entity Filters
 
-EDP-supported [Entities](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000603092) can be used for filtering, without requiring the exact field name that the Entity resides in. The entity filters are only compatible with datasets.
+EDP-supported [Entities](https://quartzbio.github.io/quartzbio-python/metadata_and_global_beacons.html#entities) can be used for filtering, without requiring the exact field name that the Entity resides in. The entity filters are only compatible with datasets.
 
 In Python:
 ```Python

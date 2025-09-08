@@ -2,7 +2,7 @@
 
 ## Overview
 
-The EDP is designed for easy access to molecular information. It provides an easy-to-use, real-time API for querying any dataset or file on the platform through the EDP Python or R client libraries. Users can also use Bash to query datasets. Users can also apply complex filters when querying datasets and files; to learn more about using filters, users can refer to the [Filters](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000614733) documentation.
+The EDP is designed for easy access to molecular information. It provides an easy-to-use, real-time API for querying any dataset or file on the platform through the EDP Python or R client libraries. Users can also use Bash to query datasets. Users can also apply complex filters when querying datasets and files; to learn more about using filters, users can refer to the [Filters](https://quartzbio.github.io/quartzbio-python/filters.html#overview) documentation.
 
 ## Querying Datasets
 
@@ -195,7 +195,7 @@ The request body should contain valid query parameters:
 |      limit      | integer |  The number of results to return per-page.  |
 |     offset      | integer |    The record offset in the result-set.     |
 
-Users can refer to the [Filters documentation](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000614733) for more information about constructing filters.
+Users can refer to the [Filters documentation](https://quartzbio.github.io/quartzbio-python/filters.html) for more information about constructing filters.
 
 The dataset query response has the following structure:
 

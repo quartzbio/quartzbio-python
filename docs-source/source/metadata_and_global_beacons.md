@@ -3,7 +3,7 @@
 
 ## Overview
 
-Users with Write or Admin permissions on vault objects (files, folders, and datasets) have the ability to add tags or metadata to those objects to facilitate data discovery and accessibility. Users with Write or Admin permissions on datasets can also add special labels called entities to fields that contain information such as genes, variants, and samples. To enable users to search for datasets based on the entities they contain, Admins can enable Global Beacons indexing for datasets. For more information about Search tools and data discovery on the EDP, users can refer to the [Data Discovery via API](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598413) documentation.
+Users with Write or Admin permissions on vault objects (files, folders, and datasets) have the ability to add tags or metadata to those objects to facilitate data discovery and accessibility. Users with Write or Admin permissions on datasets can also add special labels called entities to fields that contain information such as genes, variants, and samples. To enable users to search for datasets based on the entities they contain, Admins can enable Global Beacons indexing for datasets. For more information about Search tools and data discovery on the EDP, users can refer to the [Data Discovery via API](https://quartzbio.github.io/quartzbio-python/data_discovery_via.html) documentation.
 
 Tags
 
@@ -47,7 +47,7 @@ Any metadata values that contain URLs will be converted to links on the EDP web 
 
 ## Entities
 
-Entities are special labels for dataset fields that contain specific content, such as genes, variants, vault objects, samples, and more. Entities allow for cross-dataset data harmonization, easy filtering, Global Beacons, and other entity-specific functions. For more information about Entities and Global Beacon Search, users can refer to the [Global Beacon Search](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000603092) documentation.
+Entities are special labels for dataset fields that contain specific content, such as genes, variants, vault objects, samples, and more. Entities allow for cross-dataset data harmonization, easy filtering, Global Beacons, and other entity-specific functions. For more information about Entities and Global Beacon Search, users can refer to the [Global Beacon Search](https://quartzbio.github.io/quartzbio-python/metadata_and_global_beacons.html#global-beacons) documentation.
 
 In the Python client library, entities can be added, removed, or changed for any field on any dataset where the user has to Write access using the fields method:
 
@@ -76,7 +76,7 @@ field.entity_type=None
 field.save()
 ```
 
-Entities can also be added, removed, or switched using the web interface for any dataset to which the user has write access. On the dataset view, any field with an orange label next to the field type is an entity field. Entities can be changed by clicking on the pencil icon. For more information on setting entities via the UI, users can refer to the [Modifying Datasets](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000612157) documentation.
+Entities can also be added, removed, or switched using the web interface for any dataset to which the user has write access. On the dataset view, any field with an orange label next to the field type is an entity field. Entities can be changed by clicking on the pencil icon. For more information on setting entities via the UI, users can refer to the [Modifying Datasets](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#modifying-fields) documentation.
 
 ## Global Beacons
 

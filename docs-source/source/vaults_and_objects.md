@@ -2,7 +2,7 @@
 
 ## Overview
 
-Vaults are similar to filesystems in that they provide a unified directory structure where folders, files, and datasets can be stored. All items in a vault (the folders, [files](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613899), and [datasets](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613900)) are collectively referred to as "objects". All vault objects can be moved, copied, renamed, tagged, and assigned [metadata](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000614235).
+Vaults are similar to filesystems in that they provide a unified directory structure where folders, files, and datasets can be stored. All items in a vault (the folders, [files](https://quartzbio.github.io/quartzbio-python/querying_datasets_and_files.html#querying-files), and [datasets](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#dataset-fields)) are collectively referred to as "objects". All vault objects can be moved, copied, renamed, tagged, and assigned [metadata](https://quartzbio.github.io/quartzbio-python/metadata_and_global_beacons.html#metadata).
 
 Vaults also have an [advanced permission](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000605485) model that provides three different levels of access: read, write, and admin. Vaults can be shared and permissions can be set via the EDP UI; for more information about working with vaults on the web interface as well as vault basics such as vault types, users can refer to the [Vaults via UI](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224) documentation. 
 
@@ -23,7 +23,7 @@ vault_x = Vault.create(name='Vault X')
 
 ## Retrieving Vaults
 
-Users can retrieve any shared vault by name or the full path (e.g. domain:name). The only exception is a user's personal vault which has a special name, ~, which is also its full path. If a vault is shared with a user by someone from another organization, it must be retrieved by its full path (e.g. quartzbio:public). Users can also retrieve multiple vaults matching a given [advanced search query](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000603094) (e.g. user:username). 
+Users can retrieve any shared vault by name or the full path (e.g. domain:name). The only exception is a user's personal vault which has a special name, ~, which is also its full path. If a vault is shared with a user by someone from another organization, it must be retrieved by its full path (e.g. quartzbio:public). Users can also retrieve multiple vaults matching a given [advanced search query](https://quartzbio.github.io/quartzbio-python/vaults_and_objects.html#advanced-search) (e.g. user:username). 
 
 In Python:
 
