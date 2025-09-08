@@ -2,7 +2,6 @@
 
 .. mdinclude:: ../../README.md
 
-
 Module Documentation
 ====================
 
@@ -51,7 +50,12 @@ Module Documentation
 
    filters
    querying_datasets_and_files
-   
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Changelog
+
+   changelog
 
 Indices and tables
 ==================
