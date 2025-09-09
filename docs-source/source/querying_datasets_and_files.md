@@ -49,7 +49,7 @@ Dataset queries can be saved and then used to make queries on datasets with a si
 
 For example, users may save a query for a set of interesting genes. They can then make this query available for all datasets that contain genes. If shared with other users in the organization, they will also be able to apply this query.
 
-The Saved Queries API
+### The Saved Queries API
 
 To retrieve Saved Queries that apply to a dataset, or all those available:
 
@@ -174,7 +174,7 @@ clinvar.query(output_format='json')
 
 Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
 
-Dataset Query
+### Dataset Query
 
 | Method |             HTTP Request              |   Description    |                                     Authorization                                     |                         Response                          |
 |--------|---------------------------------------|------------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------|
@@ -209,7 +209,7 @@ The dataset query response has the following structure:
 |    took     | integer |  Time to retrieve the records, in miliseconds.  |
 |    total    | integer | The total number of records in the result-set.  |
 
-Saved Queries
+### Saved Queries
 
 | Method |                   HTTP Request                    |       Description       |                       Authorization                       |                   Response                   |
 |--------|---------------------------------------------------|-------------------------|-----------------------------------------------------------|----------------------------------------------|

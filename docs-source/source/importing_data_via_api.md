@@ -325,7 +325,7 @@ Some dataset field expressions are more expensive than others. Dataset query exp
 
 Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
 
-Dataset Imports
+### Dataset Imports
 
 | Method |                  HTTP Request                   |              Description               |                                 Authorization                                  |                                            Response                                             |
 |--------|-------------------------------------------------|----------------------------------------|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|

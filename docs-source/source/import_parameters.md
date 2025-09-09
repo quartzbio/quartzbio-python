@@ -1,6 +1,6 @@
 # Import Parameters
 
-Overview
+## Overview
 
 EDP's [import system](https://quartzbio.github.io/quartzbio-python/importing_data_via_api.html) accepts optional parameters for the Reader, [Entity Detection](https://quartzbio.github.io/quartzbio-python/import_parameters.html#entity-detection-parameters), Validation, and the Annotator.  
 
@@ -52,7 +52,7 @@ The last character in the file may be a line separator, and it will be treated t
 
 JSON Lines files for EDP must be saved with the .json extension. Files may be gzipped, resulting in the .json.gz extension.
 
-CSV/TSV
+**CSV/TSV**
 
 The following parameters can be passed for files that end with extension .csv, .tsv, and .txt.
 
@@ -87,7 +87,7 @@ imp = DatasetImport.create(
 )
 ```
 
-Excel
+**Excel**
 
 The following parameters can be passed for files that end with extension .xlsx and .xsl:
 
@@ -115,7 +115,7 @@ The following parameters can be passed for files that end with extension .xlsx a
 -   na\_filter: Boolean. Whether to detect missing value markers (empty strings and the value of na\_values). Default is True.
     -   In data without any NAs, passing na\_filter=False can improve the performance of reading a large file.
 
-VCF
+**VCF**
 
 The following parameters can be passed for files that end with extension .vcf.
 
@@ -124,7 +124,7 @@ The following parameters can be passed for files that end with extension .vcf.
 -   annotations\_key: The field name that contains the VCF annotations. For use with explode\_annotations parameter. The default key is ANN.
 -   sample\_key: The field name that the VCF parser will output the VCF samples to. The default key is sample.
 
-XML
+**XML**
 
 The following parameters can be passed for files that end with extension .xml.
 
@@ -188,13 +188,13 @@ For the above example:
 
 -   item\_depth=1 and required\_keys=\['dust'\] would parse 1 shelf record.
 
-GFF3
+**GFF3**
 
 The following parameters can be passed for files that end with extension .gff3.
 
 -   comment: A string used to determine which lines in the files are comments. Lines that begin with this string will be ignored. Default is '##'.
 
-Nirvana JSON
+**Nirvana JSON**
 
 The Nirvana JSON format supported by EDP has to meet the official Illumina's Nirvana JSON layout in order to be parsed properly.
 
@@ -226,7 +226,7 @@ imp = DatasetImport.create(
 )
 ```
 
-Validation Parameters
+### Validation Parameters
 
 The following settings can be passed to the validation\_params field.
 
@@ -252,7 +252,7 @@ Errors:
 -   \[305\] Infinity Value for Field: Value is a JSON "Infinity" value which can not be indexed by EDP.
 -   \[306\] Max String Length for Field: The max value for the string data\_type is 32,766 bytes. Anything larger must be a text data\_type.
 
-Annotator Parameters
+### Annotator Parameters
 
 The following settings can be used to customize the annotator that is used during transformation with the annotator\_params attribute.
 

@@ -71,7 +71,7 @@ dataset.export(target_full_path='my_vault:/path/to/json_files_folder/my_export')
 
 An example file size for a CSV file with 150M rows and 50 columns populated with floats and relatively short strings is about 50GB. In general, users are recommended not to work with files this size directly and instead to shrink the export by applying filters or selecting only specific columns. If necessary, users can also export in batches (e.g. export by chromosome or sample).
 
-Export a Filtered Dataset  
+### Export a Filtered Dataset  
 
 Users can leverage the [dataset filtering](https://quartzbio.github.io/quartzbio-python/filters.html) system to export a slice of a dataset:
 

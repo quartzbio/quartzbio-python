@@ -5,7 +5,7 @@
 
 Users with Write or Admin permissions on vault objects (files, folders, and datasets) have the ability to add tags or metadata to those objects to facilitate data discovery and accessibility. Users with Write or Admin permissions on datasets can also add special labels called entities to fields that contain information such as genes, variants, and samples. To enable users to search for datasets based on the entities they contain, Admins can enable Global Beacons indexing for datasets. For more information about Search tools and data discovery on the EDP, users can refer to the [Data Discovery via API](https://quartzbio.github.io/quartzbio-python/data_discovery_via.html) documentation.
 
-Tags
+## Tags
 
 Tags are case-insensitive lists of strings. Tags can be used to filter and search for objects.
 

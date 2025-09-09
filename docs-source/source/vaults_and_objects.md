@@ -289,7 +289,7 @@ folder.delete()
 
 Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
 
-Vaults
+### Vaults
 
 
 
@@ -323,7 +323,7 @@ In the request body, provide a valid Vault object (see create above).
 |--------|-------------------------------------------|------------------------------|-----------------------------------------------------------------------------------------|-----------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/vaults/{ID} | Retrieve a vault's metadata. | This request requires an authorized user with "read" permission or higher on the vault. | The response contains a Vault resource. |
 
-Objects
+### Objects
 
 | Method |              HTTP Request              |    Description    |                                                     Authorization                                                     |                    Response                     |
 |--------|----------------------------------------|-------------------|-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------|

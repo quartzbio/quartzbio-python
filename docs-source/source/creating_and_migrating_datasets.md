@@ -116,7 +116,7 @@ field.description = "A new description"
 field.save()
 ```
 
-URL Template
+### URL Template
 
 If users add a url\_template value to the dataset field, the dataset table will show the value as a link in the EDP UI. This is useful for linking to other sources/websites. The dataset below has links for the gene and variant pages on EDP:
 
@@ -182,7 +182,7 @@ migration = dataset.migrate(target=dataset, target_fields=target_fields)
 
 Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
 
-Datasets
+### Datasets
 
 | Method |              HTTP Request               |    Description    |                                  Authorization                                   |                     Response                     |
 |--------|-----------------------------------------|-------------------|----------------------------------------------------------------------------------|--------------------------------------------------|
@@ -209,7 +209,7 @@ Request Body:
 |--------|------------------------------------------------------|------------------------------------|--------------------------------------------------------------------------------------|-------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID} | Retrieve metadata about a dataset. | This request requires an authorized user with permission to view the target dataset. | The response contains a Dataset resource. |
 
-Dataset Fields
+### Dataset Fields
 
 | Method |                  HTTP Request                  |       Description       |                                 Authorization                                  |                       Response                        |
 |--------|------------------------------------------------|-------------------------|--------------------------------------------------------------------------------|-------------------------------------------------------|
@@ -271,7 +271,7 @@ Request Body
 
 In the request body, provide a valid DatasetField object (see _create_ above).
 
-Dataset Migrations
+### Dataset Migrations
 
 | Method |                    HTTP Request                    |         Description         |                                                            Authorization                                                             |                        Response                        |
 |--------|----------------------------------------------------|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|

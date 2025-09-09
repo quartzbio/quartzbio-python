@@ -44,7 +44,7 @@ Dataset.retrieve(<DATASET ID>).activity(follow=True, limit=30)
 
 ## Reverting Datasets
 
-Overview
+### Overview
 
 Dataset commits are the backbone of EDP's datastore and represent a change log of modifications to a dataset. A dataset commit represents all changes made to the target dataset by the import/migration/delete process.
 
@@ -52,7 +52,7 @@ All of these changes can be reverted by creating a rollback commit. All commits 
 
 The parent commit of a rollback commit is the commit to be reverted.
 
-Rollbacks
+### Rollbacks
 
 A rollback commit represents a revert of a commit. The rollback commit will do different things depending on the mode of the parent commit. It may delete records, index a rollback file, or both.
 
@@ -88,19 +88,19 @@ If users were to revert Commit C, then the dataset would be restored to the know
 
 ## Archiving Datasets
 
-Overview
+### Overview
 
 Archiving gives users the ability to safely store the datasets that they do not use frequently, without consuming their organization's active storage space quota. When users decide that they want to use the dataset again, they can quickly and easily restore it. Depending on the [storage class](https://quartzbio.github.io/quartzbio-python/dataset_versioning_via_api.html#archiving-datasets) used, a dataset may be archived automatically.
 
-Permissions
+### Permissions
 
 A user must have write [permissions](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000605647) on the vault in order to archive or restore a dataset.
 
-Querying
+### Querying
 
 Archived datasets currently cannot be queried and will raise an error if a query is attempted. Users can check if a dataset is archived by checking its availability parameter. The value will be available, unavailable, or archived.
 
-Examples
+### Examples
 
 Users can easily archive and restore a dataset through the UI or through the API (via Python or R).
 
@@ -180,7 +180,7 @@ for dataset in datasets:
 
 Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
 
-Dataset Commits
+### Dataset Commits
 
 Dataset commits cannot be directly created. Commits are generated only from dataset imports.
 
@@ -212,7 +212,7 @@ Request Body:
 
 In the request body, provide a valid DatasetCommit object with status = canceled.
 
-Dataset Restore Tasks
+### Dataset Restore Tasks
 
 | Method |                             HTTP Request                              |                   Description                   |                                    Authorization                                    |                       Response                       |
 |--------|-----------------------------------------------------------------------|-------------------------------------------------|-------------------------------------------------------------------------------------|------------------------------------------------------|
@@ -222,7 +222,7 @@ Dataset Restore Tasks
 |--------|-----------------------------------------------------|-----------------------------------------------------|--------------------------------------------------------------------------------------|---------------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/dataset\_restore\_tasks | Retrieve a list of available dataset restore tasks. | This request requires an authorized user with read permission for the restore tasks. | The response contains a list of DatasetRestoreTask resources. |
 
-Dataset Snapshot Tasks
+### Dataset Snapshot Tasks
 
 Dataset snapshot tasks can not be created directly. They are created when a dataset's storage class is set to Archive.
 
