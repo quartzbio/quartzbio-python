@@ -8,7 +8,7 @@ The EDP is designed for easy access to molecular information. It provides an eas
 
 Dataset query results are returned in pages, similar to a search engine. To narrow down search results, datasets can be filtered on one or more fields. Users can either build queries using a programming language (or even write raw JSON) or by building them directly on any dataset page in the EDP web application. The easiest way to query datasets is by using the EDP Python or R client libraries. 
 
-A basic query returns a page of results from the specified public dataset. Users can set the paginate parameter to True to retrieve all records or use the limit parameter to specify how many records to retrieve. Users should note that in the R client, the limit parameter allows users to retrieve a maximum of 10,000 records in a single request. Additionally, the query function accepts the following parameters:
+A basic query returns a page of results from the specified public dataset. Users can set the `paginate_parameter` to True to retrieve all records or use the limit parameter to specify how many records to retrieve. Users should note that in the R client, the limit parameter allows users to retrieve a maximum of 10,000 records in a single request. Additionally, the query function accepts the following parameters:
 
 |    Parameter    |  Value  |                                                                                                                                  Description                                                                                                                                   |
 |-----------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -123,7 +123,7 @@ All fields from the file can be retrieved by calling the fields method:
 fields = Object.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz').query().fields()
 ```
 
-Users can also use the download\_url() method to load files into readers such as pandas:
+Users can also use the `download_url()` method to load files into readers such as pandas:
 
 
 ```Python
@@ -154,7 +154,7 @@ File querying is only supported for the following file extensions and compressio
 
 The only supported encoding is UTF-8.
 
-The output format of the query can be provided by using the output\_format parameter which can be one of the following:
+The output format of the query can be provided by using the `output_format` parameter which can be one of the following:
 
 | **Output Format**  |                       **Description**                        |
 |----------------|----------------------------------------------------------|

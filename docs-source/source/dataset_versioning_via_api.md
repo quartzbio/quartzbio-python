@@ -26,7 +26,7 @@ Some use cases may require waiting until a dataset is idle. A dataset is idle wh
 
 This can be done synchronously using the follow parameter. This parameter continually loops through all dataset activity until the dataset is idle.
 
-The function sleeps in between each check for activity. The default is 3 seconds and can be modified using the sleep\_seconds parameter.
+The function sleeps in between each check for activity. The default is 3 seconds and can be modified using the `sleep_seconds` parameter.
 
 The function also limits the activity check to one task. This can be modified using the limit parameter.
 
@@ -56,7 +56,7 @@ The parent commit of a rollback commit is the commit to be reverted.
 
 A rollback commit represents a revert of a commit. The rollback commit will do different things depending on the mode of the parent commit. It may delete records, index a rollback file, or both.
 
-A rollback file is generated for overwrite, upsert, and delete modes. This file is generated right before records are committed, by querying the current state of the dataset and storing those records in a file. This file is stored with the commit object and used when creating a rollback commit. 
+A rollback file is generated for overwrite, upsert, and delete models. This file is generated right before records are committed, by querying the current state of the dataset and storing those records in a file. This file is stored with the commit object and used when creating a rollback commit. 
 
 | **Commit Mode** |                                          **Description**                                           |
 |-------------|------------------------------------------------------------------------------------------------|
@@ -106,7 +106,7 @@ Users can easily archive and restore a dataset through the UI or through the API
 
 **Archiving**
 
-A Dataset can be archived using the archive() function within Python, or by changing the storage class to "Archive" within the R client.
+A Dataset can be archived using the `archive()` function within Python, or by changing the storage class to "Archive" within the R client.
 
 
 ```Python
@@ -124,7 +124,7 @@ for dataset in folder.datasets(recursive=True):
 
 **Restore**
 
-Restoring the archived dataset can be done using the restore() function on the archived dataset. By default, the Python client will use the "Standard" storage class. However, users may restore to any [storage class](https://quartzbio.github.io/quartzbio-python/dataset_versioning_via_api.html#archiving-datasets) that is available.
+Restoring the archived dataset can be done using the `restore()` function on the archived dataset. By default, the Python client will use the "Standard" storage class. However, users may restore to any [storage class](https://quartzbio.github.io/quartzbio-python/dataset_versioning_via_api.html#archiving-datasets) that is available.
 
 
 ```Python

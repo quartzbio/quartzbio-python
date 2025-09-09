@@ -8,7 +8,7 @@ EDP's [import system](https://quartzbio.github.io/quartzbio-python/importing_dat
 
 The EDP will automatically select a reader based on the imported file's extension. This is not applicable to the Nirvana JSON file because it has the same extension as the JSONL file (.json), so the reader attribute has to be set manually to nirvana.
 
-In the case where the extension is not recognized, users can manually select a reader using the reader attribute of reader\_params by setting the associated reader name as its value:
+In the case where the extension is not recognized, users can manually select a reader using the reader attribute of [reader\_params](https://quartzbio.github.io/quartzbio-python/import_parameters.html#reader-parameters) by setting the associated reader name as its value:
 
 ```
 # Force the JSONL reader
@@ -26,13 +26,13 @@ imp = DatasetImport.create(
 
 The JSONL format supported by EDP has four requirements (adapted from [jsonlines.org](http://jsonlines.org/)):
 
-1\. UTF-8 encoding
+1\. **UTF-8 encoding**
 
-JSON allows encoding Unicode strings with only ASCII escape sequences; however, those escapes will be hard to read when viewed in a text editor. The author of the JSON Lines file may choose to escape characters to work with plain ASCII files.
+JSON allows encoding Unicode strings with only ASCII escape sequences. However, those escapes will be hard to read when viewed in a text editor. The author of the JSON Lines file may choose to escape characters to work with plain ASCII files.
 
 Non-ascii content may be corrupted during the import process if non-UTF-8 files are imported.
 
-2\. Each line must be a complete JSON object
+2\. **Each line must be a complete JSON object**
 
 Specifically, each line must be a JSON object without any internal line-breaks. For example, here are three records:
 
@@ -42,15 +42,15 @@ Specifically, each line must be a JSON object without any internal line-breaks. 
 {"field": 3}
 ```
 
-3\. Lines are separated by '\\n'
+3\. **Lines are separated by '\\n'**
 
 This means '\\r\\n' is also supported because trailing white space is ignored when parsing JSON values.
 
 The last character in the file may be a line separator, and it will be treated the same as if there was no line separator present.
 
-4\. The file extension must be .json or .json.gz
+4\. **The file extension must be .json or .json.gz**
 
-JSON Lines files for EDP must be saved with the .json extension. Files may be gzipped, resulting in the .json.gz extension.
+JSON Lines files for EDP `must be saved with the .json extension`. Files may be gzipped, resulting in the .json.gz extension.
 
 **CSV/TSV**
 
@@ -196,11 +196,11 @@ The following parameters can be passed for files that end with extension .gff3.
 
 **Nirvana JSON**
 
-The Nirvana JSON format supported by EDP has to meet the official Illumina's Nirvana JSON layout in order to be parsed properly.
+The Nirvana JSON format supported by EDP has to meet the [official Illumina's Nirvana JSON layout](https://illumina.github.io/NirvanaDocumentation/file-formats/nirvana-json-file-format/) in order to be parsed properly.
 
 ## Entity Detection Parameters
 
-When importing data, every field is sampled and to determine if it is an EDP entity. The following configuration parameters allow for customization of this detection by setting entity\_params on the import object.
+When importing data, every field is sampled and to determine if it is an EDP entity. The following configuration parameters allow for customization of this detection by setting [entity\_params](https://quartzbio.github.io/quartzbio-python/import_parameters.html#entity-detection-parameters) on the import object.
 
 Genes and variants are detected by default. The example below overrides this and attempts to detect only genes and literature entities:
 
@@ -228,7 +228,7 @@ imp = DatasetImport.create(
 
 ### Validation Parameters
 
-The following settings can be passed to the validation\_params field.
+The following settings can be passed to the `validation_params` field.
 
 -   disable - (boolean) default False - Disables validation completely
 -   raise\_on\_errors - (boolean) default False - Will fail the import on first validation error encountered.
@@ -237,7 +237,7 @@ The following settings can be passed to the validation\_params field.
 
 Validation will raise the following errors and warnings. The list below represents them in the following format: \[Error code\] Name - Description
 
-Warnings:
+**Warnings:**
 
 -   \[202\] Column Name Warning: Column name uses characters that do not comply with strict column name validation. (upgraded to an Error if strict\_validation=True)
 -   \[203\] New Column added: A new column was added to the Dataset (upgraded to an Error if strict\_validation=True and allow\_new\_fields=False)
@@ -245,7 +245,7 @@ Warnings:
 -   \[303\] Unexpected List violation: A column expected a single value but received a list of values. For example a field has is\_list=False but received a list of strings. (upgraded to an Error if strict\_validation=True)
 -   \[400\] Too Many Columns in record: Warns if 150 or more columns are found. Errors if 400 or more.
 
-Errors:
+**Errors:**
 
 -   \[301\] Invalid Value for Field: Value is not a valid type (e.g. An integer passed for a date field data\_type)
 -   \[304\] NaN Value for Field: Value is a JSON "NaN" value which can not be indexed by EDP.
@@ -254,7 +254,7 @@ Errors:
 
 ### Annotator Parameters
 
-The following settings can be used to customize the annotator that is used during transformation with the annotator\_params attribute.
+The following settings can be used to customize the annotator that is used during transformation with the `annotator_params` attribute.
 
 -   annotator - (string) Choose from "simple" (default), "serial", or "parallel".  
     

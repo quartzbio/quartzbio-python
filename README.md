@@ -83,7 +83,7 @@ If not specified the value from the local credentials file will be used.
 `QUARTZBIO_ACCESS_TOKEN` 
 - The OAuth2 access token for authenticating with the API.
 
-The lookup order for credentials is:
+**The lookup order for credentials is:**
 1. Access Token environment variable
 2. API Key environment variable
 3. Local Credentials file entry for the specific API host

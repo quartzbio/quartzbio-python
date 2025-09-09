@@ -4,11 +4,11 @@
 
 Vaults are similar to filesystems in that they provide a unified directory structure where folders, files, and datasets can be stored. All items in a vault (the folders, [files](https://quartzbio.github.io/quartzbio-python/querying_datasets_and_files.html#querying-files), and [datasets](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#dataset-fields)) are collectively referred to as "objects". All vault objects can be moved, copied, renamed, tagged, and assigned [metadata](https://quartzbio.github.io/quartzbio-python/metadata_and_global_beacons.html#metadata).
 
-Vaults also have an [advanced permission](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000605485) model that provides three different levels of access: read, write, and admin. Vaults can be shared and permissions can be set via the EDP UI; for more information about working with vaults on the web interface as well as vault basics such as vault types, users can refer to the [Vaults via UI](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224) documentation. 
+Vaults also have an [advanced permission](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000605485) model that provides three different levels of access: `read`, `write`, and `admin`. Vaults can be shared and permissions can be set via the EDP UI; for more information about working with vaults on the web interface as well as vault basics such as vault types, users can refer to the [Vaults via UI](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224) documentation. 
 
 ## Creating Vaults
 
-Users can create a vault as long as it has a unique name within their account domain. Vault and object names are case-insensitive. Once users create a vault, they'll be able to add folders, upload files, and create datasets. To be safe, a special method is provided to retrieve the vault by name if it already exists:
+Users can create a vault as long as it has a unique name within their account domain. Vault and object names are `case-insensitive`. Once users create a vault, they'll be able to add folders, upload files, and create datasets. To be safe, a special method is provided to retrieve the vault by name if it already exists:
 
 In Python:
 ```Python
@@ -51,7 +51,7 @@ specific_user_vaults = Vault.all(query='user:john')
 
 ## Creating Folders
 
-Folders can only be created within a vault for which the user has write-level permission. Folder names are case-insensitive. If a user attempts to create a folder with a duplicate name, the vault will add an incrementing number to the name (i.e. folder, folder-1, folder-2, ...).
+Folders can only be created within a vault for which the user has write-level permission. Folder names are `case-insensitive`. If a user attempts to create a folder with a duplicate name, the vault will add an incrementing number to the name (i.e. folder, folder-1, folder-2, ...).
 
 
 ```Python
@@ -66,9 +66,9 @@ folder = vault.create_folder('new-folder', path='/')
 
 ## Uploading Files
 
-Users can upload files to any vault to which they have write-level access. File names are case-insensitive. Uploading a file with a duplicate name (or the same name as a folder) will cause the new file's name to be auto-incremented (i.e. file, file-1, file-2, ...).
+Users can upload files to any vault to which they have write-level access. File names are `case-insensitive`. Uploading a file with a duplicate name (or the same name as a folder) will cause the new file's name to be auto-incremented (i.e. file, file-1, file-2, ...).
 
-There is no maximum upload size limit. Users are recommended to gzip their files before uploading if they are large.
+**There is no maximum upload size limit**. Users are recommended to gzip their files before uploading if they are large.
 
 
 
@@ -84,7 +84,7 @@ vault.upload_file('local/path/data.csv', '/')
 
 ## Batch Uploading (Python Only)
 
-Users can upload many files at once using the upload command built into EDP's Python module. This command is designed to be "idempotent", which means that if called more than once it will cross-check the files and upload only the local files and folders that do not yet exist in the vault. The comparison is performed by file name and by file md5.
+Users can upload many files at once using the upload command built into EDP's Python module. This command is designed to be "idempotent", which means that if called more than once it will cross-check the files and upload only the local files and folders that do not yet exist in the vault. The comparison is performed by `file name` and by `file md5`.
 
 In Terminal:
 
@@ -217,14 +217,13 @@ files = folder.files(recursive=True)
 
 ## Advanced Search
 
-Users can list all objects within a vault that match a specific pattern (i.e. find all the files within a certain folder) by providing a case-insensitive regular expression to the regex parameter. It is highly recommended to use Object.search() instead of searching by regular expression, unless it is absolutely necessary.
+Users can list all objects within a vault that match a specific pattern (i.e. find all the files within a certain folder) by providing a `case-insensitive` regular expression to the regex parameter. It is highly recommended to use `Object.search()` instead of searching by regular expression, unless it is absolutely necessary.
 
 
-
-from quartzbio import Vault
-from quartzbio import Object
 
 ```Python
+from quartzbio import Vault
+from quartzbio import Object
 # Get the public vault
 public_vault = Vault.get_by_full_path('quartzbio:public')
 # Find datasets using regex
@@ -269,7 +268,7 @@ for file_ in files:
 
 ## Deleting Vaults and Objects
 
-Users can delete any vault or object (file, folder, or dataset) that they have admin-level permissions on. Deleting a vault or folder will automatically delete all its contents.
+Users can delete any vault or object (file, folder, or dataset) that they have admin-level permissions on. **Deleting a vault or folder will automatically delete all its contents.**
 
 
 ```Python

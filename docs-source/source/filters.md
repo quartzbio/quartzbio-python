@@ -40,7 +40,7 @@ Filters can be modified using "filter actions", which let users adjust the condi
 
 Some filter actions (`range`, `gt`, `lt`, `gte`, `lte`) may only be used on numeric and date fields.
 
-Full-text fields use the `contains` filter action by default and act like a typical search would. Results are ordered by relevance based on the provided search terms. When using the `contains` action on string fields, the system converts the filter into a regular expression: `.*{VALUE}.*`, which is equivalent to the SQL expressions %{VALUE}%.
+Full-text fields use the `contains` filter action by default and act like a typical search would. Results are ordered by relevance based on the provided search terms. When using the `contains` action on string fields, the system converts the filter into a regular expression: `.*{VALUE}.*`, which is equivalent to the SQL expressions `%{VALUE}%`.
 
 ## String Filters
 
@@ -67,7 +67,7 @@ q.filter(gene__prefix='BRCA')
 
 ## Text Filters
 
-Long (paragraph-length) fields typically use the `text` data type. The "`contains"` filter in text fields works more like a search than a filter. Results that match the search term are brought back in the order of relevance.
+Long (paragraph-length) fields typically use the `text` data type. The `"contains"` filter in text fields works more like a search than a filter. Results that match the search term are brought back in the order of relevance.
 
 
 ```Python
@@ -115,7 +115,7 @@ clinvar.query(entities=[['variant', 'GRCH37-13-32890599-32890599-C']])
 
 ## Genomic Coordinate Filters
 
-A dataset's genomic build is indicated by the suffix of the dataset's full\_path. The genomic coordinate filters are only compatible with datasets.
+A dataset's genomic build is indicated by the suffix of the dataset's `full_path`. The genomic coordinate filters are only compatible with datasets.
 
 
 ```Python
@@ -169,7 +169,7 @@ Query strings are parsed into a series of terms and operators. A query string c
 
 Terms in a query string can be single words - "quick" or "brown" - or a phrase surrounded by double quotes - "quick brown" - which will search for all the words in the phrase, in the same order. The query syntax is based on the [Lucene query syntax](https://lucene.apache.org/core/2_9_4/queryparsersyntax.html).
 
-Queries are useful to find records that best match a word or phrase, relative to others. Filters are designed to reduce the potential result set by asking yes/no questions on every record in a dataset.
+Queries are useful to find records that best match a word or phrase, relative to others. Filters are designed to reduce the potential result set by asking `yes/no` questions on every record in a dataset.
 
 Query string operators allow users to customize a search. The available options are explained below:
 
@@ -315,7 +315,7 @@ The advanced filter syntax is composed of the following elements:
 -   `{VALUE}` can be a string, numeric, or list value.
     
 
-By default, a `{FIELD}` with no attached `{ACTION}` implies the "case-insensitive equals" (`iexact`) operator. Full-text (`text` data type) fields automatically use the "`contains"` filter action instead.
+By default, a `{FIELD}` with no attached `{ACTION}` implies the "case-insensitive equals" (`iexact`) operator. Full-text (`text` data type) fields automatically use the `"contains"` filter action instead.
 
 String and text actions include:
 

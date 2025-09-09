@@ -2,9 +2,9 @@
 
 ## Overview
 
-A dataset on the EDP represents a collection of records indexed with a specific schema (i.e. a list of fields). Datasets make it easy to query and filter datasets of any size in real-time.
+A dataset on the EDP represents a collection of records indexed with a specific schema (i.e. a list of fields). Datasets make it easy to query and filter datasets of **any size in real-time**.
 
-Datasets can be created with a predefined schema (using a [Dataset template](https://quartzbio.github.io/quartzbio-python/dataset_templates.html#overview)) or without any fields. The platform will always detect new fields in imported records and assign data types; however, users are recommended to use templates so that the data types of fields can be set in advance. Records can be added to datasets in multiple ways such as transforming files into datasets, programmatically generating records, or copying records from other datasets using "dataset migrations".
+Datasets can be created with a predefined schema (using a [Dataset template](https://quartzbio.github.io/quartzbio-python/dataset_templates.html#overview)) or without any fields. The platform will always detect new fields in imported records and assign data types. However, users are recommended to use templates so that the data types of fields can be set in advance. Records can be added to datasets in multiple ways such as transforming files into datasets, programmatically generating records, or copying records from other datasets using [dataset migrations](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#migrating-datasets).
 
 Datasets are designed to be a flexible and scalable solution for storing structured JSON-compatible data. The molecular data landscape is filled with a large variety of unique file formats, each with its own subtleties and quirks. On the EDP, almost any data source can be imported into a dataset as long as it can be transformed into JSON. The EDP supports many formats, making it easy to import data into a dataset. Once the data has been imported into a dataset, users can take advantage of the many features they offer: scalability, portability, version control, flexibility of schemas, querying and filtering of data as well as annotation and analysis using [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html#overview).
 
@@ -47,7 +47,7 @@ When creating the dataset, users can supply a number of optional parameters:
 -   metadata: A dictionary of key/value pairs that can be associated with the dataset.
 -   tags: A list of strings (tags) that can be associated with the dataset.
 
-Once the dataset is created it will be empty (containing no records) and consist of the default EDP \_id field and any other fields that may have been added to the fields parameter. Fields beginning with an underscore such as \_id and \_commit are considered reserved and may be modified during an import. The \_id field represents the unique ID for each record, which can be used to edit or delete individual records. The value of \_id cannot be edited once a record is saved. The \_commit field is always reset during the commit process and makes it possible to track and log all changes made to a Dataset. 
+Once the dataset is created it will be empty (containing no records) and consist of the default EDP \_id field and any other fields that may have been added to the fields parameter. Fields beginning with an underscore such as \_id and \_commit are considered reserved and may be modified during an import. The \_id field represents the unique ID for each record, which can be used to **edit** or **delete** individual records. The value of \_id cannot be edited once a record is saved. The \_commit field is always reset during the commit process and makes it possible to track and log all changes made to a Dataset. 
 
 ## Dataset Fields
 
@@ -57,7 +57,7 @@ Dataset fields have the following properties:
 
 |    **Property**     |      **Value**      |                                                                                         **Description**                                                                                          |
 |-----------------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name (required) |     string      |                                                                The "low-level" field name, is used in JSON-formatted records.                                                                |
+| name (**required**) |     string      |                                                                The "low-level" field name, is used in JSON-formatted records.                                                                |
 |   data\_type    |     string      |                                                                                      A valid data type.                                                                                      |
 |   description   |     string      |                                                                     Free text that describes the contents of the field.                                                                      |
 |  entity\_type   |     string      |                                                                                   A valid EDP entity type.                                                                                   |
@@ -118,11 +118,11 @@ field.save()
 
 ### URL Template
 
-If users add a url\_template value to the dataset field, the dataset table will show the value as a link in the EDP UI. This is useful for linking to other sources/websites. The dataset below has links for the gene and variant pages on EDP:
+If users add a `url_template` value to the dataset field, the dataset table will show the value as a link in the EDP UI. This is useful for linking to other sources/websites. The dataset below has links for the gene and variant pages on EDP:
 
 [![](https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/73063228026/original/KQ21JSo_ifuMQ4KCmFXzIZ4f9JLUaVWSLw.png?1689112995)](https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/73063228026/original/KQ21JSo_ifuMQ4KCmFXzIZ4f9JLUaVWSLw.png?1689112995)
 
-**URL Template**: Adding a value to the url\_template property of a field will link it to the field values in the EDP web interface.  
+**URL Template**: Adding a value to the `url_template` property of a field will link it to the field values in the EDP web interface.  
 
 
 ## Migrating Datasets
@@ -150,7 +150,7 @@ query.migrate(target=target)
 
 ## Modifying Fields
 
-The title, description, url\_template, ordering, and entity\_type of a field can be modified at any time. Field names cannot be renamed and fields cannot be removed in-place, though they can be hidden by setting the is\_hidden parameter to TRUE. To change the name of a field, users must perform a dataset migration to create a new field with the desired name in the cloned dataset. Similarly, to remove a field from a dataset, it must be cloned to a new dataset that does not have the field the user intends to delete. For more information about modifying datasets, users can refer to the [Modifying Datasets](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000612157) documentation.
+The title, description, url\_template, ordering, and entity\_type of a field can be modified at any time. Field names cannot be renamed and fields cannot be removed in-place, though they can be hidden by setting the `is_hidden` parameter to TRUE. To change the name of a field, users must perform a dataset migration to create a new field with the desired name in the cloned dataset. Similarly, to remove a field from a dataset, it must be cloned to a new dataset that does not have the field the user intends to delete. For more information about modifying datasets, users can refer to the [Modifying Datasets](https://quartzbio.github.io/quartzbio-python/transforming_datasets.html#modifying-fields) documentation.
 
 The following example renames the field of the dataset through a dataset migration:
 

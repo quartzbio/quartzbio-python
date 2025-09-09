@@ -3,7 +3,7 @@
 
 ## Overview
 
-Dataset templates describe how data should be transformed. A template is a collection of fields (columns) that describe the desired format of some input data. Templates are used to import files, export, query or migrate data. They allow for field normalization and transformation, and also for the addition of fields and annotations. In this article, users will learn how to view, create, update and apply templates for transforming datasets. 
+Dataset templates describe how data should be transformed. **A template** is a collection of fields (columns) that describe the desired format of some input data. Templates are used to import files, export, query or migrate data. They allow for field normalization and transformation, and also for the addition of fields and annotations. In this article, users will learn how to view, create, update and apply templates for transforming datasets. 
 
 ## Retrieving Templates
 
@@ -48,7 +48,7 @@ If users want the template to be shown in the UI (in the modal used for transfor
 template = DatasetTemplate.retrieve('id of your template')template.tags = ['import']template.save()
 ```
 
-If users would like to make the template private (accessible only to your user), then they can set the account\_id parameter to None.
+If users would like to make the template private (accessible only to your user), then they can set the `account_id` parameter to None.
 
 
 ```Python
@@ -57,7 +57,7 @@ template.account_id = None
 template.save()
 ```
 
-If users would like to make the template accessible to all users on EDP (including those outside of your organization) then they can set the is\_public parameter to True. As always, users should not share anything sensitive outside of their organization.
+If users would like to make the template accessible to all users on EDP (including those outside of your organization) then they can set the `is_public` parameter to True. As always, users should not share anything sensitive outside of their organization.
 
 
 ```Python
@@ -79,31 +79,31 @@ fields = [{    'name': 'sample',    "depends_on": ['subject'],    "entity_type":
 
 The following attributes should be added:
 
--   `name` `-` the name of the field
-    
--   `data_type` `-` the data type of the field
-    
--   `entity_type` `– the` entity type (only necessary for entity querying)
-    
+-   name - the name of the field
+
+-   data_type - the data type of the field
+
+-   entity_type – the entity type (only necessary for entity querying)
+
 
 The following attributes are optional, but responsible for much of the data transformation:
 
--   `expression` \- The expression that will be evaluated to populate this field's value. Put "value" to use the current value. Users can refer to the [Expressions documentation](https://quartzbio.github.io/quartzbio-python/expressions.html#overview) for more information. In order to use data from another field (for comparison, splits, etc), users should make sure that they also add it to the list of fields, which will allow them to retrieve it using expression context variables: `record.name_of_field`. Users should also add the field in the depends\_on parameter.
+-   expression \- The expression that will be evaluated to populate this field's value. Put "value" to use the current value. Users can refer to the [Expressions documentation](https://quartzbio.github.io/quartzbio-python/expressions.html#overview) for more information. In order to use data from another field (for comparison, splits, etc), users should make sure that they also add it to the list of fields, which will allow them to retrieve it using expression context variables: `record.name_of_field`. Users should also add the field in the depends\_on parameter.
+
+-   depends_on \- This is a list of fields that the expression depends on. Users can add any field names here. This will ensure that those fields expressions are evaluated before its dependents. The template creation will fail if there is a circular dependency.
     
--   `depends_on` \- This is a list of fields that the expression depends on. Users can add any field names here. This will ensure that those fields expressions are evaluated before its dependents. The template creation will fail if there is a circular dependency.
-    
--   `is_transient` `-` A transient field is a field that is not indexed into the dataset, but calculated only while the template annotation is running. This is useful for temporary fields/variables for complex templates (default is False)
+-   is_transient - A transient field is a field that is not indexed into the dataset, but calculated only while the template annotation is running. This is useful for temporary fields/variables for complex templates (default is False)
     
 
 The following attributes are optional, and informational only, but encouraged:
 
--   `title` \- The field's display name, shown in the UI and in CSV/Excel exports.
+-   title \- The field's display name, shown in the UI and in CSV/Excel exports.
     
--   `description` \- Describes the contents of the field, shown in the UI.
+-   description \- Describes the contents of the field, shown in the UI.
     
--   `ordering` \- The order in which this column appears when retrieving data from the dataset. Order is 0-based. Default is 0
+-   ordering \- The order in which this column appears when retrieving data from the dataset. Order is 0-based. Default is 0
     
--   `is_hidden` \- Set to True if the field should be excluded by default from the UI.
+-   is_hidden \- Set to True if the field should be excluded by default from the UI.
     
 
 After the list of the fields is prepared, other information about a template can be added:
@@ -112,7 +112,7 @@ After the list of the fields is prepared, other information about a template can
 ```Python
 template = {    "name": "My Variant Template",    "version": '1.2.0',    "description": 'Import a special CSV file. Genome is assumed to be GRCh38, also has variant entity for GRCh37.',    "template_type": "dataset",    "is_public": False,    "entity_params": {        'disable': True    },    "fields": fields}
 ```
-The template\_type should be set to "dataset".
+The `template_type` should be set to "dataset".
 
 After that, users can create the template:
 
@@ -164,7 +164,7 @@ DatasetImport.create(
 
 ## Update a Template:
 
-Template attributes such as the list of fields can be edited. For example, new fields can be added to an existing template. In this example, a new field called "phase\_numeric" is added to the template to transform roman numerals to numbers in the phase field of the dataset.
+Template attributes such as the list of fields can be edited. For example, new fields can be added to an existing template. In this example, a new field called `"phase_numeric"` is added to the template to transform roman numerals to numbers in the phase field of the dataset.
 
 
 ```Python
@@ -196,7 +196,7 @@ for x in my_template.fields:
 
 ## Building and Testing Templates with the Annotator
 
-When creating new templates it it is useful to use the annotator to test and validate the fields and their expressions. The below snippet will use the annotator to process records in real time with the template fields.
+When creating new templates it it is useful to use the [annotator](https://quartzbio.github.io/quartzbio-python/expressions.html#annotating-records) to test and validate the fields and their expressions. The below snippet will use the annotator to process records in real time with the template fields.
 
 
 ```Python
@@ -239,10 +239,10 @@ In the request body, provide an object with the following properties:
 |      version       | string  |        A string representing a template version (no spaces).        |
 |   template\_type   | string  |          The type of template: dataset, recipe or search.           |
 |     is\_public     | boolean | True if visible to anyone in a user's organization (default False). |
-| annotator\_params  | object  |       (optional) Configuration parameters for the Annotator.        |
-|   entity\_params   | object  |      (optional) Configuration parameters for entity detection.      |
-|   reader\_params   | object  |          (optional) Configuration parameters for readers.           |
-| validation\_params | object  |         (optional) Configuration parameters for validation.         |
+| annotator\_params  | object  |       (Optional) Configuration parameters for the Annotator.        |
+|   entity\_params   | object  |      (Optional) Configuration parameters for entity detection.      |
+|   reader\_params   | object  |          (Optional) Configuration parameters for readers.           |
+| validation\_params | object  |         (Optional) Configuration parameters for validation.         |
 
 | Method |                       HTTP Request                       |        Description         |                                  Authorization                                   |                      Response                       |
 |--------|----------------------------------------------------------|----------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------|

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The EDP makes it easy to transform data using its dynamic, Python-based expression language. Users can employ expressions to transform data when importing files when copying data between (or within) datasets (using "migrations"), or even when querying datasets. In all scenarios, expressions can be provided through the target\_fields parameter. Users can refer to the [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html) documentation to learn more about using expressions.
+The EDP makes it easy to transform data using its dynamic, Python-based expression language. Users can employ expressions to transform data when importing files when copying data between (or within) datasets (using "migrations"), or even when querying datasets. In all scenarios, expressions can be provided through the `target_fields` parameter. Users can refer to the [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html) documentation to learn more about using expressions.
 
 This article describes how to transform data using dataset migrations, but users can use the same techniques with dataset imports. With dataset migrations, users can copy data between datasets as well as modify datasets in-place. This makes it possible to add, edit, and remove fields as well as records. All dataset migrations have a source dataset and a target dataset (which can be the same when editing a single dataset). Users are recommended to review the [Creating and Migrating Datasets](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html) documentation before this article.
 
@@ -10,7 +10,7 @@ This article describes how to transform data using dataset migrations, but users
 
 ### Add Fields
 
-The most common dataset transformation is to add a field to a dataset (also known as annotating the dataset or inserting a column). Fields can be added or modified using the target\_fields parameter, which should contain a list of valid dataset fields. Any new fields in target\_fields will be automatically detected and added to the dataset's schema. Adding fields requires the use of the upsert or overwrite commit mode, depending on the desired effect. This will ensure that the records are updated in-place (based on their \_id value), and not duplicated. To add multiple fields and transform data in a specific way, users can also create a reusable [Dataset Template](https://quartzbio.github.io/quartzbio-python/dataset_templates.html). 
+The most common dataset transformation is to add a field to a dataset (also known as annotating the dataset or inserting a column). Fields can be added or modified using the `target_fields` parameter, which should contain a list of valid dataset fields. Any new fields in `target_fields` will be automatically detected and added to the dataset's schema. Adding fields requires the use of the upsert or overwrite commit mode, depending on the desired effect. This will ensure that the records are updated in-place (based on their \_id value), and not duplicated. To add multiple fields and transform data in a specific way, users can also create a reusable [Dataset Template](https://quartzbio.github.io/quartzbio-python/dataset_templates.html). 
 
 In the following example, a new field will be added to a dataset "in-place", using the upsert commit mode:
 
@@ -48,7 +48,7 @@ dataset.migrate(target=dataset, target_fields=fields, commit_mode='upsert')
 
 In the following example, an existing field in the dataset from the previous example (clinsig\_clone) is modified (converted to uppercase). Similar to the example above, a commit mode of overwrite or upsert is required to avoid duplicating records. 
 
-This example uses an expression that references a pre-existing field in the dataset; users can learn more about expression context by reviewing the [Expressions](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023) documentation.
+This example uses an expression that references a pre-existing field in the dataset; users can learn more about expression context by reviewing the [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html#overview) documentation.
 
 
 ```Python
@@ -97,7 +97,7 @@ To only remove the data (field values) from a specified field, users can run an�
 
 ### Transient Fields
 
-Transient fields are like variables in a programming language. They can be used in a complex transform that requires intermediate values that are not meant to be stored in the dataset. Transient fields can be referenced by other expressions, but are not added to the dataset's schema or stored. Users can set the parameter is\_transient to True and ensure that the field's ordering parameter evaluates the transient fields in the right order.
+Transient fields are like variables in a programming language. They can be used in a complex transform that requires intermediate values that are not meant to be stored in the dataset. Transient fields can be referenced by other expressions, but are not added to the dataset's schema or stored. Users can set the parameter `is_transient` to True and ensure that the field's ordering parameter evaluates the transient fields in the right order.
 
 The following example uses transient fields to structure a few VCF records, leaving the variant IDs and dbSNP rsIDs in the resulting dataset:
 

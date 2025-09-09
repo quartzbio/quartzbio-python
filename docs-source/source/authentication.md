@@ -4,7 +4,7 @@
 
 The EDP supports the use of Python for both Unix (Linux, Mac) and Windows environments. QuartzBio recommends using the latest version of the Python client (v2.12.0 or higher).
 
-After insuring that the user is running an appropriate python version, they can install the EDP Python Library (note: currently named quartzbio) by issuing the following pip call:
+After insuring that the user is running an appropriate python version, they can install the `EDP Python Library` by issuing the following pip call:
 
 ```
 pip install --upgrade quartzbio
@@ -42,12 +42,12 @@ Alternatively, you may store your Personal Access Token in the `$QUARTZBIO_ACCES
 
 
 
-For Python scripts and Dash apps, If you use the credentials file (~/.quartzbio/credentials), modify the line with "machine api.quartzbio.com" to be
+For Python scripts and Dash apps, if you use the credentials file (~/.quartzbio/credentials), modify the line with "machine api.quartzbio.com" to be
 
 ```
 machine domain.api.quartzbio.com
 ```
-In your scripts, if you use the quartzbio.login() function, modify it to be: 
+In your scripts, if you use the `quartzbio.login()` function, modify it to be: 
 
 ```
 quartzbio.login(api_host="https://domain.api.quartzbio.com")

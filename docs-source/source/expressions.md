@@ -5,7 +5,7 @@
 
 ## Overview
 
-Expressions on the QuartzBio Enterprise Data Platform (EDP) are Python-like formulas that can be used to pull data from datasets, calculate statistics, or run advanced algorithms. They are typically used when transforming datasets but have many other uses such as building web application widgets, pulling EDP data into Excel or Google Sheets, and augmenting databases outside EDP. Expressions are also referred to as Python “one-liners” but can be used in both the Python and R client libraries for EDP (note: the client libraries are currently named "quartzbio"). Expressions may also be evaluated in the EDP UI for data discovery and data transformation.  Expressions are an advanced topic and this article is recommended for users who have reviewed the series of Quick Start Guides for programmatic use of the EDP, starting with [EDP Programmatic Guide - Access and Search](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608178).
+Expressions on the QuartzBio Enterprise Data Platform (EDP) are Python-like formulas that can be used to pull data from datasets, calculate statistics, or run advanced algorithms. They are typically used when transforming datasets but have many other uses such as `building web application widgets`, `pulling EDP data into Excel` or `Google Sheets`, and `augmenting databases outside EDP`. Expressions are also referred to as Python “one-liners” but can be used in both the Python and R client libraries for EDP. Expressions may also be evaluated in the EDP UI for data discovery and data transformation.  Expressions are an advanced topic and this article is recommended for users who have reviewed the series of **Quick Start Guides** for programmatic use of the EDP, starting with [EDP Programmatic Guide - Access and Search](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608178).
 
 ## Expression Syntax
 
@@ -27,7 +27,7 @@ Expressions can be a simple static value, such as a number or string:
 
 ### Context Variables 
 
-Depending on when an expression is evaluated, it may also include "context variables". These are variables available to the expression interpreter at run-time (similar to the library of available functions).
+Depending on when an expression is evaluated, it may also include `"context variables"`. These are variables available to the expression interpreter at run-time (similar to the library of available functions).
 
 For example, expressions can reference context values provided during evaluation or annotation, such as record:
 

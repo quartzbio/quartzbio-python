@@ -3,11 +3,11 @@
 
 ## Overview
 
-Users with Write or Admin permissions on vault objects (files, folders, and datasets) have the ability to add tags or metadata to those objects to facilitate data discovery and accessibility. Users with Write or Admin permissions on datasets can also add special labels called entities to fields that contain information such as genes, variants, and samples. To enable users to search for datasets based on the entities they contain, Admins can enable Global Beacons indexing for datasets. For more information about Search tools and data discovery on the EDP, users can refer to the [Data Discovery via API](https://quartzbio.github.io/quartzbio-python/data_discovery_via.html) documentation.
+Users with `Write` or `Admin` permissions on vault objects (files, folders, and datasets) have the ability to add tags or metadata to those objects to facilitate data discovery and accessibility. Users with `Write` or `Admin` permissions on datasets can also add special labels called entities to fields that contain information such as genes, variants, and samples. To enable users to search for datasets based on the entities they contain, `Admins` can enable Global Beacons indexing for datasets. For more information about Search tools and data discovery on the EDP, users can refer to the [Data Discovery via API](https://quartzbio.github.io/quartzbio-python/data_discovery_via.html) documentation.
 
 ## Tags
 
-Tags are case-insensitive lists of strings. Tags can be used to filter and search for objects.
+Tags are `case-insensitive` lists of strings. Tags can be used to filter and search for objects.
 
 In Python:
 ```Python
@@ -28,7 +28,7 @@ csv_file.untag('tag1')
 
 ## Metadata
 
-Metadata is represented by key/value pairs. While nested value pairs are allowed, users are recommended to use a flat metadata structure.
+Metadata is represented by `key/value pairs`. While nested value pairs are allowed, users are recommended to use a flat metadata structure.
 
 
 ```Python
@@ -86,7 +86,7 @@ Once the dataset has been indexed, users will be able to perform Global Beacon S
 
 The EDP Python and R clients provide the functionality to work with Global Beacons. Users with Admin permissions for a dataset can check the status of the Global Beacon on the dataset as well as enable or disable Global Beacons. 
 
-When working with Global Beacons via API, the output will display the status attribute, which is either indexing, completed, or destroying, as well as the progress\_percent attribute which describes the percentage of the task completed. While indexing is still in progress, users won't be able to perform Global Beacon Search for that dataset. A dataset is available for Global Beacon Search when the progress\_percent is 100 and the status is completed.
+When working with Global Beacons via API, the output will display the status attribute, which is either indexing, completed, or destroying, as well as the `progress_percent` attribute which describes the percentage of the task completed. While indexing is still in progress, users won't be able to perform Global Beacon Search for that dataset. A dataset is available for Global Beacon Search when the `progress_percent` is 100 and the status is completed.
 
 
 ```Python

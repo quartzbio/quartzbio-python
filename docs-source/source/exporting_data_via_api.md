@@ -11,7 +11,7 @@ Datasets can be exported in multiple formats:
 -   TSV: Tab Separated Value format (flattened, gzipped).
 -   Excel (XLSX): Microsoft Excel format (flattened).
 
-Exporting data can take anywhere from a few seconds to tens of minutes, depending on the number of records and selected format. Exports are processed server-side, and the output is a downloadable file. An exported JSON file can be re-imported into EDP without any modification.
+Exporting data can take anywhere from `a few seconds` to `tens of minutes`, depending on the number of records and selected format. Exports are processed server-side, and the output is a downloadable file. An exported JSON file can be re-imported into EDP without any modification.
 
 ## Export Limits
 
@@ -26,7 +26,7 @@ Different export formats have different limits:
 
 ## Flattened Fields (CSV/XLSX)
 
-CSV and XLSX exports are processed by a flattening algorithm during export. The reason for this is to handle list fields, which are not well supported by Excel and other CSV readers. The following example illustrates the effects of the flattening algorithm:
+CSV and XLSX exports are processed by a flattening algorithm during export. The reason for this is to handle list fields, which are not well supported by `Excel` and other `CSV` readers. The following example illustrates the effects of the flattening algorithm:
 
 The following dataset records:
 
@@ -47,7 +47,7 @@ a,x,y,z
 
 ## Export a Dataset
 
-To export a dataset, users can retrieve it by name or ID and initiate the export. Exports can take a few minutes for large datasets. Users can always start a large export and check back when it finishes on the Activity tab of the EDP web interface. Exports can also be saved directly into a vault (with target\_full\_path keyword argument) and accessed from there.
+To export a dataset, users can retrieve it by name or ID and initiate the export. Exports can take `a few minutes` for large datasets. Users can always start a large export and check back when it finishes on the Activity tab of the EDP web interface. Exports can also be saved directly into a vault (with target\_full\_path keyword argument) and accessed from there.
 
 In Python:
 ```Python
@@ -69,7 +69,7 @@ dataset.export(target_full_path='my_vault:/path/to/json_files_folder/my_export')
 
 ## Exporting Large Amounts of Data
 
-An example file size for a CSV file with 150M rows and 50 columns populated with floats and relatively short strings is about 50GB. In general, users are recommended not to work with files this size directly and instead to shrink the export by applying filters or selecting only specific columns. If necessary, users can also export in batches (e.g. export by chromosome or sample).
+An example file size for a CSV file with `150M rows` and `50 columns` populated with floats and relatively short strings is about `50GB`. In general, users are recommended not to work with files this size directly and instead to shrink the export by applying filters or selecting only specific columns. If necessary, users can also export in batches (e.g. export by chromosome or sample).
 
 ### Export a Filtered Dataset  
 
@@ -160,11 +160,9 @@ The following query parameters (params property) are supported for exports:
 |--------|--------------------------------------------------------|--------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/dataset\_exports/{ID} | Delete a dataset export. | This request requires an authorized user with write permissions on the dataset. | The response returns "HTTP 200 OK" when successful. |
 
-|  Method  |                         HTTP Request                         |        Description         |                                 Authorization                                  |                                                      Response                                                      |
-|----------|--------------------------------------------------------------|----------------------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| download | GET https://<EDP\_API\_HOST>/v2/dataset\_exports/{ID}/download | Download a dataset export. | This request requires an authorized user with read permissions on the dataset. | The default response is a 302 redirect. 
-
-When redirect mode is disabled, the response contains a URL to the file. |
+| Method | HTTP Request | Description | Authorization | Response |
+|--------|--------------|-------------|---------------|----------|
+| download | GET https://<EDP_API_HOST>/v2/dataset_exports/{ID}/download | Download a dataset export by its ID. | Requires an authorized user with read permissions on the dataset. | Returns a 302 redirect to the download URL for the dataset export file. When redirect mode is disabled, the response contains a URL to the file. |
 
 Parameters
 
@@ -174,7 +172,7 @@ This request accepts the following parameter:
 |----------|---------|-----------------------------------------------------------------|
 | redirect | boolean | Return a 302 redirect to the download location (default: true). |
 
-Dataset exports may expire after 24 hours, after which the download URL will not work. Please re-run the export if necessary.
+Dataset exports may `expire` after `24 hours`, after which the download URL will not work. Please re-run the export if necessary.
 
 | Method |                    HTTP Request                     |            Description             |                                 Authorization                                  |                    Response                     |
 |--------|-----------------------------------------------------|------------------------------------|--------------------------------------------------------------------------------|-------------------------------------------------|
