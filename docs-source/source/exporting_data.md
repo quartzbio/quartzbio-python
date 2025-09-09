@@ -1,4 +1,4 @@
-# Exporting Data via API
+# Exporting Data
 
 ## Overview
 

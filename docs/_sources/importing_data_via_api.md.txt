@@ -1,4 +1,4 @@
-# Importing Data via API
+# Importing Data
 
 ## Overview
 

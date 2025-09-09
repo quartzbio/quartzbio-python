@@ -15,8 +15,8 @@ Module Documentation
    :maxdepth: 2
    :caption: Vaults and Files
 
-   exporting_data_via_api
-   importing_data_via_api
+   exporting_data
+   importing_data
    import_parameters
    vaults_and_objects
 
@@ -26,7 +26,7 @@ Module Documentation
 
    creating_and_migrating_datasets
    dataset_templates
-   dataset_versioning_via_api
+   dataset_versioning
    joining_and_aggregating_datasets
    transforming_datasets
 
@@ -41,7 +41,7 @@ Module Documentation
    :maxdepth: 2
    :caption: Global Search
 
-   data_discovery_via
+   data_discovery
    metadata_and_global_beacons
 
 .. toctree::
