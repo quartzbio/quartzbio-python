@@ -286,7 +286,7 @@ folder.delete()
 
 ## API Endpoints
 
-Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
+Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.dev.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
 
 ### Vaults
 
