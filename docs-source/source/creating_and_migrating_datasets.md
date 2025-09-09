@@ -204,9 +204,6 @@ Request Body:
 | Method |                      HTTP Request                       |    Description    |                                     Authorization                                      |                      Response                       |
 |--------|---------------------------------------------------------|-------------------|----------------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID} | Delete a dataset. | This request requires an authorized user with permission to modify the target dataset. | The response returns "HTTP 200 OK" when successful. |
-
-| Method |                     HTTP Request                     |            Description             |                                    Authorization                                     |                 Response                  |
-|--------|------------------------------------------------------|------------------------------------|--------------------------------------------------------------------------------------|-------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID} | Retrieve metadata about a dataset. | This request requires an authorized user with permission to view the target dataset. | The response contains a Dataset resource. |
 
 ### Dataset Fields
@@ -251,9 +248,6 @@ Data Types:
 | Method |                    HTTP Request                    |        Description        |                                 Authorization                                 |                    Response                    |
 |--------|----------------------------------------------------|---------------------------|-------------------------------------------------------------------------------|------------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/dataset\_fields/{ID} | Retrieve a dataset field. | This request requires an authorized user with read permission on the dataset. | The response contains a DatasetField resource. |
-
-| Method |                        HTTP Request                         |                   Description                   |                                 Authorization                                 |                        Response                         |
-|--------|-------------------------------------------------------------|-------------------------------------------------|-------------------------------------------------------------------------------|---------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID}/fields | Retrieve a set of dataset fields for a dataset. | This request requires an authorized user with read permission on the dataset. | The response contains a list of DatasetField resources. |
 
 Parameters:
@@ -305,13 +299,7 @@ The following query parameters (source\_params property) are supported for migra
 | Method |                       HTTP Request                        |         Description         |                          Authorization                           |                      Response                       |
 |--------|-----------------------------------------------------------|-----------------------------|------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/dataset\_migrations/{ID} | Delete a dataset migration. | This request requires an authorized user with write permissions. | The response returns "HTTP 200 OK" when successful. |
-
-| Method |                      HTTP Request                      |                 Description                  |                       Authorization                       |                      Response                      |
-|--------|--------------------------------------------------------|----------------------------------------------|-----------------------------------------------------------|----------------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/dataset\_migrations/{ID} | Retrieve metadata about a dataset migration. | This request requires an authorized user with permission. | The response contains a DatasetMigration resource. |
-
-| Method |                          HTTP Request                          |                     Description                      |                         Authorization                          |                                           Response                                            |
-|--------|----------------------------------------------------------------|------------------------------------------------------|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/dataset/{DATASET\_ID}/migrations | Retrieve a list of dataset migrations for a dataset. | This request requires an authorized user with read permission. | The response contains a list of DatasetMigration resources from the specified source dataset. |
 
 Parameters:

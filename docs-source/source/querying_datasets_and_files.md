@@ -214,9 +214,6 @@ The dataset query response has the following structure:
 | Method |                   HTTP Request                    |       Description       |                       Authorization                       |                   Response                   |
 |--------|---------------------------------------------------|-------------------------|-----------------------------------------------------------|----------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/saved\_queries/{ID} | Retrieve a Saved Query. | This request requires an authorized user with permission. | The response contains a SavedQuery resource. |
-
-| Method |                 HTTP Request                  |        Description        |                             Authorization                              |                      Response                      |
-|--------|-----------------------------------------------|---------------------------|------------------------------------------------------------------------|----------------------------------------------------|
 | create | POST https://<EDP\_API\_HOST>/v2/saved\_queries | Create a new Saved Query. | This request requires an authorized user with appropriate permissions. | The response contains the new SavedQuery resource. |
 
 Request Body:
@@ -232,8 +229,5 @@ Request Body:
 | Method |                     HTTP Request                     |      Description      |                                  Authorization                                   |                      Response                       |
 |--------|------------------------------------------------------|-----------------------|----------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/saved\_queries/{ID} | Delete a Saved Query. | This request requires an authorized user with write permissions on the resource. | The response returns "HTTP 200 OK" when successful. |
-
-| Method |                 HTTP Request                 |                   Description                    |               Authorization               |                       Response                        |
-|--------|----------------------------------------------|--------------------------------------------------|-------------------------------------------|-------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/saved\_queries | Retrieves all Saved Queries available to a user. | This request requires an authorized user. | The response contains a list of SavedQuery resources. |
 

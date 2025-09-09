@@ -157,11 +157,8 @@ The following query parameters (params property) are supported for exports:
 |      query      | string  |                   A valid query string.                    |
 
 | Method |                      HTTP Request                      |       Description        |                                  Authorization                                  |                      Response                       |
-|--------|--------------------------------------------------------|--------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------|
+|--------|---------------------|--------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/dataset\_exports/{ID} | Delete a dataset export. | This request requires an authorized user with write permissions on the dataset. | The response returns "HTTP 200 OK" when successful. |
-
-| Method | HTTP Request | Description | Authorization | Response |
-|--------|--------------|-------------|---------------|----------|
 | download | GET https://<EDP_API_HOST>/v2/dataset_exports/{ID}/download | Download a dataset export by its ID. | Requires an authorized user with read permissions on the dataset. | Returns a 302 redirect to the download URL for the dataset export file. When redirect mode is disabled, the response contains a URL to the file. |
 
 Parameters
@@ -177,13 +174,7 @@ Dataset exports may `expire` after `24 hours`, after which the download URL will
 | Method |                    HTTP Request                     |            Description             |                                 Authorization                                  |                    Response                     |
 |--------|-----------------------------------------------------|------------------------------------|--------------------------------------------------------------------------------|-------------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/dataset\_exports/{ID} | Retrieve metadata about an export. | This request requires an authorized user with read permissions on the dataset. | The response contains a DatasetExport resource. |
-
-| Method |                         HTTP Request                         |                 Description                 |                                 Authorization                                  |                         Response                         |
-|--------|--------------------------------------------------------------|---------------------------------------------|--------------------------------------------------------------------------------|----------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID}/exports | List the exports associated with a dataset. | This request requires an authorized user with read permissions on the dataset. | The response contains a list of DatasetExport resources. |
-
-| Method |                        HTTP Request                         |                 Description                 |                                 Authorization                                  |                                   Response                                   |
-|--------|-------------------------------------------------------------|---------------------------------------------|--------------------------------------------------------------------------------|------------------------------------------------------------------------------|
 | cancel | PUT https://<EDP\_API\_HOST>/v2/datasets\_exports/{ID}/cancel | List the exports associated with a dataset. | This request requires an authorized user with read permissions on the dataset. | The response will contain a DatasetExport resource with the status canceled. |
 
 Request Body:

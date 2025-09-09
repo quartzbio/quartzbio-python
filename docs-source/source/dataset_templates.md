@@ -247,17 +247,8 @@ In the request body, provide an object with the following properties:
 | Method |                       HTTP Request                       |        Description         |                                  Authorization                                   |                      Response                       |
 |--------|----------------------------------------------------------|----------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/dataset\_templates/{ID} | Delete a dataset template. | This request requires an authorized user with write permissions on the resource. | The response returns "HTTP 200 OK" when successful. |
-
-|  Method  |                         HTTP Request                          |                     Description                     |                       Authorization                       |                                      Response                                      |
-|----------|---------------------------------------------------------------|-----------------------------------------------------|-----------------------------------------------------------|------------------------------------------------------------------------------------|
 | generate | GET https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID}/template | Create a dataset template from an existing dataset. | This request requires an authorized user with permission. | The response contains an unsaved DatasetTemplate object for the specified dataset. |
-
-| Method |                     HTTP Request                      |         Description          |                       Authorization                       |                     Response                      |
-|--------|-------------------------------------------------------|------------------------------|-----------------------------------------------------------|---------------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/dataset\_templates/{ID} | Retrieve a dataset template. | This request requires an authorized user with permission. | The response contains a DatasetTemplate resource. |
-
-| Method |                   HTTP Request                   |                   Description                   |                         Authorization                          |                                 Response                                  |
-|--------|--------------------------------------------------|-------------------------------------------------|----------------------------------------------------------------|---------------------------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/dataset\_templates | Retrieve a list of available dataset templates. | This request requires an authorized user with read permission. | The response contains a list of resources visible to the requesting user. |
 
 Parameters

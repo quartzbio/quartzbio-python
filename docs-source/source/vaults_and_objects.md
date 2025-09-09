@@ -305,9 +305,6 @@ Request Body:
 | Method |             HTTP Request             |        Description         |                                                                                 Authorization                                                                                 |                               Response                               |
 |--------|--------------------------------------|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/vaults | List all available vaults. | All public vaults are included in this response. If the request is sent by an authenticated user, vaults which the user has "read" permission or higher on are also returned. | The response returns a list of vaults matching the provided filters. |
-
-| Method |               HTTP Request                |   Description   |                                      Authorization                                       |                     Response                      |
-|--------|-------------------------------------------|-----------------|------------------------------------------------------------------------------------------|---------------------------------------------------|
 | update | PUT https://<EDP\_API\_HOST>/v2/vaults/{ID} | Update a vault. | This request requires an authorized user with "write" permission or higher on the vault. | The response contains the updated Vault resource. |
 
 Request Body
@@ -317,9 +314,6 @@ In the request body, provide a valid Vault object (see create above).
 | Method |                 HTTP Request                 |   Description   |                                 Authorization                                  |                      Response                       |
 |--------|----------------------------------------------|-----------------|--------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/vaults/{ID} | Delete a vault. | This request requires an authorized user with "admin" permission on the vault. | The response returns "HTTP 200 OK" when successful. |
-
-| Method |               HTTP Request                |         Description          |                                      Authorization                                      |                Response                 |
-|--------|-------------------------------------------|------------------------------|-----------------------------------------------------------------------------------------|-----------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/vaults/{ID} | Retrieve a vault's metadata. | This request requires an authorized user with "read" permission or higher on the vault. | The response contains a Vault resource. |
 
 ### Objects
@@ -379,13 +373,7 @@ In the request body, provide a valid Object body (see _create_ above).
 | Method |                 HTTP Request                  |    Description    |                                                   Authorization                                                   |                      Response                       |
 |--------|-----------------------------------------------|-------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/objects/{ID} | Delete an object. | This request requires an authorized user with "write" permission or higher to the vault that contains the object. | The response returns "HTTP 200 OK" when successful. |
-
-| Method |                HTTP Request                |            Description             |                                                  Authorization                                                   |                 Response                  |
-|--------|--------------------------------------------|------------------------------------|------------------------------------------------------------------------------------------------------------------|-------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/objects/{ID} | Retrieve metadata about an object. | This request requires an authorized user with "read" permission or higher to the vault that contains the object. | The response contains an Object resource. |
-
-|          Method           |                   HTTP Request                   |                                                                         Description                                                                          |                                                                    Authorization                                                                     |                     Response                     |
-|---------------------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
 | create (object copy task) | POST https://<EDP\_API\_HOST>/v2/object\_copy\_tasks | Copy an object from one vault into another. Datasets are ignored by object copy tasks. If you wish to copy a dataset, you must download it and re-import it. | This request requires an authorized user with "read" permission or higher on the source vault, and "write" permission or higher on the target vault. | The response contains a single object copy task. |
 
 Request Body
@@ -402,7 +390,4 @@ In the request body, provide the following parameters:
 |         Method          |                  HTTP Request                   |                     Description                     |               Authorization               |                      Response                      |
 |-------------------------|-------------------------------------------------|-----------------------------------------------------|-------------------------------------------|----------------------------------------------------|
 | list (object copy task) | GET https://<EDP\_API\_HOST>/v2/object\_copy\_tasks | List object copy tasks created by the current user. | This request requires an authorized user. | The response contains a list of object copy tasks. |
-
-|         Method         |                     HTTP Request                     |                 Description                  |                                                   Authorization                                                   |                      Response                       |
-|------------------------|------------------------------------------------------|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|
 | get (object copy task) | GET https://<EDP\_API\_HOST>/v2/object\_copy\_tasks/{ID} | Retrieve metadata about an object copy task. | This request requires that the authorized user is also the user who created the object copy task being retrieved. | The response contains an object copy task resource. |

@@ -389,13 +389,7 @@ Manifests can include the following parameters:
 | Method |                    HTTP Request                     |            Description             |                                 Authorization                                 |                    Response                     |
 |--------|-----------------------------------------------------|------------------------------------|-------------------------------------------------------------------------------|-------------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/dataset\_imports/{ID} | Retrieve metadata about an import. | This request requires an authorized user with read permission on the dataset. | The response contains a DatasetImport resource. |
-
-| Method |                         HTTP Request                         |                 Description                 |                                 Authorization                                 |                         Response                         |
-|--------|--------------------------------------------------------------|---------------------------------------------|-------------------------------------------------------------------------------|----------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID}/imports | List the imports associated with a dataset. | This request requires an authorized user with read permission on the dataset. | The response contains a list of DatasetImport resources. |
-
-| Method |                       HTTP Request                        |       Description        |                                 Authorization                                  |                                   Response                                   |
-|--------|-----------------------------------------------------------|--------------------------|--------------------------------------------------------------------------------|------------------------------------------------------------------------------|
 | cancel | PUT https://<EDP\_API\_HOST>/v2/dataset\_imports/{IMPORT\_ID} | Cancel a dataset import. | This request requires an authorized user with write permission on the dataset. | The response will contain a DatasetImport resource with the status canceled. |
 
 Request Body
