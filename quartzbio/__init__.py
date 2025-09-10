@@ -174,7 +174,7 @@ def login(
     elif api_key:
         token_type = "Token"
         token = api_key
-        
+
     if api_host or token or debug:
         client.set_credentials(
             api_host, token, token_type=token_type, raise_on_missing=not debug, debug=debug
