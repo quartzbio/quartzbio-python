@@ -133,6 +133,7 @@ from .resource import (
 
 def login(
     api_host: str = None,
+    api_key: str = None,
     access_token: str = None,
     name: str = None,
     version: str = None,
@@ -151,6 +152,7 @@ def login(
     :param api_host: the QuartzBio EDP instance's URL to access.
     :param access_token: your user's access token, which you can generate at the EDP website
         (user menu > `Personal Access Tokens`)
+    :param api_key: Your API key. You can use this instead of providing an access token
     :param name: name
     :param version: version
 
@@ -160,6 +162,7 @@ def login(
             import quartzbio
             quartzbio.login(
                 api_host="https://quartzbio.api.az.aws.quartz.bio",
+                api_key=YOUR_API_KEY
             )
     """
     token_type: Literal["Bearer", "Token"] = None
@@ -168,7 +171,10 @@ def login(
     if access_token:
         token_type = "Bearer"
         token = access_token
-
+    elif api_key:
+        token_type = "Token"
+        token = api_key
+        
     if api_host or token or debug:
         client.set_credentials(
             api_host, token, token_type=token_type, raise_on_missing=not debug, debug=debug

@@ -3,7 +3,8 @@ stages:
 
 variables:
   QUARTZBIO_API_HOST: $QUARTZBIO_API_HOST
-
+  QUARTZBIO_API_KEY: $QUARTZBIO_API_KEY
+  
 test:
   tags: [docker, dind]
   image: "python:$VERSION"
