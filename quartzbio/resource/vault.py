@@ -22,7 +22,7 @@ class Vault(
     """
     A vault is like a filesystem that can contain files, folder,
     and QuartzBio datasets.  Vaults can be "connected" to external resources
-    such as DNAnexus and SevenBridges projects, or Amazon S3 Buckets.
+    such as Amazon S3 Buckets.
     Typically, vaults contain a series of datasets that are compatible with
     each other (i.e. they come from the same data source or project).
     """

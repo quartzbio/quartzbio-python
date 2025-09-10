@@ -259,9 +259,10 @@ The following settings can be used to customize the annotator that is used durin
 -   annotator - (string) Choose from "simple" (default), "serial", or "parallel".  
     
 
-Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.  
+Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
+For correct work of the API, you need to change `<EDP_API_HOST>` to your current domain, such as my-domain.api.edp.aws.quartz.bio
 
-Deleting dataset imports is not recommended as data provenance will be lost.
+**Deleting dataset imports is not recommended as data provenance will be lost.**
 
 | Method |                         HTTP Request                         |                                  Authorization                                  |                         Response                         |
 |--------|--------------------------------------------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------|
