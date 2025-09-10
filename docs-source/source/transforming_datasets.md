@@ -104,7 +104,7 @@ The following example uses transient fields to structure a few VCF records, leav
 In Python:
 
 ```Python
-from quartzbio import Dataset
+from quartzbio import Dataset, DatasetImport
 
 dataset = Dataset.get_or_create_by_full_path('~/python_examples/transient_test')
 
@@ -192,8 +192,7 @@ In the following example, a few records will be imported and then edited:
 
 In Python:
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetImport
+from quartzbio import Dataset, DatasetImport
 
 dataset = Dataset.get_or_create_by_full_path('~/python_examples/edit_records')
 
@@ -231,8 +230,7 @@ Similar to the example above, in the following example a few records will be imp
 
 In Python:
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetImport
+from quartzbio import Dataset, DatasetImport
 
 dataset = Dataset.get_or_create_by_full_path('~/python_examples/upsert_records')
 
@@ -274,8 +272,7 @@ The following provides an example of Delete via Import:
 
 In Python:
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetImport
+from quartzbio import Dataset, DatasetImport
 
 dataset = Dataset.get_or_create_by_full_path('~/python_examples/data_delete')
 
@@ -319,8 +316,7 @@ The following provides an example of Delete via Migration:
 
 In Python:
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetImport
+from quartzbio import Dataset, DatasetImport
 
 dataset = Dataset.get_or_create_by_full_path('~/python_examples/data_delete_migration')
 

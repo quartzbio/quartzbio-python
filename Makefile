@@ -60,13 +60,13 @@ release: clean dist
 	twine upload dist/*
 
 sphinx-apidoc:
-	sphinx-apidoc -o docs/source -f --separate quartzbio quartzbio/test
+	sphinx-apidoc -o docs-source/source -f --separate quartzbio quartzbio/test
 
 sphinx-autobuild:
-	sphinx-autobuild docs/source docs/build/html --port 8080 --host 0.0.0.0
+	sphinx-autobuild docs-source/source docs/build/html --port 8080 --host 0.0.0.0
 
 sphinx-build:
-	sphinx-build -b html docs/source docs/build/html
+	sphinx-build -b html docs-source/source docs/build/html
 
 
 .PHONY: $(PHONY)

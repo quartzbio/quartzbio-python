@@ -7,6 +7,8 @@ The EDP provides an easy-to-use, real-time API for [querying datasets and files]
 Users can filter on any field in a dataset or file:
 
 ```Python
+from quartzbio import Dataset, Object
+
 #Filter ClinVar dataset to pathogenic variants
 
 dataset = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37')
@@ -49,8 +51,10 @@ Users may filter string fields using the exact (or case-insensitive) match, regu
 In Python:
 
 ```Python
+from quartzbio import Dataset
+
 #Query Dataset
-q = quartzbio.Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37').query()
+q = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37').query()
 
 # Equals match
 q.filter(gene='BRCA1')
@@ -71,6 +75,8 @@ Long (paragraph-length) fields typically use the `text` data type. The "`conta
 
 In Python:
 ```Python
+from quartzbio import Dataset
+
 q = Dataset.get_by_full_path('quartzbio:Public:/MEDLINE/2.3.4-2018/MEDLINE-sample').query()
 
 # Contains match for text fields
@@ -83,6 +89,8 @@ Numeric and date fields can be filtered by exact match, exact match in a list (`
 
 In Python:
 ```Python
+from quartzbio import Dataset
+
 q = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37').query()
 
 # Equals match
@@ -104,7 +112,9 @@ EDP-supported [Entities](https://quartzbio.freshdesk.com/en/support/solutions/ar
 
 In Python:
 ```Python
-clinvar = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37'')
+from quartzbio import Dataset
+
+clinvar = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37')
 
 # Gene entity query
 clinvar.query(entities=[['gene', 'BRCA2']])
@@ -119,8 +129,10 @@ A dataset's genomic build is indicated by the suffix of the dataset's full\_path
 
 In Python:
 ```Python
+from quartzbio import Dataset
+
 # GRCh37
-q = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37'').query()
+q = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37').query()
 
 # GRCh38
 q = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH38').query()
@@ -148,18 +160,20 @@ When manually writing queries in JSON, users can combine and nest filters using 
 
 In Python:
 ```Python
+from quartzbio import Dataset, Filter
+
 q = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37').query()
 
 # AND
-f = quartzbio.Filter(gene='BRCA1') & quartzbio.Filter(clinical_significance='pathogenic')
+f = Filter(gene='BRCA1') & Filter(clinical_significance='pathogenic')
 q.filter(f)
 
 # OR
-f = quartzbio.Filter(gene='BRCA1') | quartzbio.Filter(gene='BRCA2')
+f = Filter(gene='BRCA1') | Filter(gene='BRCA2')
 q.filter(f)
 
 # NOT
-f = ~ quartzbio.Filter(gene='BRCA1')
+f = ~ Filter(gene='BRCA1')
 q.filter(f)
 ```
 

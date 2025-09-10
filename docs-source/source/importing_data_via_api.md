@@ -52,8 +52,7 @@ The first step to getting data onto EDP is by uploading files into a vault. User
 
 In Python:
 ```Python
-from quartzbio import Vault
-from quartzbio import Object
+from quartzbio import Vault, Object
 # Upload a local file to the root of the personal Vault
 vault = Vault.get_personal_vault()
 uploaded_file = vault.upload_file('local/path/file.vcf.gz', '/')
@@ -65,8 +64,7 @@ Once the files have been uploaded, they can be imported into any new or existing
 
 In Python:
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetImport
+from quartzbio import Dataset, DatasetImport
 
 dataset = Dataset.get_or_create_by_full_path('~/python_examples/test_dataset')
 
@@ -100,8 +98,7 @@ Once the manifest has been created, it can be imported into any new or existing 
 In Python:
 
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetImport
+from quartzbio import Dataset, DatasetImport
 
 dataset = Dataset.get_or_create_by_full_path('~/python_examples/manifest_dataset')
 
@@ -125,7 +122,7 @@ The EDP can also import data as a list of records, i.e. a list of Python diction
 In Python:
 
 ```Python
-from quartzbio import DatasetImport
+from quartzbio import Dataset, DatasetImport
 
 records = [
     {'gene': 'CFTR', 'importance': 1, 'sample_count': 2104},
@@ -192,8 +189,7 @@ The following example imports a list of records and transforms the contents in a
 
 In Python:
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetImport
+from quartzbio import Dataset, DatasetImport
 
 dataset = Dataset.get_or_create_by_full_path('~/python_examples/transform_import')
 
