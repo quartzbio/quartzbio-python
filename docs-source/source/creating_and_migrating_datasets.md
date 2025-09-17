@@ -75,8 +75,7 @@ Users should note that double underscores ("\_\_") should not be used in dataset
 The following example creates a new dataset using a template with two fields:
 
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetField
+from quartzbio import Dataset, DatasetField
 
 fields = [
     {

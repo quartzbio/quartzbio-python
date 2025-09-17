@@ -118,8 +118,9 @@ After that, users can create the template:
 
 
 ```Python
-from quartzbio import DatasetTemplate 
-template = quartzbio.DatasetTemplate.create(**template)
+from quartzbio import Dataset, DatasetTemplate 
+
+template = DatasetTemplate.create(**template)
 dataset = Dataset.get_or_create_by_full_path('your dataset path', fields=template.fields)
 # Dataset will now have the non-transient fields from the template
 # with desired titles/descriptions and expressions print(dataset.fields())
@@ -134,6 +135,8 @@ Users can create a dataset and set the structure with a template.
 
 
 ```Python
+from quartzbio import Dataset, DatasetTemplate 
+
 template = DatasetTemplate.retrieve('id of your template')
 dataset = Dataset.get_or_create_by_full_path('your dataset path', fields=template.fields)
 # Dataset will now have the non-transient fields from the template
@@ -145,6 +148,8 @@ Users can also create and a dataset and add the fields during file import:
 
 
 ```Python
+from quartzbio import Dataset, DatasetTemplate 
+
 template = DatasetTemplate.retrieve('id of your template')
 dataset = Dataset.get_or_create_by_full_path('your dataset path')
 # Only field should be "id"
@@ -168,11 +173,10 @@ Template attributes such as the list of fields can be edited. For example, new f
 
 
 ```Python
-import quartzbio from quartzbio 
-import Dataset from quartzbio 
-import DatasetTemplate
+from quartzbio import Dataset, DatasetTemplate
+
 # Retrieve a template by ID 
-my_template = quartzbio.DatasetTemplate.retrieve('dataset_id')
+my_template = DatasetTemplate.retrieve('dataset_id')
 #Create updated list of fields as an empty list
 updated_fields=[]
 #Get fields from my_template and add to list
@@ -200,8 +204,8 @@ When creating new templates it it is useful to use the [annotator](https://quart
 
 
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetTemplate
+from quartzbio import Dataset, DatasetTemplate
+
 # Load fields from a template
 dataset = Dataset.get_by_full_path('vault:/my/dataset/')
 template = DatasetTemplate.retrieve(template_id)

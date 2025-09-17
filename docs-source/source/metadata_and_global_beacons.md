@@ -52,8 +52,7 @@ Entities are special labels for dataset fields that contain specific content, su
 In the Python client library, entities can be added, removed, or changed for any field on any dataset where the user has to Write access using the fields method:
 
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetField
+from quartzbio import Dataset, DatasetField
 
 #Get dataset
 dataset=Dataset.get_by_full_path('~/my_dataset')
@@ -90,7 +89,7 @@ When working with Global Beacons via API, the output will display the status a
 
 
 ```Python
- Getting the dataset
+# Getting the dataset
 dataset = Dataset.get_by_full_path('~/beacon-test-dataset')
 
 # Enabling Global Beacon on dataset

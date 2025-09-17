@@ -12,6 +12,7 @@ This example is a fast way to check for any activity on a dataset.
 In Python:
 ```Python
 from quartzbio import Dataset
+
 activity = Dataset.retrieve(<DATASET ID>).activity()
 if activity:
     print("Dataset has active tasks")
@@ -33,6 +34,7 @@ The function also limits the activity check to one task. This can be modified us
 
 ```Python
 from quartzbio import Dataset
+
 Dataset.retrieve(<DATASET ID>).activity(follow=True)
 
 # Sleep for 20 seconds in between

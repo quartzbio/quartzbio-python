@@ -173,7 +173,7 @@ Users can search for files, folders, and datasets within any vault by name or ot
 
 
 ```Python
-from quartzbio import Vault
+from quartzbio import Vault, Object
 
 # Retrieve a vault
 vault = Vault.get_personal_vault()
@@ -220,10 +220,11 @@ files = folder.files(recursive=True)
 Users can list all objects within a vault that match a specific pattern (i.e. find all the files within a certain folder) by providing a `case-insensitive` regular expression to the regex parameter. It is highly recommended to use `Object.search()` instead of searching by regular expression, unless it is absolutely necessary.
 
 
+In Python:
 
 ```Python
-from quartzbio import Vault
-from quartzbio import Object
+from quartzbio import Vault, Object
+
 # Get the public vault
 public_vault = Vault.get_by_full_path('quartzbio:public')
 # Find datasets using regex

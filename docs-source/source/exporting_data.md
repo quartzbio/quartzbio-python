@@ -78,7 +78,7 @@ Users can leverage the [dataset filtering](https://quartzbio.github.io/quartzbio
 ```Python
 from quartzbio import Dataset
 
-dataset = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20221105/Variants-GRCH37')
+dataset = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.3.0-20231007/Variants-GRCH37')
 
 # Filter the dataset by field values, limit the number of results, select a subset of fields
 query = dataset.query(limit=100, fields=["variant", "info.ORIGIN", "gene"]).filter(info.ORIGIN__gte=3)

@@ -9,8 +9,7 @@ The EDP Python library enables users to join two datasets by keys (fields) that 
 The following example joins two public datasets, ClinVar and TCGA, on the variant field found in both datasets:
 
 ```Python
-from quartzbio import Filter
-from quartzbio import Dataset
+from quartzbio import Filter, Dataset
 
 #Write filter to narrow down results to pathogenic PTEN variants
 filters = Filter(clinical_significance__exact="pathogenic") & Filter(gene__exact="PTEN")
@@ -125,8 +124,7 @@ Facets will not work for text fields that are indexed (and tokenized) for full-t
 
 Examples in Python:
 ```Python
-from quartzbio import Dataset
-from quartzbio import Filter
+from quartzbio import Dataset, Filter
 
 query = Dataset.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37').query()
 
