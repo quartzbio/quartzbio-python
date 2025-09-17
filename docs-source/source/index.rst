@@ -2,7 +2,6 @@
 
 .. mdinclude:: ../../README.md
 
-
 Module Documentation
 ====================
 
@@ -16,9 +15,9 @@ Module Documentation
    :maxdepth: 2
    :caption: Vaults and Files
 
-   exporting_data_via_api
+   exporting_data
+   importing_data
    import_parameters
-   importing_data_via_api
    vaults_and_objects
 
 .. toctree::
@@ -27,7 +26,7 @@ Module Documentation
 
    creating_and_migrating_datasets
    dataset_templates
-   dataset_versioning_via_api
+   dataset_versioning
    joining_and_aggregating_datasets
    transforming_datasets
 
@@ -35,14 +34,14 @@ Module Documentation
    :maxdepth: 2
    :caption: Expressions
 
-   expression_functions
    expressions
+   expression_functions
 
 .. toctree::
    :maxdepth: 2
    :caption: Global Search
 
-   data_discovery_via
+   data_discovery
    metadata_and_global_beacons
 
 .. toctree::
@@ -51,7 +50,12 @@ Module Documentation
 
    filters
    querying_datasets_and_files
-   
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Changelog
+
+   changelog
 
 Indices and tables
 ==================

@@ -71,7 +71,7 @@ for record in join_query:
 
 ### Advanced Example
 
-The EDP join method enables users to join two datasets whose keys are lists. However, users must apply the explode [expression function](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000611524) before joining:
+The EDP join method enables users to join two datasets whose keys are lists. However, users must apply the explode [expression function](https://quartzbio.github.io/quartzbio-python/expression_functions.html) before joining:
 
 ```Python
 import quartzbio as sb
@@ -109,7 +109,7 @@ The join method has the following attributes:
 
 ### Overview
 
-Both the EDP Python and R client libraries enable users to perform aggregations to build complex summaries of data. Aggregation queries can be run on datasets with the help of facets. Facets can be used to generate aggregated summaries of string (and date) fields as well as numeric fields, and they automatically work on top of [queries and filters](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000612356). Facets can also be nested, which provides an incredibly efficient mechanism to summarize binned or rolled-up data (i.e. data summarized by term or by date).
+Both the EDP Python and R client libraries enable users to perform aggregations to build complex summaries of data. Aggregation queries can be run on datasets with the help of facets. Facets can be used to generate aggregated summaries of string (and date) fields as well as numeric fields, and they automatically work on top of [queries and filters](https://quartzbio.github.io/quartzbio-python/filters.html#overview). Facets can also be nested, which provides an incredibly efficient mechanism to summarize binned or rolled-up data (i.e. data summarized by term or by date).
 
 ### String and Date Aggregations
 
@@ -154,7 +154,7 @@ There are various aggregation options are available for numerical fields (such a
 -   **histogram**: values are binned according to a provided interval. For numerical fields, the default interval is 100. For dates, the default interval is 'month'. Histogram intervals must be integers, and will therefore not work for fields with values between 0 and 1 (such as allele frequencies).
 -   **percentiles**: calculates estimated percentiles for a field. By default, returns the following percentiles: 1, 5, 25, 50, 75, 95, 99. Percentiles are approximated and have an 1-5% error for very large datasets.
 
-Examples in Python:
+Examples 
 
 ```Python
 from quartzbio import Dataset
@@ -182,7 +182,7 @@ At this time, users may only nest term and histogram facets under terms facets. 
 
 The following example  yields the top ten genes associated with each disease in the public TCGA somatic mutations dataset:
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 

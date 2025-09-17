@@ -2,7 +2,7 @@
 
 ## Overview
 
-EDP expressions can use Python-like functions to pull data from any dataset, calculate statistics, or run advanced algorithms. Users are recommended to read the [Expressions documentation](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023) for an in-depth review of use cases.
+EDP expressions can use Python-like functions to pull data from any dataset, calculate statistics, or run advanced algorithms. Users are recommended to read the [Expressions documentation](https://quartzbio.github.io/quartzbio-python/expressions.html) for an in-depth review of use cases.
 
 
 ## Function Details

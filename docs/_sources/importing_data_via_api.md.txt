@@ -1,4 +1,4 @@
-# Importing Data via API
+# Importing Data
 
 ## Overview
 
@@ -116,7 +116,7 @@ imp = DatasetImport.create(
 dataset.activity(follow=True)
 ```
 
-The EDP can also pull data from DNAnexus, SevenBridges, and many other pipelines. [](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608614)Users can contact QuartzBio Support for more information.
+The EDP can also pull data from many other pipelines. [](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608614)Users can contact QuartzBio Support for more information.
 
 ## Importing from Records
 
