@@ -1,4 +1,4 @@
-# Data Discovery via API
+# Data Discovery
 
 Global Search allows users to search for vaults, files, folders, and datasets by name, tags, user, date, and other metadata that can be customized. Similarly to [Global Search on the web application](https://quartzbio.freshdesk.com/a/solutions/articles/73000597713), the search functionality is available through EDP Python and R clients as well. Users can refer to the [EDP Access and Search Programmatic Guide](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608178) to get started with using EDP clients.
 
@@ -59,7 +59,7 @@ results = GlobalSearch("test")
 
 ## Global Beacon Search  
 
-Global Beacon Search, which is explained in the [Global Beacon Search article](https://quartzbio.freshdesk.com/a/solutions/articles/73000603092), can be performed as well with both Python and R clients by using the entities parameter. Please note that Global Beacon Search works only on datasets enabled by Global Beacons. To search for subjects or samples, users should also set the vault\_scope parameter to "any".
+Global Beacon Search, which is explained in the [Global Beacon Search article](https://quartzbio.github.io/quartzbio-python/metadata_and_global_beacons.html#global-beacons), can be performed as well with both Python and R clients by using the entities parameter. Please note that Global Beacon Search works only on datasets enabled by Global Beacons. To search for subjects or samples, users should also set the `vault_scope` parameter to "any".
 
 ```Python
  Entity search example

@@ -1,10 +1,10 @@
-# Importing Data via API
+# Importing Data
 
 ## Overview
 
 The EDP specializes in harmonizing a variety of data sources through its robust import system. Importing data is the process of converting a flat file into a dataset that can be queried in real time. The EDP supports data in the most common formats, including JSONL, VCF, CSV, TSV, XML, GTF, and GFF3. Users can contact QuartzBio Support for assistance with importing many other formats (including custom, proprietary formats, and unstructured data).
 
-The EDP's import system automates the traditional ETL (Extract, Transform, Load) process. The process typically starts by uploading files into a vault. An import task can then be configured and launched. The import system automatically handles data extraction (file parsing), data transformation, data validation, and finally data loading. Users can refer to the Import Parameters documentation for more information about configuring optional parameters for data parsing, entity detection, validation, and annotation.
+The EDP's import system automates the traditional ETL (Extract, Transform, Load) process. The process typically starts by uploading files into a vault. An import task can then be configured and launched. The import system automatically handles data extraction (file parsing), data transformation, data validation, and finally data loading. Users can refer to the [Import Parameters documentation](https://quartzbio.github.io/quartzbio-python/import_parameters.html) for more information about configuring optional parameters for data parsing, entity detection, validation, and annotation.
 
 ## Supported Formats
 
@@ -29,7 +29,7 @@ The following file formats and extensions are supported:
 
 ## Reader Parameters
 
-EDP automatically detects the file format based on the extension, except for the Nirvana JSON file, and parses the file using a specialized "reader". It is possible to manually specify a reader and modify reader parameters using the [reader\_params](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000629949) attribute of the DatasetImport resource. 
+EDP automatically detects the file format based on the extension, except for the Nirvana JSON file, and parses the file using a specialized `"reader"`. It is possible to manually specify a reader and modify reader parameters using the [reader\_params](https://quartzbio.github.io/quartzbio-python/import_parameters.html) attribute of the DatasetImport resource. 
 
 | Reader  |   Reader name  |    Extension     |
 |---------|----------------|------------------|
@@ -42,13 +42,13 @@ EDP automatically detects the file format based on the extension, except for the
 |  GFF3   |      gff3      |      .gff3       |
 | Nirvana |      json      |  nirvana .json   |
 |  Excel  |      xlsx      |      .xlsx       |
-|  Excel  |      xls       |                  |
+|  Excel  |      xls       |      .xls        |
 
 EDP supports GZip compression for all file types. Gzipped files must have the .gz file extension in addition to their format extension (i.e. file.vcf.gz). Users are recommended to compress files with GZip for faster uploads and imports.
 
 ## Importing from Files
 
-The first step to getting data onto EDP is by uploading files into a vault. Users can refer to the [Vaults documentation](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224) for more information.
+The first step to getting data onto EDP is by uploading files into a vault. Users can refer to the [Vaults documentation](https://quartzbio.github.io/quartzbio-python/vaults_and_objects.html) for more information.
 
 In Python:
 ```Python
@@ -61,9 +61,9 @@ uploaded_file = vault.upload_file('local/path/file.vcf.gz', '/')
 uploaded_file = Object.get_by_full_path('~/file.vcf.gz')
 ```
 
-Once the files have been uploaded, they can be imported into any new or existing dataset ([Learn how to create a dataset](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613900)). To launch an import, users can utilize the DatasetImport method. The user will need to provide the uploaded file and target dataset as inputs. Once the import has been launched, it is possible to track the progress through the API on the web interface through the Activity tab.
+Once the files have been uploaded, they can be imported into any new or existing dataset ([Learn how to create a dataset](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#creating-datasets)). To launch an import, users can utilize the DatasetImport method. The user will need to provide the uploaded file and target dataset as inputs. Once the import has been launched, it is possible to track the progress through the API on the web interface through the Activity tab.
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetImport
@@ -83,9 +83,9 @@ dataset.activity(follow=True)
 
 ## Importing from URLs
 
-If the files are on a remote server and accessible by URL, they can be imported using a manifest. A manifest is simply a list of files (URLs and other attributes) to import:
+If the files are on a remote server and accessible by URL, they can be imported using a manifest. `A manifest` is simply a list of files (URLs and other attributes) to import:
 
-In Python:
+
 ```Python
 from quartzbio import Manifest
 
@@ -97,7 +97,7 @@ manifest.add_url(source_url)
 
 Once the manifest has been created, it can be imported into any new or existing dataset. To launch an import, users can employ the DatasetImport resource, providing the manifest and target dataset as input. Once the import has been launched it is available to track the progress through the API or on the web. 
 
-In Python:
+
 
 ```Python
 from quartzbio import Dataset
@@ -116,13 +116,13 @@ imp = DatasetImport.create(
 dataset.activity(follow=True)
 ```
 
-The EDP can also pull data from DNAnexus, SevenBridges, and many other pipelines. [](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608614)Users can contact QuartzBio Support for more information.
+The EDP can also pull data from many other pipelines. Users can contact QuartzBio Support for more information.
 
 ## Importing from Records
 
-The EDP can also import data as a list of records, i.e. a list of Python dictionaries or R data. Users should note that the EDP supports only importing up to 5000 records at a time through this method. Importing from records is most optimal for importing small datasets and making edits to datasets. For larger imports and transforms, users are recommended to import from compressed JSONL files.
+The EDP can also import data as a list of records, i.e. a list of Python dictionaries or R data. Users should note that the EDP supports only importing up to `5000 records` at a time through this method. Importing from records is most optimal for importing small datasets and making edits to datasets. For larger imports and transforms, users are recommended to import from compressed JSONL files.
 
-In Python:
+
 
 ```Python
 from quartzbio import DatasetImport
@@ -141,7 +141,7 @@ imp = DatasetImport.create(
 
 ## Command Line Tools
 
-Users can import data files using the quartzbio import command from the quartzbio Python module:
+Users can import data files using the quartzbio **import** command from the quartzbio Python module:
 ```
 # Import a file (create the dataset if necessary):
 quartzbio import --create-dataset --follow ~/test-dataset data.vcf.gz
@@ -177,11 +177,11 @@ An easy way to upload files to a vault in batches is to use the quartzbio upload
 quartzbio upload ./local_folder
 ```
 
-If multiple files are uploaded, the command will cross-check the files and upload only the missing files and folders. Users should note that comparison is performed by filename, not by file contents. Users can refer to the [Vaults and Objects](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000615717) documentation for more information about batch uploading. 
+If multiple files are uploaded, the command will cross-check the files and upload only the missing files and folders. Users should note that comparison is performed by **filename, not by file contents**. Users can refer to the [Vaults and Objects](https://quartzbio.github.io/quartzbio-python/vaults_and_objects.html) documentation for more information about batch uploading. 
 
 ## Transforming Imported Data
 
-Imported data can be transformed (fields added or edited) by providing a list of fields to the target\_fields parameter. [Expressions](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023) can be used to dynamically modify the data as it is imported, making it possible to
+Imported data can be transformed (fields added or edited) by providing a list of fields to the `target_fields` parameter. [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html) can be used to dynamically modify the data as it is imported, making it possible to
 
 -   Modify data types (numbers to strings or vice-versa)
 -   Add new fields with static or dynamic content
@@ -190,7 +190,7 @@ Imported data can be transformed (fields added or edited) by providing a list of
 
 The following example imports a list of records and transforms the contents in a single step:
 
-In Python:
+
 ```Python
 from quartzbio import Dataset
 from quartzbio import DatasetImport
@@ -244,11 +244,11 @@ Existing imported data can also be modified by using migrations. This allows a u
 
 ## Validating Imported Data
 
-When importing data, every record is validated to ensure it can be committed into a Dataset. Validation compares the schema of existing Dataset fields with the values of incoming data and issues validation errors if the Dataset field schema does not match the incoming value. Validation can also issue warnings.
+When importing data, every record is validated to ensure it can be committed into a `Dataset`. Validation compares the schema of existing Dataset fields with the values of incoming data and issues validation errors if the Dataset field schema does not match the incoming value. Validation can also issue warnings.
 
-During validation, a field's data\_type and is\_list values are checked. All records are evaluated (although users may override this to fail fast on the first error). A commit will not be created if there are any validation errors.
+During validation, a field's `data_type` and `is_list` values are checked. All records are evaluated (although users may override this to fail fast on the first error). A commit will not be created if there are any validation errors.
 
-The following settings can be passed to the [validation\_params](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000629949) field.
+The following settings can be passed to the [validation\_params](https://quartzbio.github.io/quartzbio-python/import_parameters.html#entity-detection-parameters) field.
 
 -   disable - (boolean) default False - Disables validation completely
 -   raise\_on\_errors - (boolean) default False - Will fail the import on first validation error encountered.
@@ -257,7 +257,7 @@ The following settings can be passed to the [validation\_params](https://quartzb
 
 The following example fails an import as soon as invalid data is detected:
 
-In Python:
+
 
 ```Python
 imp = DatasetImport.create(
@@ -271,7 +271,7 @@ imp = DatasetImport.create(
 
 The following example disables validation from running, which can improve import performance.
 
-In Python:
+
 
 ```Python
 imp = DatasetImport.create(
@@ -285,21 +285,21 @@ imp = DatasetImport.create(
 
 ## Committing Imported Data
 
-Once data has been extracted from files, transformed, and validated, it will be automatically indexed ("committed") into EDP's datastore. Dataset commits represent all changes made to the target dataset by the import process. Four commit modes can be selected depending on the scenario: append (default), overwrite, upsert, and delete. The commit mode can be specified when creating the DatasetImport using the commit\_mode parameter.
+Once data has been extracted from files, transformed, and validated, it will be automatically indexed ("committed") into EDP's datastore. Dataset commits represent all changes made to the target dataset by the import process. Four commit modes can be selected depending on the scenario: append (default), overwrite, upsert, and delete. The commit mode can be specified when creating the DatasetImport using the `commit_mode` parameter.
 
-append (default)
+**append (default)**
 
 Append mode always adds records to the dataset. Imported record IDs (the \_id field) will be overwritten with unique values. **Only append commits can be rolled back at this time.**
 
-overwrite
+**overwrite**
 
 Overwrite mode requires that each record have a value in the \_id field. Existing records with the same \_id are overwritten completely.
 
-upsert
+**upsert**
 
 Upsert mode merges imported records with existing records, based on the value of their \_id field. Object fields are merged, scalar fields (such as integers and strings) are overwritten, and new fields are added. **List fields are completely overwritten regardless of the data type.**
 
-delete
+**delete**
 
 Delete mode is a special case that deletes existing dataset records based on their \_id field.
 
@@ -313,19 +313,20 @@ Data validation is enabled by default when running imports or migrations. This i
 
 **Dataset Capacity**
 
-For many simultaneous imports, use a larger dataset capacity. Simultaneous imports have a high upper limit (50+) but simultaneous commits are throttled. Every import spawns a commit that does the actual indexing of the data. small capacity datasets allow a single running commit per dataset at a time, the medium allows 2 simultaneous commits, and large allows 3 simultaneous commits. Commits will remain queued until running ones are completed.
+For many simultaneous imports, use a larger dataset capacity. Simultaneous imports have a high upper limit (50+) but simultaneous commits are throttled. Every import spawns a commit that does the actual indexing of the data. small capacity datasets allow a single running commit per dataset at a time, the medium allows `2 simultaneous commits`, and large allows `3 simultaneous commits`. Commits will remain queued until running ones are completed.
 
 Indexing operations and query operations are also faster for larger-capacity datasets. If it is expected a dataset to be queried at high frequency, then we recommend using a larger dataset. If the dataset already exists, copy the dataset into a medium or large dataset.
 
 **Optimize "expensive" Expressions**
 
-Some dataset field expressions are more expensive than others. Dataset query expressions can be sped up by applying exact filters, using fields to only pull back the fields that are needed, or using dataset\_count() if the length is what is needed.
+Some dataset field expressions are more expensive than others. Dataset query expressions can be sped up by applying exact filters, using fields to only pull back the fields that are needed, or using `dataset_count()` if the length is what is needed.
 
 ## API Endpoints
 
-Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
+Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
+For correct work of the API, you need to change `<EDP_API_HOST>` to your current domain, such as my-domain.api.edp.aws.quartz.bio
 
-Dataset Imports
+### Dataset Imports
 
 | Method |                  HTTP Request                   |              Description               |                                 Authorization                                  |                                            Response                                             |
 |--------|-------------------------------------------------|----------------------------------------|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
@@ -351,7 +352,7 @@ In the request body, provide an object with the following properties:
 |   target\_fields   | objects |                          A list of valid dataset fields to create or override in the import.                          |
 |      priority      | integer |                                           A priority to assign to this task                                           |
 
-When creating a new import, either manifest, object\_id or data\_records must be provided. Using a manifest allows you to import a remote file accessible by HTTP(S), for example:
+When creating a new import, either manifest, `object_id` or `data_records` must be provided. Using a manifest allows you to import a remote file accessible by HTTP(S), for example:
 
 ```
 # Example Manifest
@@ -384,18 +385,12 @@ Manifests can include the following parameters:
 |--------|--------------------------------------------------------|--------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/dataset\_imports/{ID} | Delete a dataset import. | This request requires an authorized user with write permission on the dataset. | The response returns "HTTP 200 OK" when successful. |
 
-Deleting dataset imports is not recommended as data provenance will be lost.
+**Deleting dataset imports is not recommended as data provenance will be lost.**
 
 | Method |                    HTTP Request                     |            Description             |                                 Authorization                                 |                    Response                     |
 |--------|-----------------------------------------------------|------------------------------------|-------------------------------------------------------------------------------|-------------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/dataset\_imports/{ID} | Retrieve metadata about an import. | This request requires an authorized user with read permission on the dataset. | The response contains a DatasetImport resource. |
-
-| Method |                         HTTP Request                         |                 Description                 |                                 Authorization                                 |                         Response                         |
-|--------|--------------------------------------------------------------|---------------------------------------------|-------------------------------------------------------------------------------|----------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID}/imports | List the imports associated with a dataset. | This request requires an authorized user with read permission on the dataset. | The response contains a list of DatasetImport resources. |
-
-| Method |                       HTTP Request                        |       Description        |                                 Authorization                                  |                                   Response                                   |
-|--------|-----------------------------------------------------------|--------------------------|--------------------------------------------------------------------------------|------------------------------------------------------------------------------|
 | cancel | PUT https://<EDP\_API\_HOST>/v2/dataset\_imports/{IMPORT\_ID} | Cancel a dataset import. | This request requires an authorized user with write permission on the dataset. | The response will contain a DatasetImport resource with the status canceled. |
 
 Request Body
