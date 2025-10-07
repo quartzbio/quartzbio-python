@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>quartzbio &#8212; QuartzBio  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
@@ -16,8 +16,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -37,12 +38,12 @@
 <li class="toctree-l2"><a class="reference internal" href="quartzbio.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="quartzbio.cli.html">quartzbio.cli package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.html#module-contents">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.html#module-quartzbio.cli">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.resource.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="quartzbio.resource.html#module-contents">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.resource.html#module-quartzbio.resource">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="quartzbio.utils.html">quartzbio.utils package</a><ul>
@@ -53,20 +54,305 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="quartzbio.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.annotate.html">quartzbio.annotate module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.annotate.html#quartzbio.annotate.Annotator"><code class="docutils literal notranslate"><span class="pre">Annotator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.annotate.html#quartzbio.annotate.Expression"><code class="docutils literal notranslate"><span class="pre">Expression</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.client.html#quartzbio.client.QuartzBioClient"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="quartzbio.errors.html">quartzbio.errors module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.errors.html#quartzbio.errors.FileUploadError"><code class="docutils literal notranslate"><span class="pre">FileUploadError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.errors.html#quartzbio.errors.NotFoundError"><code class="docutils literal notranslate"><span class="pre">NotFoundError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.errors.html#quartzbio.errors.QuartzBioError"><code class="docutils literal notranslate"><span class="pre">QuartzBioError</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.global_search.html">quartzbio.global_search module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.global_search.html#quartzbio.global_search.GlobalSearch"><code class="docutils literal notranslate"><span class="pre">GlobalSearch</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.query.html">quartzbio.query module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.query.html#quartzbio.query.BatchQuery"><code class="docutils literal notranslate"><span class="pre">BatchQuery</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.query.html#quartzbio.query.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.query.html#quartzbio.query.GenomicFilter"><code class="docutils literal notranslate"><span class="pre">GenomicFilter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.query.html#quartzbio.query.Query"><code class="docutils literal notranslate"><span class="pre">Query</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.query.html#quartzbio.query.QueryBase"><code class="docutils literal notranslate"><span class="pre">QueryBase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.query.html#quartzbio.query.QueryFile"><code class="docutils literal notranslate"><span class="pre">QueryFile</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="quartzbio.version.html">quartzbio.version module</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="quartzbio.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.html#module-quartzbio">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio-python-client">QuartzBio Python Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Annotator"><code class="docutils literal notranslate"><span class="pre">Annotator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Annotator.CHUNK_SIZE"><code class="docutils literal notranslate"><span class="pre">Annotator.CHUNK_SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Annotator.annotate"><code class="docutils literal notranslate"><span class="pre">Annotator.annotate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Application"><code class="docutils literal notranslate"><span class="pre">Application</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Application.ID_ATTR"><code class="docutils literal notranslate"><span class="pre">Application.ID_ATTR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Application.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">Application.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Application.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">Application.RESOURCE_VERSION</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.BatchQuery"><code class="docutils literal notranslate"><span class="pre">BatchQuery</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.BatchQuery.execute"><code class="docutils literal notranslate"><span class="pre">BatchQuery.execute()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Beacon"><code class="docutils literal notranslate"><span class="pre">Beacon</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Beacon.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">Beacon.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Beacon.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">Beacon.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Beacon.query"><code class="docutils literal notranslate"><span class="pre">Beacon.query()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.BeaconSet"><code class="docutils literal notranslate"><span class="pre">BeaconSet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.BeaconSet.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">BeaconSet.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.BeaconSet.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">BeaconSet.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.BeaconSet.query"><code class="docutils literal notranslate"><span class="pre">BeaconSet.query()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset"><code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">Dataset.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">Dataset.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.activity"><code class="docutils literal notranslate"><span class="pre">Dataset.activity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.archive"><code class="docutils literal notranslate"><span class="pre">Dataset.archive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.beacon"><code class="docutils literal notranslate"><span class="pre">Dataset.beacon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.commits"><code class="docutils literal notranslate"><span class="pre">Dataset.commits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.disable_global_beacon"><code class="docutils literal notranslate"><span class="pre">Dataset.disable_global_beacon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.enable_global_beacon"><code class="docutils literal notranslate"><span class="pre">Dataset.enable_global_beacon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.export"><code class="docutils literal notranslate"><span class="pre">Dataset.export()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.fields"><code class="docutils literal notranslate"><span class="pre">Dataset.fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.get_by_full_path"><code class="docutils literal notranslate"><span class="pre">Dataset.get_by_full_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.get_global_beacon_status"><code class="docutils literal notranslate"><span class="pre">Dataset.get_global_beacon_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.get_or_create_by_full_path"><code class="docutils literal notranslate"><span class="pre">Dataset.get_or_create_by_full_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.import_file"><code class="docutils literal notranslate"><span class="pre">Dataset.import_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.imports"><code class="docutils literal notranslate"><span class="pre">Dataset.imports()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.lookup"><code class="docutils literal notranslate"><span class="pre">Dataset.lookup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.make_full_path"><code class="docutils literal notranslate"><span class="pre">Dataset.make_full_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.migrate"><code class="docutils literal notranslate"><span class="pre">Dataset.migrate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.query"><code class="docutils literal notranslate"><span class="pre">Dataset.query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.restore"><code class="docutils literal notranslate"><span class="pre">Dataset.restore()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.saved_queries"><code class="docutils literal notranslate"><span class="pre">Dataset.saved_queries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.template"><code class="docutils literal notranslate"><span class="pre">Dataset.template()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Dataset.vault_object"><code class="docutils literal notranslate"><span class="pre">Dataset.vault_object</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetCommit"><code class="docutils literal notranslate"><span class="pre">DatasetCommit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetCommit.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">DatasetCommit.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetCommit.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">DatasetCommit.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetCommit.dataset"><code class="docutils literal notranslate"><span class="pre">DatasetCommit.dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetCommit.follow"><code class="docutils literal notranslate"><span class="pre">DatasetCommit.follow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetCommit.parent_object"><code class="docutils literal notranslate"><span class="pre">DatasetCommit.parent_object</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetExport"><code class="docutils literal notranslate"><span class="pre">DatasetExport</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetExport.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">DatasetExport.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetExport.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">DatasetExport.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetExport.dataset"><code class="docutils literal notranslate"><span class="pre">DatasetExport.dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetExport.follow"><code class="docutils literal notranslate"><span class="pre">DatasetExport.follow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetField"><code class="docutils literal notranslate"><span class="pre">DatasetField</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetField.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">DatasetField.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetField.facets"><code class="docutils literal notranslate"><span class="pre">DatasetField.facets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetField.help"><code class="docutils literal notranslate"><span class="pre">DatasetField.help()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetImport"><code class="docutils literal notranslate"><span class="pre">DatasetImport</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetImport.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">DatasetImport.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetImport.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">DatasetImport.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetImport.dataset"><code class="docutils literal notranslate"><span class="pre">DatasetImport.dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetImport.follow"><code class="docutils literal notranslate"><span class="pre">DatasetImport.follow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetMigration"><code class="docutils literal notranslate"><span class="pre">DatasetMigration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetMigration.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">DatasetMigration.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetMigration.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">DatasetMigration.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetMigration.follow"><code class="docutils literal notranslate"><span class="pre">DatasetMigration.follow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetMigration.source"><code class="docutils literal notranslate"><span class="pre">DatasetMigration.source</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetMigration.target"><code class="docutils literal notranslate"><span class="pre">DatasetMigration.target</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetRestoreTask"><code class="docutils literal notranslate"><span class="pre">DatasetRestoreTask</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetRestoreTask.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">DatasetRestoreTask.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetRestoreTask.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">DatasetRestoreTask.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetRestoreTask.dataset"><code class="docutils literal notranslate"><span class="pre">DatasetRestoreTask.dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetRestoreTask.follow"><code class="docutils literal notranslate"><span class="pre">DatasetRestoreTask.follow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetSnapshotTask"><code class="docutils literal notranslate"><span class="pre">DatasetSnapshotTask</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetSnapshotTask.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">DatasetSnapshotTask.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetSnapshotTask.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">DatasetSnapshotTask.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetSnapshotTask.dataset"><code class="docutils literal notranslate"><span class="pre">DatasetSnapshotTask.dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetSnapshotTask.follow"><code class="docutils literal notranslate"><span class="pre">DatasetSnapshotTask.follow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetTemplate"><code class="docutils literal notranslate"><span class="pre">DatasetTemplate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetTemplate.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">DatasetTemplate.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetTemplate.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">DatasetTemplate.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.DatasetTemplate.import_params"><code class="docutils literal notranslate"><span class="pre">DatasetTemplate.import_params</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Expression"><code class="docutils literal notranslate"><span class="pre">Expression</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Expression.evaluate"><code class="docutils literal notranslate"><span class="pre">Expression.evaluate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.GenomicFilter"><code class="docutils literal notranslate"><span class="pre">GenomicFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.GenomicFilter.FIELD_CHR"><code class="docutils literal notranslate"><span class="pre">GenomicFilter.FIELD_CHR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.GenomicFilter.FIELD_START"><code class="docutils literal notranslate"><span class="pre">GenomicFilter.FIELD_START</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.GenomicFilter.FIELD_STOP"><code class="docutils literal notranslate"><span class="pre">GenomicFilter.FIELD_STOP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.GenomicFilter.from_string"><code class="docutils literal notranslate"><span class="pre">GenomicFilter.from_string()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.GlobalSearch"><code class="docutils literal notranslate"><span class="pre">GlobalSearch</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.GlobalSearch.entity"><code class="docutils literal notranslate"><span class="pre">GlobalSearch.entity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.GlobalSearch.execute"><code class="docutils literal notranslate"><span class="pre">GlobalSearch.execute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.GlobalSearch.subjects"><code class="docutils literal notranslate"><span class="pre">GlobalSearch.subjects()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.GlobalSearch.subjects_count"><code class="docutils literal notranslate"><span class="pre">GlobalSearch.subjects_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.GlobalSearch.vaults"><code class="docutils literal notranslate"><span class="pre">GlobalSearch.vaults()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Group.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">Group.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Group.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">Group.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Group.datasets"><code class="docutils literal notranslate"><span class="pre">Group.datasets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Group.members"><code class="docutils literal notranslate"><span class="pre">Group.members()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Group.vaults"><code class="docutils literal notranslate"><span class="pre">Group.vaults()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Manifest"><code class="docutils literal notranslate"><span class="pre">Manifest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Manifest.add"><code class="docutils literal notranslate"><span class="pre">Manifest.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Manifest.add_file"><code class="docutils literal notranslate"><span class="pre">Manifest.add_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Manifest.add_url"><code class="docutils literal notranslate"><span class="pre">Manifest.add_url()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Manifest.manifest"><code class="docutils literal notranslate"><span class="pre">Manifest.manifest</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Object"><code class="docutils literal notranslate"><span class="pre">Object</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">Object.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.PATH_RE"><code class="docutils literal notranslate"><span class="pre">Object.PATH_RE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">Object.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.archive"><code class="docutils literal notranslate"><span class="pre">Object.archive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.create_folder"><code class="docutils literal notranslate"><span class="pre">Object.create_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.create_shortcut"><code class="docutils literal notranslate"><span class="pre">Object.create_shortcut()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.data_url"><code class="docutils literal notranslate"><span class="pre">Object.data_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.dataset"><code class="docutils literal notranslate"><span class="pre">Object.dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.datasets"><code class="docutils literal notranslate"><span class="pre">Object.datasets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.delete_version"><code class="docutils literal notranslate"><span class="pre">Object.delete_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.disable_global_beacon"><code class="docutils literal notranslate"><span class="pre">Object.disable_global_beacon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.enable_global_beacon"><code class="docutils literal notranslate"><span class="pre">Object.enable_global_beacon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.files"><code class="docutils literal notranslate"><span class="pre">Object.files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.folders"><code class="docutils literal notranslate"><span class="pre">Object.folders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.get_by_full_path"><code class="docutils literal notranslate"><span class="pre">Object.get_by_full_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.get_by_path"><code class="docutils literal notranslate"><span class="pre">Object.get_by_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.get_global_beacon_status"><code class="docutils literal notranslate"><span class="pre">Object.get_global_beacon_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.get_or_create_by_full_path"><code class="docutils literal notranslate"><span class="pre">Object.get_or_create_by_full_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.get_target"><code class="docutils literal notranslate"><span class="pre">Object.get_target()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.has_tag"><code class="docutils literal notranslate"><span class="pre">Object.has_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.is_dataset"><code class="docutils literal notranslate"><span class="pre">Object.is_dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.is_file"><code class="docutils literal notranslate"><span class="pre">Object.is_file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.is_folder"><code class="docutils literal notranslate"><span class="pre">Object.is_folder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.is_shortcut"><code class="docutils literal notranslate"><span class="pre">Object.is_shortcut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.list_versions"><code class="docutils literal notranslate"><span class="pre">Object.list_versions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.ls"><code class="docutils literal notranslate"><span class="pre">Object.ls()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.objects"><code class="docutils literal notranslate"><span class="pre">Object.objects()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.parent"><code class="docutils literal notranslate"><span class="pre">Object.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.query"><code class="docutils literal notranslate"><span class="pre">Object.query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.restore"><code class="docutils literal notranslate"><span class="pre">Object.restore()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.restore_version"><code class="docutils literal notranslate"><span class="pre">Object.restore_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.tag"><code class="docutils literal notranslate"><span class="pre">Object.tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.undelete_version"><code class="docutils literal notranslate"><span class="pre">Object.undelete_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.untag"><code class="docutils literal notranslate"><span class="pre">Object.untag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.upload_file"><code class="docutils literal notranslate"><span class="pre">Object.upload_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.validate_full_path"><code class="docutils literal notranslate"><span class="pre">Object.validate_full_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Object.vault"><code class="docutils literal notranslate"><span class="pre">Object.vault</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.ObjectCopyTask"><code class="docutils literal notranslate"><span class="pre">ObjectCopyTask</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.ObjectCopyTask.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">ObjectCopyTask.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.ObjectCopyTask.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">ObjectCopyTask.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.ObjectCopyTask.follow"><code class="docutils literal notranslate"><span class="pre">ObjectCopyTask.follow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient.delete"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient.get"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient.is_logged_in"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient.is_logged_in()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient.post"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient.request"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient.request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient.set_credentials"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient.set_credentials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient.set_user_agent"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient.set_user_agent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient.validate_host_is_www_url"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient.validate_host_is_www_url()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioClient.whoami"><code class="docutils literal notranslate"><span class="pre">QuartzBioClient.whoami()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioError"><code class="docutils literal notranslate"><span class="pre">QuartzBioError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.QuartzBioError.default_message"><code class="docutils literal notranslate"><span class="pre">QuartzBioError.default_message</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Query"><code class="docutils literal notranslate"><span class="pre">Query</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Query.annotate"><code class="docutils literal notranslate"><span class="pre">Query.annotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Query.execute"><code class="docutils literal notranslate"><span class="pre">Query.execute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Query.export"><code class="docutils literal notranslate"><span class="pre">Query.export()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Query.facets"><code class="docutils literal notranslate"><span class="pre">Query.facets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Query.fields"><code class="docutils literal notranslate"><span class="pre">Query.fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Query.join"><code class="docutils literal notranslate"><span class="pre">Query.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Query.migrate"><code class="docutils literal notranslate"><span class="pre">Query.migrate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Query.position"><code class="docutils literal notranslate"><span class="pre">Query.position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Query.range"><code class="docutils literal notranslate"><span class="pre">Query.range()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.SavedQuery"><code class="docutils literal notranslate"><span class="pre">SavedQuery</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.SavedQuery.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">SavedQuery.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.SavedQuery.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">SavedQuery.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.SavedQuery.query"><code class="docutils literal notranslate"><span class="pre">SavedQuery.query()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Task"><code class="docutils literal notranslate"><span class="pre">Task</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Task.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">Task.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Task.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">Task.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Task.SLEEP_WAIT_DEFAULT"><code class="docutils literal notranslate"><span class="pre">Task.SLEEP_WAIT_DEFAULT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Task.cancel"><code class="docutils literal notranslate"><span class="pre">Task.cancel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Task.child_object"><code class="docutils literal notranslate"><span class="pre">Task.child_object</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Task.follow"><code class="docutils literal notranslate"><span class="pre">Task.follow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.Vault"><code class="docutils literal notranslate"><span class="pre">Vault</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">Vault.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">Vault.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.VAULT_PATH_RE"><code class="docutils literal notranslate"><span class="pre">Vault.VAULT_PATH_RE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.create_dataset"><code class="docutils literal notranslate"><span class="pre">Vault.create_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.create_folder"><code class="docutils literal notranslate"><span class="pre">Vault.create_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.datasets"><code class="docutils literal notranslate"><span class="pre">Vault.datasets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.disable_versioning"><code class="docutils literal notranslate"><span class="pre">Vault.disable_versioning()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.enable_versioning"><code class="docutils literal notranslate"><span class="pre">Vault.enable_versioning()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.files"><code class="docutils literal notranslate"><span class="pre">Vault.files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.folders"><code class="docutils literal notranslate"><span class="pre">Vault.folders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.get_by_full_path"><code class="docutils literal notranslate"><span class="pre">Vault.get_by_full_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.get_or_create_by_full_path"><code class="docutils literal notranslate"><span class="pre">Vault.get_or_create_by_full_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.get_or_create_uploads_path"><code class="docutils literal notranslate"><span class="pre">Vault.get_or_create_uploads_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.get_personal_vault"><code class="docutils literal notranslate"><span class="pre">Vault.get_personal_vault()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.ls"><code class="docutils literal notranslate"><span class="pre">Vault.ls()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.objects"><code class="docutils literal notranslate"><span class="pre">Vault.objects()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.search"><code class="docutils literal notranslate"><span class="pre">Vault.search()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.suspend_versioning"><code class="docutils literal notranslate"><span class="pre">Vault.suspend_versioning()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.upload_file"><code class="docutils literal notranslate"><span class="pre">Vault.upload_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.Vault.validate_full_path"><code class="docutils literal notranslate"><span class="pre">Vault.validate_full_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.VaultSyncTask"><code class="docutils literal notranslate"><span class="pre">VaultSyncTask</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.VaultSyncTask.LIST_FIELDS"><code class="docutils literal notranslate"><span class="pre">VaultSyncTask.LIST_FIELDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.VaultSyncTask.RESOURCE_VERSION"><code class="docutils literal notranslate"><span class="pre">VaultSyncTask.RESOURCE_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.html#quartzbio.VaultSyncTask.follow"><code class="docutils literal notranslate"><span class="pre">VaultSyncTask.follow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.html#quartzbio.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -96,28 +382,28 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data.html">Exporting Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data.html">Importing Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning.html">Dataset Versioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery.html">Data Discovery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
@@ -125,7 +411,18 @@
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
 
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -156,11 +453,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2025 Precision for Medicine, inc..
+      &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/modules.rst.txt"

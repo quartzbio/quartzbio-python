@@ -6,20 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Transforming Datasets &#8212; QuartzBio  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Expression Functions" href="expression_functions.html" />
+    <link rel="next" title="Expressions" href="expressions.html" />
     <link rel="prev" title="Joining and Aggregating Datasets" href="joining_and_aggregating_datasets.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -35,14 +36,14 @@
 <h1>Transforming Datasets<a class="headerlink" href="#transforming-datasets" title="Permalink to this heading">¶</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
-<p>The EDP makes it easy to transform data using its dynamic, Python-based expression language. Users can employ expressions to transform data when importing files when copying data between (or within) datasets (using “migrations”), or even when querying datasets. In all scenarios, expressions can be provided through the target_fields parameter. Users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023">Expressions</a> documentation to learn more about using expressions.</p>
-<p>This article describes how to transform data using dataset migrations, but users can use the same techniques with dataset imports. With dataset migrations, users can copy data between datasets as well as modify datasets in-place. This makes it possible to add, edit, and remove fields as well as records. All dataset migrations have a source dataset and a target dataset (which can be the same when editing a single dataset). Users are recommended to review the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613900">Creating and Migrating Datasets</a> documentation before this article.</p>
+<p>The EDP makes it easy to transform data using its dynamic, Python-based expression language. Users can employ expressions to transform data when importing files when copying data between (or within) datasets (using “migrations”), or even when querying datasets. In all scenarios, expressions can be provided through the <code class="docutils literal notranslate"><span class="pre">target_fields</span></code> parameter. Users can refer to the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/expressions.html">Expressions</a> documentation to learn more about using expressions.</p>
+<p>This article describes how to transform data using dataset migrations, but users can use the same techniques with dataset imports. With dataset migrations, users can copy data between datasets as well as modify datasets in-place. This makes it possible to add, edit, and remove fields as well as records. All dataset migrations have a source dataset and a target dataset (which can be the same when editing a single dataset). Users are recommended to review the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html">Creating and Migrating Datasets</a> documentation before this article.</p>
 </section>
 <section id="modifying-fields">
 <h2>Modifying Fields<a class="headerlink" href="#modifying-fields" title="Permalink to this heading">¶</a></h2>
 <section id="add-fields">
 <h3>Add Fields<a class="headerlink" href="#add-fields" title="Permalink to this heading">¶</a></h3>
-<p>The most common dataset transformation is to add a field to a dataset (also known as annotating the dataset or inserting a column). Fields can be added or modified using the target_fields parameter, which should contain a list of valid dataset fields. Any new fields in target_fields will be automatically detected and added to the dataset’s schema. Adding fields requires the use of the upsert or overwrite commit mode, depending on the desired effect. This will ensure that the records are updated in-place (based on their _id value), and not duplicated. To add multiple fields and transform data in a specific way, users can also create a reusable <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606022">Dataset Template</a>.</p>
+<p>The most common dataset transformation is to add a field to a dataset (also known as annotating the dataset or inserting a column). Fields can be added or modified using the <code class="docutils literal notranslate"><span class="pre">target_fields</span></code> parameter, which should contain a list of valid dataset fields. Any new fields in <code class="docutils literal notranslate"><span class="pre">target_fields</span></code> will be automatically detected and added to the dataset’s schema. Adding fields requires the use of the upsert or overwrite commit mode, depending on the desired effect. This will ensure that the records are updated in-place (based on their _id value), and not duplicated. To add multiple fields and transform data in a specific way, users can also create a reusable <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/dataset_templates.html">Dataset Template</a>.</p>
 <p>In the following example, a new field will be added to a dataset “in-place”, using the upsert commit mode:</p>
 <p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
@@ -77,8 +78,7 @@
 <section id="edit-fields">
 <h3>Edit Fields<a class="headerlink" href="#edit-fields" title="Permalink to this heading">¶</a></h3>
 <p>In the following example, an existing field in the dataset from the previous example (clinsig_clone) is modified (converted to uppercase). Similar to the example above, a commit mode of overwrite or upsert is required to avoid duplicating records.</p>
-<p>This example uses an expression that references a pre-existing field in the dataset; users can learn more about expression context by reviewing the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023">Expressions</a> documentation.</p>
-<p>In Python:</p>
+<p>This example uses an expression that references a pre-existing field in the dataset; users can learn more about expression context by reviewing the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/expressions.html#overview">Expressions</a> documentation.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/clinvar&#39;</span><span class="p">)</span>
@@ -102,7 +102,6 @@
 <p>Fields cannot be removed from a dataset in-place so removing a field requires a new empty target dataset; all the data must be migrated to a new target dataset with the removed field(s) excluded from the source dataset.</p>
 <p>In the following example, the field (clinsig_clone) in the source dataset is removed by the dataset migration. Since a field is removed, the target dataset must be a new dataset (or one without the field). In this scenario, any commit mode can be used unless the user intends to overwrite records in the target dataset.</p>
 <p>The example follows from the previous one:</p>
-<p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
 <span class="c1"># Use the dataset from the example above</span>
@@ -120,10 +119,9 @@
 </section>
 <section id="transient-fields">
 <h3>Transient Fields<a class="headerlink" href="#transient-fields" title="Permalink to this heading">¶</a></h3>
-<p>Transient fields are like variables in a programming language. They can be used in a complex transform that requires intermediate values that are not meant to be stored in the dataset. Transient fields can be referenced by other expressions, but are not added to the dataset’s schema or stored. Users can set the parameter is_transient to True and ensure that the field’s ordering parameter evaluates the transient fields in the right order.</p>
+<p>Transient fields are like variables in a programming language. They can be used in a complex transform that requires intermediate values that are not meant to be stored in the dataset. Transient fields can be referenced by other expressions, but are not added to the dataset’s schema or stored. Users can set the parameter <code class="docutils literal notranslate"><span class="pre">is_transient</span></code> to True and ensure that the field’s ordering parameter evaluates the transient fields in the right order.</p>
 <p>The following example uses transient fields to structure a few VCF records, leaving the variant IDs and dbSNP rsIDs in the resulting dataset:</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DatasetImport</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/transient_test&#39;</span><span class="p">)</span>
 
@@ -209,9 +207,7 @@
 <h3>Overwrite Records<a class="headerlink" href="#overwrite-records" title="Permalink to this heading">¶</a></h3>
 <p>In order to completely overwrite specific records in a dataset, users can utilize the overwrite commit mode. Users will need to know the _id of the records they wish to overwrite, which can be retrieved by querying the dataset.</p>
 <p>In the following example, a few records will be imported and then edited:</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetImport</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DatasetImport</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/edit_records&#39;</span><span class="p">)</span>
 
@@ -246,9 +242,7 @@
 <h3>Upsert (Edit) Records<a class="headerlink" href="#upsert-edit-records" title="Permalink to this heading">¶</a></h3>
 <p>In order to only update (or add) specific field values in a dataset, users can utilize the upsert commit mode. Users will need to know the _id of the records they wish to upsert, which can be retrieved by querying the dataset.</p>
 <p>Similar to the example above, in the following example a few records will be imported and then edited:</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetImport</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DatasetImport</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/upsert_records&#39;</span><span class="p">)</span>
 
@@ -286,9 +280,7 @@
 <p>In order to completely delete a record from a dataset, users may use the delete commit mode and pass a list of record IDs (from their _id field).</p>
 <p>Users can delete records via an import if they have a file or list of record IDs or via a migration if they are deleting the results of a dataset query.</p>
 <p>The following provides an example of Delete via Import:</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetImport</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DatasetImport</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/data_delete&#39;</span><span class="p">)</span>
 
@@ -329,9 +321,7 @@
 </pre></div>
 </div>
 <p>The following provides an example of Delete via Migration:</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetImport</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DatasetImport</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_or_create_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/python_examples/data_delete_migration&#39;</span><span class="p">)</span>
 
@@ -399,17 +389,17 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data.html">Exporting Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data.html">Importing Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning.html">Dataset Versioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Transforming Datasets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
@@ -420,12 +410,12 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery.html">Data Discovery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
@@ -433,13 +423,24 @@
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
 
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="joining_and_aggregating_datasets.html" title="previous chapter">Joining and Aggregating Datasets</a></li>
-      <li>Next: <a href="expression_functions.html" title="next chapter">Expression Functions</a></li>
+      <li>Next: <a href="expressions.html" title="next chapter">Expressions</a></li>
   </ul></li>
 </ul>
 </div>
@@ -466,11 +467,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2025 Precision for Medicine, inc..
+      &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/transforming_datasets.md.txt"

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Filters &#8212; QuartzBio  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
@@ -18,8 +18,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -37,7 +38,9 @@
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
 <p>The EDP provides an easy-to-use, real-time API for <a class="reference external" href="https://quartzbio.freshdesk.com/a/solutions/articles/73000612356">querying datasets and files</a> through the Python and R client libraries, which also enable the application of complex filters on dataset and file fields. Users can also utilize Bash to query and filter datasets.</p>
 <p>Users can filter on any field in a dataset or file:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Filter ClinVar dataset to pathogenic variants</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Object</span>
+
+<span class="c1">#Filter ClinVar dataset to pathogenic variants</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span>
 <span class="n">dataset</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">clinical_significance</span><span class="o">=</span><span class="s1">&#39;pathogenic&#39;</span><span class="p">)</span>
@@ -93,14 +96,16 @@
 </tbody>
 </table>
 <p>Some filter actions (<code class="docutils literal notranslate"><span class="pre">range</span></code>, <code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code>, <code class="docutils literal notranslate"><span class="pre">gte</span></code>, <code class="docutils literal notranslate"><span class="pre">lte</span></code>) may only be used on numeric and date fields.</p>
-<p>Full-text fields use the <code class="docutils literal notranslate"><span class="pre">contains</span></code> filter action by default and act like a typical search would. Results are ordered by relevance based on the provided search terms. When using the <code class="docutils literal notranslate"><span class="pre">contains</span></code> action on string fields, the system converts the filter into a regular expression: <code class="docutils literal notranslate"><span class="pre">.*{VALUE}.*</span></code>, which is equivalent to the SQL expressions %{VALUE}%.</p>
+<p>Full-text fields use the <code class="docutils literal notranslate"><span class="pre">contains</span></code> filter action by default and act like a typical search would. Results are ordered by relevance based on the provided search terms. When using the <code class="docutils literal notranslate"><span class="pre">contains</span></code> action on string fields, the system converts the filter into a regular expression: <code class="docutils literal notranslate"><span class="pre">.*{VALUE}.*</span></code>, which is equivalent to the SQL expressions <code class="docutils literal notranslate"><span class="pre">%{VALUE}%</span></code>.</p>
 </section>
 <section id="string-filters">
 <h2>String Filters<a class="headerlink" href="#string-filters" title="Permalink to this heading">¶</a></h2>
 <p>Users may filter string fields using the exact (or case-insensitive) match, regular expression match (<code class="docutils literal notranslate"><span class="pre">regexp</span></code>), or prefix match (<code class="docutils literal notranslate"><span class="pre">prefix</span></code>). Users can also match against multiple strings at once (a boolean <em>or</em>) using the “<code class="docutils literal notranslate"><span class="pre">in&quot;</span></code> filter. By default, filters on string fields use the “equals” match.</p>
 <p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Query Dataset</span>
-<span class="n">q</span> <span class="o">=</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="c1">#Query Dataset</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 
 <span class="c1"># Equals match</span>
 <span class="n">q</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA1&#39;</span><span class="p">)</span>
@@ -118,9 +123,10 @@
 </section>
 <section id="text-filters">
 <h2>Text Filters<a class="headerlink" href="#text-filters" title="Permalink to this heading">¶</a></h2>
-<p>Long (paragraph-length) fields typically use the <code class="docutils literal notranslate"><span class="pre">text</span></code> data type. The “<code class="docutils literal notranslate"><span class="pre">contains&quot;</span></code> filter in text fields works more like a search than a filter. Results that match the search term are brought back in the order of relevance.</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/MEDLINE/2.3.4-2018/MEDLINE-sample&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<p>Long (paragraph-length) fields typically use the <code class="docutils literal notranslate"><span class="pre">text</span></code> data type. The <code class="docutils literal notranslate"><span class="pre">&quot;contains&quot;</span></code> filter in text fields works more like a search than a filter. Results that match the search term are brought back in the order of relevance.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/MEDLINE/2.3.4-2018/MEDLINE-sample&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 
 <span class="c1"># Contains match for text fields</span>
 <span class="n">q</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">abstract__contains</span><span class="o">=</span><span class="s1">&#39;diabetes&#39;</span><span class="p">)</span>
@@ -130,8 +136,9 @@
 <section id="numeric-date-filters">
 <h2>Numeric &amp; Date Filters<a class="headerlink" href="#numeric-date-filters" title="Permalink to this heading">¶</a></h2>
 <p>Numeric and date fields can be filtered by exact match, exact match in a list (<code class="docutils literal notranslate"><span class="pre">in</span></code>), half-open range match (<code class="docutils literal notranslate"><span class="pre">range</span></code>), and standard operators (<code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code>, <code class="docutils literal notranslate"><span class="pre">gte</span></code>, <code class="docutils literal notranslate"><span class="pre">lte</span></code>). Dates are in the format <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code>.</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 
 <span class="c1"># Equals match</span>
 <span class="n">q</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">ORIGIN</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
@@ -149,9 +156,10 @@
 </section>
 <section id="entity-filters">
 <h2>Entity Filters<a class="headerlink" href="#entity-filters" title="Permalink to this heading">¶</a></h2>
-<p>EDP-supported <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000603092">Entities</a> can be used for filtering, without requiring the exact field name that the Entity resides in. The entity filters are only compatible with datasets.</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">clinvar</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;&#39;)</span>
+<p>EDP-supported <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/metadata_and_global_beacons.html#entities">Entities</a> can be used for filtering, without requiring the exact field name that the Entity resides in. The entity filters are only compatible with datasets.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="n">clinvar</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span>
 
 <span class="c1"># Gene entity query</span>
 <span class="n">clinvar</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">entities</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span> <span class="s1">&#39;BRCA2&#39;</span><span class="p">]])</span>
@@ -163,10 +171,11 @@
 </section>
 <section id="genomic-coordinate-filters">
 <h2>Genomic Coordinate Filters<a class="headerlink" href="#genomic-coordinate-filters" title="Permalink to this heading">¶</a></h2>
-<p>A dataset’s genomic build is indicated by the suffix of the dataset’s full_path. The genomic coordinate filters are only compatible with datasets.</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># GRCh37</span>
-<span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;&#39;).query()</span>
+<p>A dataset’s genomic build is indicated by the suffix of the dataset’s <code class="docutils literal notranslate"><span class="pre">full_path</span></code>. The genomic coordinate filters are only compatible with datasets.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="c1"># GRCh37</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 
 <span class="c1"># GRCh38</span>
 <span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH38&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
@@ -191,19 +200,20 @@
 <h2>Combining Filters<a class="headerlink" href="#combining-filters" title="Permalink to this heading">¶</a></h2>
 <p>The examples below show how to filter a dataset on one or two fields. In many cases, users will probably need to combine many filters into a single query.</p>
 <p>When manually writing queries in JSON, users can combine and nest filters using boolean operators (‘and’, ‘or’, ‘not’). In the Python client, users can combine filters using the <code class="docutils literal notranslate"><span class="pre">Filter</span></code> and <code class="docutils literal notranslate"><span class="pre">GenomicFilter</span></code> classes (”<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>” for “and”, “<code class="docutils literal notranslate"><span class="pre">|</span></code>” for “or”, and “<code class="docutils literal notranslate"><span class="pre">~</span></code>” for “not”).</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Filter</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 
 <span class="c1"># AND</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA1&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="n">clinical_significance</span><span class="o">=</span><span class="s1">&#39;pathogenic&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA1&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Filter</span><span class="p">(</span><span class="n">clinical_significance</span><span class="o">=</span><span class="s1">&#39;pathogenic&#39;</span><span class="p">)</span>
 <span class="n">q</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 <span class="c1"># OR</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA1&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA2&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA1&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA2&#39;</span><span class="p">)</span>
 <span class="n">q</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 <span class="c1"># NOT</span>
-<span class="n">f</span> <span class="o">=</span> <span class="o">~</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA1&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="o">~</span> <span class="n">Filter</span><span class="p">(</span><span class="n">gene</span><span class="o">=</span><span class="s1">&#39;BRCA1&#39;</span><span class="p">)</span>
 <span class="n">q</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -212,7 +222,7 @@
 <h2>Query Strings<a class="headerlink" href="#query-strings" title="Permalink to this heading">¶</a></h2>
 <p>Query strings are parsed into a series of terms and operators. A query string can be provided as part of an EDP dataset query in combination with filters, or as an alternative to filters.  The query strings are only compatible with datasets.</p>
 <p>Terms in a query string can be single words - “quick” or “brown” - or a phrase surrounded by double quotes - “quick brown” - which will search for all the words in the phrase, in the same order. The query syntax is based on the <a class="reference external" href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query syntax</a>.</p>
-<p>Queries are useful to find records that best match a word or phrase, relative to others. Filters are designed to reduce the potential result set by asking yes/no questions on every record in a dataset.</p>
+<p>Queries are useful to find records that best match a word or phrase, relative to others. Filters are designed to reduce the potential result set by asking <code class="docutils literal notranslate"><span class="pre">yes/no</span></code> questions on every record in a dataset.</p>
 <p>Query string operators allow users to customize a search. The available options are explained below:</p>
 <section id="field-names">
 <h3>Field Names<a class="headerlink" href="#field-names" title="Permalink to this heading">¶</a></h3>
@@ -294,7 +304,6 @@
 <section id="advanced-filters">
 <h2>Advanced Filters<a class="headerlink" href="#advanced-filters" title="Permalink to this heading">¶</a></h2>
 <p>Users can also compose filters in JSON and apply these filters via R, Python, or the EDP UI:</p>
-<p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/MEDLINE/2.3.4-2018/MEDLINE-sample&#39;</span><span class="p">)</span>
 
 <span class="c1"># Include all abstracts with &quot;diabetes&quot;</span>
@@ -331,7 +340,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">{ACTION}</span></code> is a valid field action in the format <code class="docutils literal notranslate"><span class="pre">{FIELD}__{ACTION}</span></code> (see below).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">{VALUE}</span></code> can be a string, numeric, or list value.</p></li>
 </ul>
-<p>By default, a <code class="docutils literal notranslate"><span class="pre">{FIELD}</span></code> with no attached <code class="docutils literal notranslate"><span class="pre">{ACTION}</span></code> implies the “case-insensitive equals” (<code class="docutils literal notranslate"><span class="pre">iexact</span></code>) operator. Full-text (<code class="docutils literal notranslate"><span class="pre">text</span></code> data type) fields automatically use the “<code class="docutils literal notranslate"><span class="pre">contains&quot;</span></code> filter action instead.</p>
+<p>By default, a <code class="docutils literal notranslate"><span class="pre">{FIELD}</span></code> with no attached <code class="docutils literal notranslate"><span class="pre">{ACTION}</span></code> implies the “case-insensitive equals” (<code class="docutils literal notranslate"><span class="pre">iexact</span></code>) operator. Full-text (<code class="docutils literal notranslate"><span class="pre">text</span></code> data type) fields automatically use the <code class="docutils literal notranslate"><span class="pre">&quot;contains&quot;</span></code> filter action instead.</p>
 <p>String and text actions include:</p>
 <table class="docutils align-default">
 <thead>
@@ -411,28 +420,28 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data.html">Exporting Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data.html">Importing Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning.html">Dataset Versioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery.html">Data Discovery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
@@ -451,7 +460,18 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
 
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -484,11 +504,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2025 Precision for Medicine, inc..
+      &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/filters.md.txt"

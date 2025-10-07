@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>quartzbio.resource.vault module &#8212; QuartzBio  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
@@ -16,8 +16,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -29,8 +30,142 @@
 
           <div class="body" role="main">
             
-  <section id="quartzbio-resource-vault-module">
-<h1>quartzbio.resource.vault module<a class="headerlink" href="#quartzbio-resource-vault-module" title="Permalink to this heading">¶</a></h1>
+  <section id="module-quartzbio.resource.vault">
+<span id="quartzbio-resource-vault-module"></span><h1>quartzbio.resource.vault module<a class="headerlink" href="#module-quartzbio.resource.vault" title="Permalink to this heading">¶</a></h1>
+<p>QuartzBio Vault API resource</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.resource.vault.</span></span><span class="sig-name descname"><span class="pre">Vault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vault_id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="quartzbio.resource.apiresource.html#quartzbio.resource.apiresource.CreateableAPIResource" title="quartzbio.resource.apiresource.CreateableAPIResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">CreateableAPIResource</span></code></a>, <a class="reference internal" href="quartzbio.resource.apiresource.html#quartzbio.resource.apiresource.ListableAPIResource" title="quartzbio.resource.apiresource.ListableAPIResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListableAPIResource</span></code></a>, <a class="reference internal" href="quartzbio.resource.apiresource.html#quartzbio.resource.apiresource.DeletableAPIResource" title="quartzbio.resource.apiresource.DeletableAPIResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeletableAPIResource</span></code></a>, <a class="reference internal" href="quartzbio.resource.apiresource.html#quartzbio.resource.apiresource.SearchableAPIResource" title="quartzbio.resource.apiresource.SearchableAPIResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchableAPIResource</span></code></a>, <a class="reference internal" href="quartzbio.resource.apiresource.html#quartzbio.resource.apiresource.UpdateableAPIResource" title="quartzbio.resource.apiresource.UpdateableAPIResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UpdateableAPIResource</span></code></a></p>
+<p>A vault is like a filesystem that can contain files, folder,
+and QuartzBio datasets.  Vaults can be “connected” to external resources
+such as Amazon S3 Buckets.
+Typically, vaults contain a series of datasets that are compatible with
+each other (i.e. they come from the same data source or project).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.LIST_FIELDS">
+<span class="sig-name descname"><span class="pre">LIST_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(('id',</span> <span class="pre">'ID'),</span> <span class="pre">('full_path',</span> <span class="pre">'Full</span> <span class="pre">Path'),</span> <span class="pre">('provider',</span> <span class="pre">'Provider'),</span> <span class="pre">('description',</span> <span class="pre">'Description'))</span></em><a class="headerlink" href="#quartzbio.resource.vault.Vault.LIST_FIELDS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.RESOURCE_VERSION">
+<span class="sig-name descname"><span class="pre">RESOURCE_VERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#quartzbio.resource.vault.Vault.RESOURCE_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.VAULT_PATH_RE">
+<span class="sig-name descname"><span class="pre">VAULT_PATH_RE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('^(?:(?P&lt;domain&gt;[a-zA-Z0-9\\-]+)\\:)??(?P&lt;vault&gt;[^\\/:]+)(?:\\:?\\/.*)?$')</span></em><a class="headerlink" href="#quartzbio.resource.vault.Vault.VAULT_PATH_RE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.create_dataset">
+<span class="sig-name descname"><span class="pre">create_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.create_folder">
+<span class="sig-name descname"><span class="pre">create_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.create_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.datasets">
+<span class="sig-name descname"><span class="pre">datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.datasets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.disable_versioning">
+<span class="sig-name descname"><span class="pre">disable_versioning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.disable_versioning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.enable_versioning">
+<span class="sig-name descname"><span class="pre">enable_versioning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.enable_versioning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.files">
+<span class="sig-name descname"><span class="pre">files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.folders">
+<span class="sig-name descname"><span class="pre">folders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.folders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.get_by_full_path">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_by_full_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.get_by_full_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.get_or_create_by_full_path">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_or_create_by_full_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.get_or_create_by_full_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.get_or_create_uploads_path">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_or_create_uploads_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.get_or_create_uploads_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.get_personal_vault">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_personal_vault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.get_personal_vault" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.ls">
+<span class="sig-name descname"><span class="pre">ls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.ls" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.search" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.suspend_versioning">
+<span class="sig-name descname"><span class="pre">suspend_versioning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.suspend_versioning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.upload_file">
+<span class="sig-name descname"><span class="pre">upload_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.upload_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quartzbio.resource.vault.Vault.validate_full_path">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_full_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.resource.vault.Vault.validate_full_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to return a full path from a full or partial path.</p>
+<blockquote>
+<div><p>If no domain, assumes user’s account domain
+If the vault is “~”, assumes personal vault.</p>
+</div></blockquote>
+<p>Valid vault paths include:</p>
+<blockquote>
+<div><p>domain:vault
+domain:vault:/path
+domain:vault/path
+vault:/path
+vault
+~/</p>
+</div></blockquote>
+<p>Invalid vault paths include:</p>
+<blockquote>
+<div><p>/vault/
+/path
+/
+:/</p>
+</div></blockquote>
+<p>Does not allow overrides for any vault path components.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -56,28 +191,28 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data.html">Exporting Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data.html">Importing Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning.html">Dataset Versioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery.html">Data Discovery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
@@ -85,7 +220,18 @@
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
 
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -116,11 +262,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2025 Precision for Medicine, inc..
+      &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/quartzbio.resource.vault.rst.txt"

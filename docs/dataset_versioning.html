@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Dataset Versioning via API &#8212; QuartzBio  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <title>Dataset Versioning &#8212; QuartzBio  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
@@ -18,8 +18,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -31,8 +32,8 @@
 
           <div class="body" role="main">
             
-  <section id="dataset-versioning-via-api">
-<h1>Dataset Versioning via API<a class="headerlink" href="#dataset-versioning-via-api" title="Permalink to this heading">¶</a></h1>
+  <section id="dataset-versioning">
+<h1>Dataset Versioning<a class="headerlink" href="#dataset-versioning" title="Permalink to this heading">¶</a></h1>
 <section id="dataset-activity">
 <h2>Dataset Activity<a class="headerlink" href="#dataset-activity" title="Permalink to this heading">¶</a></h2>
 <p>Dataset activity includes any operation that imports, transforms, exports, or copies dataset data. Users can view a dataset’s activity via the API or in the EDP UI by visiting the Activity tab of a dataset.</p>
@@ -40,6 +41,7 @@
 <p>This example is a fast way to check for any activity on a dataset.</p>
 <p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
 <span class="n">activity</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="o">&lt;</span><span class="n">DATASET</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">)</span><span class="o">.</span><span class="n">activity</span><span class="p">()</span>
 <span class="k">if</span> <span class="n">activity</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dataset has active tasks&quot;</span><span class="p">)</span>
@@ -51,10 +53,10 @@
 <p>Example: Wait for an Idle Dataset</p>
 <p>Some use cases may require waiting until a dataset is idle. A dataset is idle when there are no longer any task operations that are queued, pending, or running.</p>
 <p>This can be done synchronously using the follow parameter. This parameter continually loops through all dataset activity until the dataset is idle.</p>
-<p>The function sleeps in between each check for activity. The default is 3 seconds and can be modified using the sleep_seconds parameter.</p>
+<p>The function sleeps in between each check for activity. The default is 3 seconds and can be modified using the <code class="docutils literal notranslate"><span class="pre">sleep_seconds</span></code> parameter.</p>
 <p>The function also limits the activity check to one task. This can be modified using the limit parameter.</p>
-<p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
 <span class="n">Dataset</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="o">&lt;</span><span class="n">DATASET</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">)</span><span class="o">.</span><span class="n">activity</span><span class="p">(</span><span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Sleep for 20 seconds in between</span>
@@ -67,13 +69,16 @@
 </section>
 <section id="reverting-datasets">
 <h2>Reverting Datasets<a class="headerlink" href="#reverting-datasets" title="Permalink to this heading">¶</a></h2>
-<p>Overview</p>
+<section id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h3>
 <p>Dataset commits are the backbone of EDP’s datastore and represent a change log of modifications to a dataset. A dataset commit represents all changes made to the target dataset by the import/migration/delete process.</p>
 <p>All of these changes can be reverted by creating a rollback commit. All commits can be reverted. A rollback commit will restore the dataset to its state before the commit was made.</p>
 <p>The parent commit of a rollback commit is the commit to be reverted.</p>
-<p>Rollbacks</p>
+</section>
+<section id="rollbacks">
+<h3>Rollbacks<a class="headerlink" href="#rollbacks" title="Permalink to this heading">¶</a></h3>
 <p>A rollback commit represents a revert of a commit. The rollback commit will do different things depending on the mode of the parent commit. It may delete records, index a rollback file, or both.</p>
-<p>A rollback file is generated for overwrite, upsert, and delete modes. This file is generated right before records are committed, by querying the current state of the dataset and storing those records in a file. This file is stored with the commit object and used when creating a rollback commit.</p>
+<p>A rollback file is generated for overwrite, upsert, and delete models. This file is generated right before records are committed, by querying the current state of the dataset and storing those records in a file. This file is stored with the commit object and used when creating a rollback commit.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Commit Mode</strong></p></th>
@@ -110,19 +115,26 @@
 <p>Now let’s assume people do move and so each year we have all sorts of address changes.</p>
 <p>If users were to revert Commit C, then the dataset would be restored to the known state that it was in Commit B. It would only reset the 2017 addresses to 2016 addresses for people that did not also change in 2018. It would also leave any new employees added in 2018. This is an inconsistent state and not a valid snapshot of the dataset at the time Commit C was indexed. Therefore this is not allowed and attempts to rollback will fail. Commit D must be reverted first.</p>
 </section>
+</section>
 <section id="archiving-datasets">
 <h2>Archiving Datasets<a class="headerlink" href="#archiving-datasets" title="Permalink to this heading">¶</a></h2>
-<p>Overview</p>
-<p>Archiving gives users the ability to safely store the datasets that they do not use frequently, without consuming their organization’s active storage space quota. When users decide that they want to use the dataset again, they can quickly and easily restore it. Depending on the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224">storage class</a> used, a dataset may be archived automatically.</p>
-<p>Permissions</p>
+<section id="id1">
+<h3>Overview<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>Archiving gives users the ability to safely store the datasets that they do not use frequently, without consuming their organization’s active storage space quota. When users decide that they want to use the dataset again, they can quickly and easily restore it. Depending on the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/dataset_versioning.html#archiving-datasets">storage class</a> used, a dataset may be archived automatically.</p>
+</section>
+<section id="permissions">
+<h3>Permissions<a class="headerlink" href="#permissions" title="Permalink to this heading">¶</a></h3>
 <p>A user must have write <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000605647">permissions</a> on the vault in order to archive or restore a dataset.</p>
-<p>Querying</p>
+</section>
+<section id="querying">
+<h3>Querying<a class="headerlink" href="#querying" title="Permalink to this heading">¶</a></h3>
 <p>Archived datasets currently cannot be queried and will raise an error if a query is attempted. Users can check if a dataset is archived by checking its availability parameter. The value will be available, unavailable, or archived.</p>
-<p>Examples</p>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
 <p>Users can easily archive and restore a dataset through the UI or through the API (via Python or R).</p>
 <p><strong>Archiving</strong></p>
-<p>A Dataset can be archived using the archive() function within Python, or by changing the storage class to “Archive” within the R client.</p>
-<p>In Python:</p>
+<p>A Dataset can be archived using the <code class="docutils literal notranslate"><span class="pre">archive()</span></code> function within Python, or by changing the storage class to “Archive” within the R client.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sb</span>
 
 <span class="c1"># Retrieve the dataset by dataset_id</span>
@@ -136,8 +148,7 @@
 </pre></div>
 </div>
 <p><strong>Restore</strong></p>
-<p>Restoring the archived dataset can be done using the restore() function on the archived dataset. By default, the Python client will use the “Standard” storage class. However, users may restore to any <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224">storage class</a> that is available.</p>
-<p>In Python:</p>
+<p>Restoring the archived dataset can be done using the <code class="docutils literal notranslate"><span class="pre">restore()</span></code> function on the archived dataset. By default, the Python client will use the “Standard” storage class. However, users may restore to any <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/dataset_versioning.html#archiving-datasets">storage class</a> that is available.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sb</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;dataset_id&#39;</span><span class="p">)</span>
@@ -145,8 +156,7 @@
 </pre></div>
 </div>
 <p><strong>Switching the Storage Class</strong></p>
-<p><a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224">Storage classes</a> can be modified from the Python/R clients as follows:</p>
-<p>In Python:</p>
+<p><a class="reference external" href="https://quartzbio.github.io/quartzbio-python/dataset_versioning.html#archiving-datasets">Storage classes</a> can be modified from the Python/R clients as follows:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sb</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s1">&#39;dataset_id&#39;</span><span class="p">)</span>
@@ -157,9 +167,8 @@
 </pre></div>
 </div>
 <p><strong>Supporting Archived Datasets</strong></p>
-<p>After the introduction of dataset archiving &amp; restoring and of dataset <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598224">storage classes</a> (December 2020), a dataset may now be in an unavailable state. Scripts and apps must now check for this state before querying or explicitly handling query failures. Both the Dataset and the Object resources now contain the “availability” parameter which returns “available”, “unavailable”, “restoring” or “archived” for a dataset.</p>
+<p>After the introduction of dataset archiving &amp; restoring and of dataset <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/dataset_versioning.html#archiving-datasets">storage classes</a> (December 2020), a dataset may now be in an unavailable state. Scripts and apps must now check for this state before querying or explicitly handling query failures. Both the Dataset and the Object resources now contain the “availability” parameter which returns “available”, “unavailable”, “restoring” or “archived” for a dataset.</p>
 <p>See examples below:</p>
-<p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Explicitly check availability</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="n">datasets</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
@@ -180,10 +189,13 @@
 </pre></div>
 </div>
 </section>
+</section>
 <section id="api-endpoints">
 <h2>API Endpoints<a class="headerlink" href="#api-endpoints" title="Permalink to this heading">¶</a></h2>
-<p>Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.</p>
-<p>Dataset Commits</p>
+<p>Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
+For correct work of the API, you need to change <code class="docutils literal notranslate"><span class="pre">&lt;EDP_API_HOST&gt;</span></code> to your current domain, such as my-domain.api.edp.aws.quartz.bio</p>
+<section id="dataset-commits">
+<h3>Dataset Commits<a class="headerlink" href="#dataset-commits" title="Permalink to this heading">¶</a></h3>
 <p>Dataset commits cannot be directly created. Commits are generated only from dataset imports.</p>
 <table class="docutils align-default">
 <thead>
@@ -201,91 +213,31 @@
 <td><p>This request requires an authorized user with write permissions on the dataset.</p></td>
 <td><p>The response returns “HTTP 200 OK” when successful.</p></td>
 </tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>HTTP Request</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Authorization</p></th>
-<th class="head"><p>Response</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>get</p></td>
+<tr class="row-odd"><td><p>get</p></td>
 <td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/dataset_commits/{ID}</p></td>
 <td><p>Retrieve metadata about a dataset commit.</p></td>
 <td><p>This request requires an authorized user with permission.</p></td>
 <td><p>The response contains a DatasetCommit resource.</p></td>
 </tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>HTTP Request</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Authorization</p></th>
-<th class="head"><p>Response</p></th>
-</tr>
-</thead>
-<tbody>
 <tr class="row-even"><td><p>list</p></td>
 <td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/datasets/{DATASET_ID}/commits</p></td>
 <td><p>Retrieve a list of dataset commits associated with a dataset.</p></td>
 <td><p>This request requires an authorized user with read permission on the dataset.</p></td>
 <td><p>The response contains a list of DatasetCommit resources.</p></td>
 </tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>HTTP Request</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Authorization</p></th>
-<th class="head"><p>Response</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>revert status</p></td>
+<tr class="row-odd"><td><p>revert status</p></td>
 <td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/dataset_commits/{ID}/rollback</p></td>
 <td><p>Returns whether or not a commit can be reverted and returns a reason why along with any commits that are blocking.</p></td>
 <td><p>This request requires an authorized user with write permissions on the dataset.</p></td>
 <td><p>Returns a boolean <em>is_blocked</em> and a detail string explaining why. If there are blocking commits <em>blocking_commits</em> will contain a list of DatasetCommit resources.</p></td>
 </tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>HTTP Request</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Authorization</p></th>
-<th class="head"><p>Response</p></th>
-</tr>
-</thead>
-<tbody>
 <tr class="row-even"><td><p>revert</p></td>
 <td><p>POST <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/dataset_commits/{ID}/rollback</p></td>
 <td><p>Revert a completed commit by creating a rollback.</p></td>
 <td><p>This request requires an authorized user with write permission on the dataset.</p></td>
 <td><p>If a rollback cannot be created, the status code will be 400 Bad Request. Otherwise, the response will contain a DatasetCommit resource, representing the rollback commit.</p></td>
 </tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>HTTP Request</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Authorization</p></th>
-<th class="head"><p>Response</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>cancel</p></td>
+<tr class="row-odd"><td><p>cancel</p></td>
 <td><p>PUT <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/datasets_commits/{ID}/cancel</p></td>
 <td><p>Cancel a dataset commit.</p></td>
 <td><p>This request requires an authorized user with read permission on the dataset.</p></td>
@@ -295,7 +247,9 @@
 </table>
 <p>Request Body:</p>
 <p>In the request body, provide a valid DatasetCommit object with status = canceled.</p>
-<p>Dataset Restore Tasks</p>
+</section>
+<section id="dataset-restore-tasks">
+<h3>Dataset Restore Tasks<a class="headerlink" href="#dataset-restore-tasks" title="Permalink to this heading">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
@@ -312,19 +266,7 @@
 <td><p>This request requires an authorized user with read permission for the restore task.</p></td>
 <td><p>The response contains a DatasetRestoreTask resource.</p></td>
 </tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>HTTP Request</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Authorization</p></th>
-<th class="head"><p>Response</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>list</p></td>
+<tr class="row-odd"><td><p>list</p></td>
 <td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/dataset_restore_tasks</p></td>
 <td><p>Retrieve a list of available dataset restore tasks.</p></td>
 <td><p>This request requires an authorized user with read permission for the restore tasks.</p></td>
@@ -332,7 +274,9 @@
 </tr>
 </tbody>
 </table>
-<p>Dataset Snapshot Tasks</p>
+</section>
+<section id="dataset-snapshot-tasks">
+<h3>Dataset Snapshot Tasks<a class="headerlink" href="#dataset-snapshot-tasks" title="Permalink to this heading">¶</a></h3>
 <p>Dataset snapshot tasks can not be created directly. They are created when a dataset’s storage class is set to Archive.</p>
 <table class="docutils align-default">
 <thead>
@@ -350,19 +294,7 @@
 <td><p>This request requires an authorized user with read permission for the snapshot task.</p></td>
 <td><p>The response contains a DatasetSnapshotTask resource.</p></td>
 </tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>HTTP Request</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Authorization</p></th>
-<th class="head"><p>Response</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>list</p></td>
+<tr class="row-odd"><td><p>list</p></td>
 <td><p>GET <a class="reference external" href="https:/">https:/</a>/&lt;EDP_API_HOST&gt;/v2/dataset_snapshot_tasks</p></td>
 <td><p>Retrieve a list of available dataset snapshot tasks.</p></td>
 <td><p>This request requires an authorized user with read permission for the snapshot tasks.</p></td>
@@ -370,6 +302,7 @@
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 </section>
 
@@ -396,17 +329,17 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data.html">Exporting Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data.html">Importing Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Dataset Versioning via API</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dataset Versioning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dataset-activity">Dataset Activity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reverting-datasets">Reverting Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#archiving-datasets">Archiving Datasets</a></li>
@@ -418,12 +351,12 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery.html">Data Discovery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
@@ -431,7 +364,18 @@
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
 
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -464,14 +408,14 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2025 Precision for Medicine, inc..
+      &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
-      <a href="_sources/dataset_versioning_via_api.md.txt"
+      <a href="_sources/dataset_versioning.md.txt"
           rel="nofollow">Page source</a>
     </div>
 
