@@ -6,20 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Metadata and Global Beacons &#8212; QuartzBio  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Filters" href="filters.html" />
-    <link rel="prev" title="Data Discovery via API" href="data_discovery_via.html" />
+    <link rel="prev" title="Data Discovery" href="data_discovery.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -35,9 +36,11 @@
 <h1>Metadata and Global Beacons<a class="headerlink" href="#metadata-and-global-beacons" title="Permalink to this heading">¶</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
-<p>Users with Write or Admin permissions on vault objects (files, folders, and datasets) have the ability to add tags or metadata to those objects to facilitate data discovery and accessibility. Users with Write or Admin permissions on datasets can also add special labels called entities to fields that contain information such as genes, variants, and samples. To enable users to search for datasets based on the entities they contain, Admins can enable Global Beacons indexing for datasets. For more information about Search tools and data discovery on the EDP, users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000598413">Data Discovery via API</a> documentation.</p>
-<p>Tags</p>
-<p>Tags are case-insensitive lists of strings. Tags can be used to filter and search for objects.</p>
+<p>Users with <code class="docutils literal notranslate"><span class="pre">Write</span></code> or <code class="docutils literal notranslate"><span class="pre">Admin</span></code> permissions on vault objects (files, folders, and datasets) have the ability to add tags or metadata to those objects to facilitate data discovery and accessibility. Users with <code class="docutils literal notranslate"><span class="pre">Write</span></code> or <code class="docutils literal notranslate"><span class="pre">Admin</span></code> permissions on datasets can also add special labels called entities to fields that contain information such as genes, variants, and samples. To enable users to search for datasets based on the entities they contain, <code class="docutils literal notranslate"><span class="pre">Admins</span></code> can enable Global Beacons indexing for datasets. For more information about Search tools and data discovery on the EDP, users can refer to the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/data_discovery_via.html">Data Discovery</a> documentation.</p>
+</section>
+<section id="tags">
+<h2>Tags<a class="headerlink" href="#tags" title="Permalink to this heading">¶</a></h2>
+<p>Tags are <code class="docutils literal notranslate"><span class="pre">case-insensitive</span></code> lists of strings. Tags can be used to filter and search for objects.</p>
 <p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vault</span>
 
@@ -57,8 +60,7 @@
 </section>
 <section id="metadata">
 <h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
-<p>Metadata is represented by key/value pairs. While nested value pairs are allowed, users are recommended to use a flat metadata structure.</p>
-<p>In Python:</p>
+<p>Metadata is represented by <code class="docutils literal notranslate"><span class="pre">key/value</span> <span class="pre">pairs</span></code>. While nested value pairs are allowed, users are recommended to use a flat metadata structure.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vault</span>
 
 <span class="c1"># Upload a file or retrieve one</span>
@@ -74,10 +76,9 @@
 </section>
 <section id="entities">
 <h2>Entities<a class="headerlink" href="#entities" title="Permalink to this heading">¶</a></h2>
-<p>Entities are special labels for dataset fields that contain specific content, such as genes, variants, vault objects, samples, and more. Entities allow for cross-dataset data harmonization, easy filtering, Global Beacons, and other entity-specific functions. For more information about Entities and Global Beacon Search, users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000603092">Global Beacon Search</a> documentation.</p>
+<p>Entities are special labels for dataset fields that contain specific content, such as genes, variants, vault objects, samples, and more. Entities allow for cross-dataset data harmonization, easy filtering, Global Beacons, and other entity-specific functions. For more information about Entities and Global Beacon Search, users can refer to the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/metadata_and_global_beacons.html#global-beacons">Global Beacon Search</a> documentation.</p>
 <p>In the Python client library, entities can be added, removed, or changed for any field on any dataset where the user has to Write access using the fields method:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetField</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DatasetField</span>
 
 <span class="c1">#Get dataset</span>
 <span class="n">dataset</span><span class="o">=</span><span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/my_dataset&#39;</span><span class="p">)</span>
@@ -100,16 +101,15 @@
 <span class="n">field</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Entities can also be added, removed, or switched using the web interface for any dataset to which the user has write access. On the dataset view, any field with an orange label next to the field type is an entity field. Entities can be changed by clicking on the pencil icon. For more information on setting entities via the UI, users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000612157">Modifying Datasets</a> documentation.</p>
+<p>Entities can also be added, removed, or switched using the web interface for any dataset to which the user has write access. On the dataset view, any field with an orange label next to the field type is an entity field. Entities can be changed by clicking on the pencil icon. For more information on setting entities via the UI, users can refer to the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#modifying-fields">Modifying Datasets</a> documentation.</p>
 </section>
 <section id="global-beacons">
 <h2>Global Beacons<a class="headerlink" href="#global-beacons" title="Permalink to this heading">¶</a></h2>
 <p>Global Beacons are specialized search endpoints that enable anyone in a user’s organization to find datasets based on the entities they contain (i.e. variants, genes). Both the datasets in the public and in the private vaults can be indexed. Depending on the dataset size, indexing time may vary.</p>
 <p>Once the dataset has been indexed, users will be able to perform Global Beacon Search and find this dataset.</p>
 <p>The EDP Python and R clients provide the functionality to work with Global Beacons. Users with Admin permissions for a dataset can check the status of the Global Beacon on the dataset as well as enable or disable Global Beacons.</p>
-<p>When working with Global Beacons via API, the output will display the status attribute, which is either indexing, completed, or destroying, as well as the progress_percent attribute which describes the percentage of the task completed. While indexing is still in progress, users won’t be able to perform Global Beacon Search for that dataset. A dataset is available for Global Beacon Search when the progress_percent is 100 and the status is completed.</p>
-<p>In Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span> <span class="n">Getting</span> <span class="n">the</span> <span class="n">dataset</span>
+<p>When working with Global Beacons via API, the output will display the status attribute, which is either indexing, completed, or destroying, as well as the <code class="docutils literal notranslate"><span class="pre">progress_percent</span></code> attribute which describes the percentage of the task completed. While indexing is still in progress, users won’t be able to perform Global Beacon Search for that dataset. A dataset is available for Global Beacon Search when the <code class="docutils literal notranslate"><span class="pre">progress_percent</span></code> is 100 and the status is completed.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Getting the dataset</span>
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;~/beacon-test-dataset&#39;</span><span class="p">)</span>
 
 <span class="c1"># Enabling Global Beacon on dataset</span>
@@ -173,30 +173,31 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data.html">Exporting Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data.html">Importing Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning.html">Dataset Versioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery.html">Data Discovery</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Metadata and Global Beacons</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tags">Tags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#entities">Entities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#global-beacons">Global Beacons</a></li>
@@ -208,12 +209,23 @@
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
 
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="data_discovery_via.html" title="previous chapter">Data Discovery via API</a></li>
+      <li>Previous: <a href="data_discovery.html" title="previous chapter">Data Discovery</a></li>
       <li>Next: <a href="filters.html" title="next chapter">Filters</a></li>
   </ul></li>
 </ul>
@@ -241,11 +253,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2025 Precision for Medicine, inc..
+      &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/metadata_and_global_beacons.md.txt"

@@ -6,20 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Import Parameters &#8212; QuartzBio  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Importing Data via API" href="importing_data_via_api.html" />
-    <link rel="prev" title="Exporting Data via API" href="exporting_data_via_api.html" />
+    <link rel="next" title="Vaults and Objects" href="vaults_and_objects.html" />
+    <link rel="prev" title="Importing Data" href="importing_data.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -33,12 +34,14 @@
             
   <section id="import-parameters">
 <h1>Import Parameters<a class="headerlink" href="#import-parameters" title="Permalink to this heading">¶</a></h1>
-<p>Overview</p>
-<p>EDP’s <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000613899">import system</a> accepts optional parameters for the Reader, <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000603092">Entity Detection</a>, Validation, and the Annotator.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>EDP’s <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/importing_data.html">import system</a> accepts optional parameters for the Reader, <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/import_parameters.html#entity-detection-parameters">Entity Detection</a>, Validation, and the Annotator.</p>
+</section>
 <section id="reader-parameters">
 <h2>Reader Parameters<a class="headerlink" href="#reader-parameters" title="Permalink to this heading">¶</a></h2>
 <p>The EDP will automatically select a reader based on the imported file’s extension. This is not applicable to the Nirvana JSON file because it has the same extension as the JSONL file (.json), so the reader attribute has to be set manually to nirvana.</p>
-<p>In the case where the extension is not recognized, users can manually select a reader using the reader attribute of reader_params by setting the associated reader name as its value:</p>
+<p>In the case where the extension is not recognized, users can manually select a reader using the reader attribute of <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/import_parameters.html#reader-parameters">reader_params</a> by setting the associated reader name as its value:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Force the JSONL reader</span>
 <span class="n">reader_params</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;reader&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span>
@@ -56,12 +59,12 @@
 <h1>JSON (JSONL)<a class="headerlink" href="#json-jsonl" title="Permalink to this heading">¶</a></h1>
 <p>The JSONL format supported by EDP has four requirements (adapted from <a class="reference external" href="http://jsonlines.org/">jsonlines.org</a>):</p>
 <ol class="arabic simple">
-<li><p>UTF-8 encoding</p></li>
+<li><p><strong>UTF-8 encoding</strong></p></li>
 </ol>
-<p>JSON allows encoding Unicode strings with only ASCII escape sequences; however, those escapes will be hard to read when viewed in a text editor. The author of the JSON Lines file may choose to escape characters to work with plain ASCII files.</p>
+<p>JSON allows encoding Unicode strings with only ASCII escape sequences. However, those escapes will be hard to read when viewed in a text editor. The author of the JSON Lines file may choose to escape characters to work with plain ASCII files.</p>
 <p>Non-ascii content may be corrupted during the import process if non-UTF-8 files are imported.</p>
 <ol class="arabic simple" start="2">
-<li><p>Each line must be a complete JSON object</p></li>
+<li><p><strong>Each line must be a complete JSON object</strong></p></li>
 </ol>
 <p>Specifically, each line must be a JSON object without any internal line-breaks. For example, here are three records:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
@@ -70,15 +73,15 @@
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li><p>Lines are separated by ‘n’</p></li>
+<li><p><strong>Lines are separated by ‘n’</strong></p></li>
 </ol>
 <p>This means ‘rn’ is also supported because trailing white space is ignored when parsing JSON values.</p>
 <p>The last character in the file may be a line separator, and it will be treated the same as if there was no line separator present.</p>
 <ol class="arabic simple" start="4">
-<li><p>The file extension must be .json or .json.gz</p></li>
+<li><p><strong>The file extension must be .json or .json.gz</strong></p></li>
 </ol>
-<p>JSON Lines files for EDP must be saved with the .json extension. Files may be gzipped, resulting in the .json.gz extension.</p>
-<p>CSV/TSV</p>
+<p>JSON Lines files for EDP <code class="docutils literal notranslate"><span class="pre">must</span> <span class="pre">be</span> <span class="pre">saved</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">.json</span> <span class="pre">extension</span></code>. Files may be gzipped, resulting in the .json.gz extension.</p>
+<p><strong>CSV/TSV</strong></p>
 <p>The following parameters can be passed for files that end with extension .csv, .tsv, and .txt.</p>
 <ul class="simple">
 <li><p>delimiter: A one-character string used to separate fields. Defaults to ‘,’ for CSVs and ‘t’ for TSVs and TXT files</p></li>
@@ -106,7 +109,7 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Excel</p>
+<p><strong>Excel</strong></p>
 <p>The following parameters can be passed for files that end with extension .xlsx and .xsl:</p>
 <ul class="simple">
 <li><p>sheet_name: Specifies the sheet to be imported into the dataset. Can be string or int. Default is 0 (first sheet).</p>
@@ -151,7 +154,7 @@
 </ul>
 </li>
 </ul>
-<p>VCF</p>
+<p><strong>VCF</strong></p>
 <p>The following parameters can be passed for files that end with extension .vcf.</p>
 <ul class="simple">
 <li><p>genome_build: The string ‘GRCh37’ or ‘GRCh38’. If no genome_build is passed an attempt to guess the build will be made from the file headers and will fallback to GRCh37 if nothing is found.</p></li>
@@ -159,7 +162,7 @@
 <li><p>annotations_key: The field name that contains the VCF annotations. For use with explode_annotations parameter. The default key is ANN.</p></li>
 <li><p>sample_key: The field name that the VCF parser will output the VCF samples to. The default key is sample.</p></li>
 </ul>
-<p>XML</p>
+<p><strong>XML</strong></p>
 <p>The following parameters can be passed for files that end with extension .xml.</p>
 <ul class="simple">
 <li><p>item_depth: An integer that defines at which XML element to begin record enumeration. Default is 1. A depth of 0 would be the XML document root element and would return a single record.</p></li>
@@ -225,16 +228,16 @@
 <ul class="simple">
 <li><p>item_depth=1 and required_keys=[‘dust’] would parse 1 shelf record.</p></li>
 </ul>
-<p>GFF3</p>
+<p><strong>GFF3</strong></p>
 <p>The following parameters can be passed for files that end with extension .gff3.</p>
 <ul class="simple">
 <li><p>comment: A string used to determine which lines in the files are comments. Lines that begin with this string will be ignored. Default is ‘##’.</p></li>
 </ul>
-<p>Nirvana JSON</p>
-<p>The Nirvana JSON format supported by EDP has to meet the official Illumina’s Nirvana JSON layout in order to be parsed properly.</p>
+<p><strong>Nirvana JSON</strong></p>
+<p>The Nirvana JSON format supported by EDP has to meet the <a class="reference external" href="https://illumina.github.io/NirvanaDocumentation/file-formats/nirvana-json-file-format/">official Illumina’s Nirvana JSON layout</a> in order to be parsed properly.</p>
 <section id="entity-detection-parameters">
 <h2>Entity Detection Parameters<a class="headerlink" href="#entity-detection-parameters" title="Permalink to this heading">¶</a></h2>
-<p>When importing data, every field is sampled and to determine if it is an EDP entity. The following configuration parameters allow for customization of this detection by setting entity_params on the import object.</p>
+<p>When importing data, every field is sampled and to determine if it is an EDP entity. The following configuration parameters allow for customization of this detection by setting <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/import_parameters.html#entity-detection-parameters">entity_params</a> on the import object.</p>
 <p>Genes and variants are detected by default. The example below overrides this and attempts to detect only genes and literature entities:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">imp</span> <span class="o">=</span> <span class="n">DatasetImport</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">dataset_id</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
@@ -255,8 +258,9 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Validation Parameters</p>
-<p>The following settings can be passed to the validation_params field.</p>
+<section id="validation-parameters">
+<h3>Validation Parameters<a class="headerlink" href="#validation-parameters" title="Permalink to this heading">¶</a></h3>
+<p>The following settings can be passed to the <code class="docutils literal notranslate"><span class="pre">validation_params</span></code> field.</p>
 <ul class="simple">
 <li><p>disable - (boolean) default False - Disables validation completely</p></li>
 <li><p>raise_on_errors - (boolean) default False - Will fail the import on first validation error encountered.</p></li>
@@ -264,7 +268,7 @@
 <li><p>allow_new_fields - (boolean) default False - If strict validation is True, will still allow new fields to be added</p></li>
 </ul>
 <p>Validation will raise the following errors and warnings. The list below represents them in the following format: [Error code] Name - Description</p>
-<p>Warnings:</p>
+<p><strong>Warnings:</strong></p>
 <ul class="simple">
 <li><p>[202] Column Name Warning: Column name uses characters that do not comply with strict column name validation. (upgraded to an Error if strict_validation=True)</p></li>
 <li><p>[203] New Column added: A new column was added to the Dataset (upgraded to an Error if strict_validation=True and allow_new_fields=False)</p></li>
@@ -272,20 +276,23 @@
 <li><p>[303] Unexpected List violation: A column expected a single value but received a list of values. For example a field has is_list=False but received a list of strings. (upgraded to an Error if strict_validation=True)</p></li>
 <li><p>[400] Too Many Columns in record: Warns if 150 or more columns are found. Errors if 400 or more.</p></li>
 </ul>
-<p>Errors:</p>
+<p><strong>Errors:</strong></p>
 <ul class="simple">
 <li><p>[301] Invalid Value for Field: Value is not a valid type (e.g. An integer passed for a date field data_type)</p></li>
 <li><p>[304] NaN Value for Field: Value is a JSON “NaN” value which can not be indexed by EDP.</p></li>
 <li><p>[305] Infinity Value for Field: Value is a JSON “Infinity” value which can not be indexed by EDP.</p></li>
 <li><p>[306] Max String Length for Field: The max value for the string data_type is 32,766 bytes. Anything larger must be a text data_type.</p></li>
 </ul>
-<p>Annotator Parameters</p>
-<p>The following settings can be used to customize the annotator that is used during transformation with the annotator_params attribute.</p>
+</section>
+<section id="annotator-parameters">
+<h3>Annotator Parameters<a class="headerlink" href="#annotator-parameters" title="Permalink to this heading">¶</a></h3>
+<p>The following settings can be used to customize the annotator that is used during transformation with the <code class="docutils literal notranslate"><span class="pre">annotator_params</span></code> attribute.</p>
 <ul class="simple">
 <li><p>annotator - (string) Choose from “simple” (default), “serial”, or “parallel”.</p></li>
 </ul>
-<p>Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.</p>
-<p>Deleting dataset imports is not recommended as data provenance will be lost.</p>
+<p>Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
+For correct work of the API, you need to change <code class="docutils literal notranslate"><span class="pre">&lt;EDP_API_HOST&gt;</span></code> to your current domain, such as my-domain.api.edp.aws.quartz.bio</p>
+<p><strong>Deleting dataset imports is not recommended as data provenance will be lost.</strong></p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
@@ -333,6 +340,7 @@
 </table>
 </section>
 </section>
+</section>
 
 
           </div>
@@ -357,8 +365,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data.html">Exporting Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data.html">Importing Data</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Import Parameters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reader-parameters">Reader Parameters</a></li>
 </ul>
 </li>
@@ -366,25 +376,24 @@
 <li class="toctree-l2"><a class="reference internal" href="#entity-detection-parameters">Entity Detection Parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning.html">Dataset Versioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery.html">Data Discovery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
@@ -392,13 +401,24 @@
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
 
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="exporting_data_via_api.html" title="previous chapter">Exporting Data via API</a></li>
-      <li>Next: <a href="importing_data_via_api.html" title="next chapter">Importing Data via API</a></li>
+      <li>Previous: <a href="importing_data.html" title="previous chapter">Importing Data</a></li>
+      <li>Next: <a href="vaults_and_objects.html" title="next chapter">Vaults and Objects</a></li>
   </ul></li>
 </ul>
 </div>
@@ -425,11 +445,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2025 Precision for Medicine, inc..
+      &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/import_parameters.md.txt"

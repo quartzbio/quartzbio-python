@@ -6,20 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Joining and Aggregating Datasets &#8212; QuartzBio  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Transforming Datasets" href="transforming_datasets.html" />
-    <link rel="prev" title="Dataset Versioning via API" href="dataset_versioning_via_api.html" />
+    <link rel="prev" title="Dataset Versioning" href="dataset_versioning.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -39,8 +40,7 @@
 <h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h3>
 <p>The EDP Python library enables users to join two datasets by keys (fields) that are related to each other. The provided datasets join functionality is very similar to the well-known left join in SQL.</p>
 <p>The following example joins two public datasets, ClinVar and TCGA, on the variant field found in both datasets:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Filter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Filter</span><span class="p">,</span> <span class="n">Dataset</span>
 
 <span class="c1">#Write filter to narrow down results to pathogenic PTEN variants</span>
 <span class="n">filters</span> <span class="o">=</span> <span class="n">Filter</span><span class="p">(</span><span class="n">clinical_significance__exact</span><span class="o">=</span><span class="s2">&quot;pathogenic&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Filter</span><span class="p">(</span><span class="n">gene__exact</span><span class="o">=</span><span class="s2">&quot;PTEN&quot;</span><span class="p">)</span>
@@ -99,7 +99,7 @@
 </section>
 <section id="advanced-example">
 <h3>Advanced Example<a class="headerlink" href="#advanced-example" title="Permalink to this heading">¶</a></h3>
-<p>The EDP join method enables users to join two datasets whose keys are lists. However, users must apply the explode <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000611524">expression function</a> before joining:</p>
+<p>The EDP join method enables users to join two datasets whose keys are lists. However, users must apply the explode <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/expression_functions.html">expression function</a> before joining:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sb</span>
 
 <span class="n">ds1</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="s2">&quot;dataset_id&quot;</span><span class="p">)</span>
@@ -159,7 +159,7 @@
 <h2>Aggregating Datasets<a class="headerlink" href="#aggregating-datasets" title="Permalink to this heading">¶</a></h2>
 <section id="id1">
 <h3>Overview<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
-<p>Both the EDP Python and R client libraries enable users to perform aggregations to build complex summaries of data. Aggregation queries can be run on datasets with the help of facets. Facets can be used to generate aggregated summaries of string (and date) fields as well as numeric fields, and they automatically work on top of <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000612356">queries and filters</a>. Facets can also be nested, which provides an incredibly efficient mechanism to summarize binned or rolled-up data (i.e. data summarized by term or by date).</p>
+<p>Both the EDP Python and R client libraries enable users to perform aggregations to build complex summaries of data. Aggregation queries can be run on datasets with the help of facets. Facets can be used to generate aggregated summaries of string (and date) fields as well as numeric fields, and they automatically work on top of <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/filters.html#overview">queries and filters</a>. Facets can also be nested, which provides an incredibly efficient mechanism to summarize binned or rolled-up data (i.e. data summarized by term or by date).</p>
 </section>
 <section id="string-and-date-aggregations">
 <h3>String and Date Aggregations<a class="headerlink" href="#string-and-date-aggregations" title="Permalink to this heading">¶</a></h3>
@@ -171,8 +171,7 @@
 </ul>
 <p>Facets will not work for text fields that are indexed (and tokenized) for full-text search. Terms facets are also disabled for _id fields.</p>
 <p>Examples in Python:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Filter</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Filter</span>
 
 <span class="n">query</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 
@@ -204,7 +203,7 @@
 <li><p><strong>histogram</strong>: values are binned according to a provided interval. For numerical fields, the default interval is 100. For dates, the default interval is ‘month’. Histogram intervals must be integers, and will therefore not work for fields with values between 0 and 1 (such as allele frequencies).</p></li>
 <li><p><strong>percentiles</strong>: calculates estimated percentiles for a field. By default, returns the following percentiles: 1, 5, 25, 50, 75, 95, 99. Percentiles are approximated and have an 1-5% error for very large datasets.</p></li>
 </ul>
-<p>Examples in Python:</p>
+<p>Examples</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
 <span class="n">query</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/Variants-GRCH37&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
@@ -227,7 +226,6 @@
 <p>Nested aggregations can be used to apply an aggregation query to the result of another aggregation query. For example, given a dataset with patient information, users may want to determine the most common diagnosis age for each cancer type. Users could iterate through each cancer type and run a facets query on the age field, but that would require a large number of expensive API calls. Instead, by using nested aggregations, users can simply construct a facets query within an existing facets query, as in the example below.</p>
 <p>At this time, users may only nest term and histogram facets under terms facets. Nesting within histogram facets is not currently supported.</p>
 <p>The following example  yields the top ten genes associated with each disease in the public TCGA somatic mutations dataset:</p>
-<p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
 <span class="c1"># Retrieve the TCGA Somatic Mutations dataset</span>
@@ -291,17 +289,17 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="exporting_data_via_api.html">Exporting Data via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data.html">Exporting Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data.html">Importing Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="importing_data_via_api.html">Importing Data via API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset_versioning_via_api.html">Dataset Versioning via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning.html">Dataset Versioning</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Joining and Aggregating Datasets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#joining-datasets">Joining Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aggregating-datasets">Aggregating Datasets</a></li>
@@ -312,12 +310,12 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_discovery_via.html">Data Discovery via API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery.html">Data Discovery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
@@ -325,12 +323,23 @@
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
 
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="dataset_versioning_via_api.html" title="previous chapter">Dataset Versioning via API</a></li>
+      <li>Previous: <a href="dataset_versioning.html" title="previous chapter">Dataset Versioning</a></li>
       <li>Next: <a href="transforming_datasets.html" title="next chapter">Transforming Datasets</a></li>
   </ul></li>
 </ul>
@@ -358,11 +367,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2025 Precision for Medicine, inc..
+      &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/joining_and_aggregating_datasets.md.txt"

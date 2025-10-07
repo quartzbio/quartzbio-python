@@ -2,7 +2,7 @@
 
 ## Overview
 
-EDP's [import system](https://quartzbio.github.io/quartzbio-python/importing_data_via_api.html) accepts optional parameters for the Reader, [Entity Detection](https://quartzbio.github.io/quartzbio-python/import_parameters.html#entity-detection-parameters), Validation, and the Annotator.  
+EDP's [import system](https://quartzbio.github.io/quartzbio-python/importing_data.html) accepts optional parameters for the Reader, [Entity Detection](https://quartzbio.github.io/quartzbio-python/import_parameters.html#entity-detection-parameters), Validation, and the Annotator.  
 
 ## Reader Parameters
 
