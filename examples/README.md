@@ -1,8 +1,6 @@
 QuartzBio Python Examples
 ======================
 
-Complete beginner? Please start with the [basic Python tutorial](https://docs.solvebio.com/docs/tutorial).
-
 ## Importing data
 
 There are many ways to import data into QuartzBio.
