@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, print_function
 from setuptools import setup, find_packages
 
 import sys
 import warnings
 
 VERSION = 'undefined'
-install_requires = ['six', 'pyprind', 'requests>=2.0.0']
+install_requires = ['pyprind', 'requests>=2.0.0', 'urllib3>=1.26.0']
 extra = {}
 
 with open('quartzbio/version.py') as f:
@@ -23,17 +22,6 @@ recipes_requires = [
 extras_requires = {
     "recipes": recipes_requires
 }
-
-# Adjustments for Python 2 vs 3
-if sys.version_info < (3, 0):
-    # Get simplejson if we don't already have json
-    try:
-        import json  # noqa
-    except ImportError:
-        install_requires.append('simplejson')
-
-    # quartzbio-recipes only available in python3
-    extras_requires = {}
 
 with open('README.md') as f:
     long_description = f.read()

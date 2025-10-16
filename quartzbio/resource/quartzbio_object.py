@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
-import six
-
-import sys
 
 from ..client import client
 from .util import json
@@ -18,7 +14,7 @@ def convert_to_quartzbio_object(resp, **kwargs):
     elif isinstance(resp, dict) and not isinstance(resp, QuartzBioObject):
         resp = resp.copy()
         klass_name = resp.get("class_name")
-        if isinstance(klass_name, six.string_types):
+        if isinstance(klass_name, str):
             klass = types.get(klass_name, QuartzBioObject)
         else:
             klass = QuartzBioObject
@@ -76,7 +72,7 @@ class QuartzBioObject(dict):
         self.clear()
         self._unsaved_values = set()
 
-        for k, v in six.iteritems(values):
+        for k, v in values.items():
             super(QuartzBioObject, self).__setitem__(
                 k, convert_to_quartzbio_object(v, client=self._client)
             )
@@ -86,7 +82,7 @@ class QuartzBioObject(dict):
         return convert_to_quartzbio_object(response, client=self._client)
 
     def __repr__(self):
-        if isinstance(self.get("class_name"), six.string_types):
+        if isinstance(self.get("class_name"), str):
             ident_parts = [self.get("class_name")]
         else:
             ident_parts = [type(self).__name__]
@@ -105,9 +101,6 @@ class QuartzBioObject(dict):
             hex(id(self)),
             str(self),
         )
-
-        if sys.version_info[0] < 3:
-            return _repr.encode("utf-8")
 
         return _repr
 

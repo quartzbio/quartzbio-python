@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 import unittest
 
 from quartzbio.resource.util import class_to_api_name

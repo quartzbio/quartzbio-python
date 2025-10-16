@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 
 import unittest
 
@@ -6,8 +5,6 @@ from quartzbio.query import Filter
 from quartzbio import QuartzBioError
 
 from .helper import QuartzBioTestCase
-from six.moves import map
-from six.moves import range
 
 
 class BaseQueryTest(QuartzBioTestCase):
