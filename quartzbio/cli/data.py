@@ -134,6 +134,7 @@ def _upload_folder(
     num_processes=1,
     archive_folder=None,
     follow_shortcuts=False,
+    max_retries=3,
 ):
     all_folders = []
     all_files = []
@@ -202,6 +203,7 @@ def _upload_folder(
                     archive_folder,
                     client_auth,
                     follow_shortcuts,
+                    max_retries,
                 )
             )
 
@@ -258,6 +260,7 @@ def _create_file_job(args):
         args[4] (archive_folder): An archive folder to move existing files into
         args[5] (client_auth): Tuple containing API host, token, and token type
         args[6] (follow_shortcuts): Boolean to follow shortcuts on the remote_folder_path
+        args[7] (max_retries): Maximum number of retries per upload part
     Returns:
         None or Exception if exception is raised.
     """
@@ -270,6 +273,7 @@ def _create_file_job(args):
             archive_folder,
             client_auth,
             follow_shortcuts,
+            max_retries,
         ) = args
         if dry_run:
             print(
@@ -309,6 +313,8 @@ def _create_file_job(args):
             remote_parent.vault.full_path,
             archive_folder=archive_folder,
             follow_shortcuts=follow_shortcuts,
+            num_processes=1,  # Default for single file uploads in parallel processing
+            max_retries=max_retries,
             client=client,
         )
         return
@@ -549,6 +555,7 @@ def upload(args):
                 num_processes=args.num_processes,
                 archive_folder=args.archive_folder,
                 follow_shortcuts=follow_shortcuts,
+                max_retries=args.max_retries,
             )
         else:
             if args.dry_run:
@@ -561,6 +568,8 @@ def upload(args):
                     path_dict["path"],
                     vault.full_path,
                     archive_folder=args.archive_folder,
+                    num_processes=args.num_processes,
+                    max_retries=args.max_retries,
                 )
 
 
