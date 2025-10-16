@@ -1,18 +1,17 @@
-from __future__ import absolute_import
 
 import json
 import flask
 import requests
 import os
 
-from six.moves.urllib.parse import urljoin
+from urllib.parse import urljoin
 
-from dash_auth.oauth import OAuthBase
+from dash_auth.auth import Auth
 
 import quartzbio
 
 
-class QuartzBioAuth(OAuthBase):
+class QuartzBioAuth(Auth):
     """Handles OAuth2 flows with the QuartzBio API."""
 
     AUTH_COOKIE_NAME = "dash_quartzbio_auth"
@@ -26,9 +25,16 @@ class QuartzBioAuth(OAuthBase):
 
     def __init__(self, app, app_url, client_id, **kwargs):
         secret_key = kwargs.get("secret_key") or app.server.secret_key
-        super(QuartzBioAuth, self).__init__(
-            app, app_url, client_id, secret_key=secret_key, salt=kwargs.get("salt")
-        )
+
+        # Initialize the base Auth class
+        super().__init__(app, public_routes=kwargs.get("public_routes", []))
+
+        # Store OAuth configuration
+        self._app = app
+        self._app_url = app_url
+        self._oauth_client_id = client_id
+        self._secret_key = secret_key
+        self._salt = kwargs.get("salt")
 
         # Add logout URL
         app.server.add_url_rule(
@@ -74,6 +80,22 @@ class QuartzBioAuth(OAuthBase):
         with open(os.path.join(_current_path, "login.js"), "r") as f:
             self.login_bundle = f.read()
 
+    def is_authorized(self):
+        """Check if the user is authorized by looking for a valid token cookie."""
+        try:
+            token = flask.request.cookies.get(self.TOKEN_COOKIE_NAME)
+            if not token:
+                return False
+
+            # Verify the token by making a test API call
+            return self.check_view_access(token)
+        except:
+            return False
+
+    def login_request(self):
+        """Return the login page HTML."""
+        return self.html(self.login_bundle)
+
     def auth_wrapper(self, f):
         def wrap(*args, **kwargs):
             if not self.is_authorized():
@@ -102,7 +124,7 @@ class QuartzBioAuth(OAuthBase):
         if hasattr(self, "add_access_token_to_response"):
             return wrap
         else:
-            return super(QuartzBioAuth, self).auth_wrapper(f)
+            return super().auth_wrapper(f)
 
     def html(self, script):
         return """

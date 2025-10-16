@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
 
 import unittest
 from quartzbio.utils import tabulate as t

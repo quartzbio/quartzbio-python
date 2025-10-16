@@ -1,9 +1,8 @@
-from __future__ import absolute_import
 
 import os
 from typing import Literal, Tuple
 
-from six.moves.urllib.parse import urlparse
+from urllib.parse import urlparse
 
 import logging
 

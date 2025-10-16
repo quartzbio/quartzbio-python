@@ -10,8 +10,7 @@ import time
 from datetime import datetime
 
 import requests
-import six
-from requests.packages.urllib3.util.retry import Retry
+from urllib3.util.retry import Retry
 
 from quartzbio.errors import QuartzBioError
 from quartzbio.errors import NotFoundError
@@ -915,7 +914,7 @@ class Object(
         def is_iterable_non_string(arg):
             """python2/python3 compatible way to check if arg is an iterable but not string"""
 
-            return isinstance(arg, Iterable) and not isinstance(arg, six.string_types)
+            return isinstance(arg, Iterable) and not isinstance(arg, (str, bytes))
 
         if not is_iterable_non_string(tags):
             tags = [str(tags)]

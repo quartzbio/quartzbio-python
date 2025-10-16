@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-from __future__ import print_function
 
 import dash
 import flask
@@ -23,6 +21,7 @@ class QuartzBioDash(dash.Dash):
 
         app_url = kwargs.pop("app_url", self.APP_URL)
         quartzbio_url = kwargs.pop("quartzbio_url", self.QUARTZBIO_URL)
+        api_host = kwargs.pop("api_host", None)  # Extract api_host before passing to Dash
 
         # OAuth2 credentials
         client_id = kwargs.pop("client_id", os.environ.get("CLIENT_ID"))
@@ -45,6 +44,7 @@ class QuartzBioDash(dash.Dash):
                 client_secret=client_secret,
                 grant_type=grant_type,
                 quartzbio_url=quartzbio_url,
+                api_host=api_host,
             )
         else:
             self.auth = None
