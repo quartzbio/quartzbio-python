@@ -1,10 +1,13 @@
 stages:
   - test
+  - sonarqube-check
 
 variables:
   QUARTZBIO_API_HOST: $QUARTZBIO_API_HOST
   QUARTZBIO_API_KEY: $QUARTZBIO_API_KEY
-  
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+  GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+
 test:
   tags: [docker, dind]
   image: "python:$VERSION"
@@ -20,3 +23,15 @@ test:
   parallel:
     matrix:
       - VERSION: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
+
+sonarqube-check:
+  tags: [shell_with_docker]
+  stage: sonarqube-check
+  image:
+    name: sonarsource/sonar-scanner-cli:11
+    entrypoint: [""]
+  script:
+    - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.3.0.5189-linux-x64.zip -O sonar-scanner.zip
+    - unzip -o -d sonar-scanner sonar-scanner.zip
+    - ./sonar-scanner/sonar-scanner-7.3.0.5189-linux-x64/bin/sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}"
+  allow_failure: false
