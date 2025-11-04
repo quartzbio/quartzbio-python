@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Querying Datasets and Files &#8212; QuartzBio  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Changelog" href="changelog.html" />
@@ -33,13 +34,13 @@
           <div class="body" role="main">
             
   <section id="querying-datasets-and-files">
-<h1>Querying Datasets and Files<a class="headerlink" href="#querying-datasets-and-files" title="Permalink to this heading">¶</a></h1>
+<h1>Querying Datasets and Files<a class="headerlink" href="#querying-datasets-and-files" title="Link to this heading">¶</a></h1>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
 <p>The EDP is designed for easy access to molecular information. It provides an easy-to-use, real-time API for querying any dataset or file on the platform through the EDP Python or R client libraries. Users can also use Bash to query datasets. Users can also apply complex filters when querying datasets and files; to learn more about using filters, users can refer to the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/filters.html#overview">Filters</a> documentation.</p>
 </section>
 <section id="querying-datasets">
-<h2>Querying Datasets<a class="headerlink" href="#querying-datasets" title="Permalink to this heading">¶</a></h2>
+<h2>Querying Datasets<a class="headerlink" href="#querying-datasets" title="Link to this heading">¶</a></h2>
 <p>Dataset query results are returned in pages, similar to a search engine. To narrow down search results, datasets can be filtered on one or more fields. Users can either build queries using a programming language (or even write raw JSON) or by building them directly on any dataset page in the EDP web application. The easiest way to query datasets is by using the EDP Python or R client libraries.</p>
 <p>A basic query returns a page of results from the specified public dataset. Users can set the <code class="docutils literal notranslate"><span class="pre">paginate_parameter</span></code> to True to retrieve all records or use the limit parameter to specify how many records to retrieve. Users should note that in the R client, the limit parameter allows users to retrieve a maximum of 10,000 records in a single request. Additionally, the query function accepts the following parameters:</p>
 <table class="docutils align-default">
@@ -116,11 +117,11 @@
 </div>
 </section>
 <section id="saving-queries">
-<h2>Saving Queries<a class="headerlink" href="#saving-queries" title="Permalink to this heading">¶</a></h2>
+<h2>Saving Queries<a class="headerlink" href="#saving-queries" title="Link to this heading">¶</a></h2>
 <p>Dataset queries can be saved and then used to make queries on datasets with a similar structure. Saved queries can be created for any dataset and can be shared with members of a user’s organization.</p>
 <p>For example, users may save a query for a set of interesting genes. They can then make this query available for all datasets that contain genes. If shared with other users in the organization, they will also be able to apply this query.</p>
 <section id="the-saved-queries-api">
-<h3>The Saved Queries API<a class="headerlink" href="#the-saved-queries-api" title="Permalink to this heading">¶</a></h3>
+<h3>The Saved Queries API<a class="headerlink" href="#the-saved-queries-api" title="Link to this heading">¶</a></h3>
 <p>To retrieve Saved Queries that apply to a dataset, or all those available:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_queries</span> <span class="o">=</span> <span class="n">SavedQuery</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;&lt;DATASET_ID&gt;&quot;</span><span class="p">)</span>
 
@@ -152,13 +153,13 @@
 </div>
 </section>
 <section id="using-saved-queries">
-<h3>Using Saved Queries<a class="headerlink" href="#using-saved-queries" title="Permalink to this heading">¶</a></h3>
+<h3>Using Saved Queries<a class="headerlink" href="#using-saved-queries" title="Link to this heading">¶</a></h3>
 <p>Saved queries can be used via the EDP API or the web UI. The UI will only display queries compatible with the current dataset. This compatibility check is handled automatically by the platform.</p>
 <p>When viewing a dataset in the web UI, previously saved queries can be retrieved by selecting “Load Filters” and then selecting one. Users can save a new query by applying filters to the dataset and then by clicking “Save Filters.” For more information, users can refer to the <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000597740">Dataset Exploration</a> documentation.</p>
 </section>
 </section>
 <section id="querying-files">
-<h2>Querying Files<a class="headerlink" href="#querying-files" title="Permalink to this heading">¶</a></h2>
+<h2>Querying Files<a class="headerlink" href="#querying-files" title="Link to this heading">¶</a></h2>
 <p>File objects can be queried and filtered on one or more fields. The query results are returned in pages. It is important to note that text files such as CSV, TXT, TSV, or BED must be uploaded with headers; otherwise, the query will return incorrect results because the query logic considers the first row from the file as the header.</p>
 <p>A basic query returns a page of results from the specified file object:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">clinvar</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz&#39;</span><span class="p">)</span>
@@ -189,7 +190,7 @@
 </div>
 </section>
 <section id="supported-file-extensions-and-compressions">
-<h2>Supported File Extensions and Compressions<a class="headerlink" href="#supported-file-extensions-and-compressions" title="Permalink to this heading">¶</a></h2>
+<h2>Supported File Extensions and Compressions<a class="headerlink" href="#supported-file-extensions-and-compressions" title="Link to this heading">¶</a></h2>
 <p>File querying is only supported for the following file extensions and compressions:</p>
 <table class="docutils align-default">
 <thead>
@@ -245,11 +246,11 @@
 </div>
 </section>
 <section id="api-endpoints">
-<h2>API Endpoints<a class="headerlink" href="#api-endpoints" title="Permalink to this heading">¶</a></h2>
+<h2>API Endpoints<a class="headerlink" href="#api-endpoints" title="Link to this heading">¶</a></h2>
 <p>Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
 For correct work of the API, you need to change <code class="docutils literal notranslate"><span class="pre">&lt;EDP_API_HOST&gt;</span></code> to your current domain, such as my-domain.api.edp.aws.quartz.bio</p>
 <section id="dataset-query">
-<h3>Dataset Query<a class="headerlink" href="#dataset-query" title="Permalink to this heading">¶</a></h3>
+<h3>Dataset Query<a class="headerlink" href="#dataset-query" title="Link to this heading">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
@@ -354,7 +355,7 @@ For correct work of the API, you need to change <code class="docutils literal no
 </table>
 </section>
 <section id="saved-queries">
-<h3>Saved Queries<a class="headerlink" href="#saved-queries" title="Permalink to this heading">¶</a></h3>
+<h3>Saved Queries<a class="headerlink" href="#saved-queries" title="Link to this heading">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
@@ -443,7 +444,7 @@ For correct work of the API, you need to change <code class="docutils literal no
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">QuartzBio</a></h1>
 
@@ -454,7 +455,16 @@ For correct work of the API, you need to change <code class="docutils literal no
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
@@ -507,7 +517,7 @@ For correct work of the API, you need to change <code class="docutils literal no
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.3.0</a></li>
     
 </ul>
 <div class="relations">
@@ -519,16 +529,6 @@ For correct work of the API, you need to change <code class="docutils literal no
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -545,8 +545,8 @@ For correct work of the API, you need to change <code class="docutils literal no
       &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/querying_datasets_and_files.md.txt"

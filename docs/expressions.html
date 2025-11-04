@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Expressions &#8212; QuartzBio  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Expression Functions" href="expression_functions.html" />
@@ -33,16 +34,16 @@
           <div class="body" role="main">
             
   <section id="expressions">
-<h1>Expressions<a class="headerlink" href="#expressions" title="Permalink to this heading">¶</a></h1>
+<h1>Expressions<a class="headerlink" href="#expressions" title="Link to this heading">¶</a></h1>
 <section id="expressions-print">
-<h2>Expressions Print<a class="headerlink" href="#expressions-print" title="Permalink to this heading">¶</a></h2>
+<h2>Expressions Print<a class="headerlink" href="#expressions-print" title="Link to this heading">¶</a></h2>
 </section>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
 <p>Expressions on the QuartzBio Enterprise Data Platform (EDP) are Python-like formulas that can be used to pull data from datasets, calculate statistics, or run advanced algorithms. They are typically used when transforming datasets but have many other uses such as <code class="docutils literal notranslate"><span class="pre">building</span> <span class="pre">web</span> <span class="pre">application</span> <span class="pre">widgets</span></code>, <code class="docutils literal notranslate"><span class="pre">pulling EDP data</span> <span class="pre">into</span> <span class="pre">Excel</span></code> or <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Sheets</span></code>, and <code class="docutils literal notranslate"><span class="pre">augmenting</span> <span class="pre">databases</span> <span class="pre">outside EDP</span></code>. Expressions are also referred to as Python “one-liners” but can be used in both the Python and R client libraries for EDP. Expressions may also be evaluated in the EDP UI for data discovery and data transformation.  Expressions are an advanced topic and this article is recommended for users who have reviewed the series of <strong>Quick Start Guides</strong> for programmatic use of the EDP, starting with <a class="reference external" href="https://quartzbio.freshdesk.com/en/support/solutions/articles/73000608178">EDP Programmatic Guide - Access and Search</a>.</p>
 </section>
 <section id="expression-syntax">
-<h2>Expression Syntax<a class="headerlink" href="#expression-syntax" title="Permalink to this heading">¶</a></h2>
+<h2>Expression Syntax<a class="headerlink" href="#expression-syntax" title="Link to this heading">¶</a></h2>
 <p>Expressions resemble a single line of code in the Python language. Expressions can only be one valid line of code but can contain line breaks for presentation purposes. As a result, they do not support the declaration of variables or classes.</p>
 <p>Expressions can use the built-in library of expression functions in EDP. The expression functions library is maintained by QuartzBio staff and users are encouraged to submit suggestions for new functions to be added to the library.</p>
 <p>Expressions can be a simple static value, such as a number or string:</p>
@@ -56,7 +57,7 @@
 </pre></div>
 </div>
 <section id="context-variables">
-<h3>Context Variables<a class="headerlink" href="#context-variables" title="Permalink to this heading">¶</a></h3>
+<h3>Context Variables<a class="headerlink" href="#context-variables" title="Link to this heading">¶</a></h3>
 <p>Depending on when an expression is evaluated, it may also include <code class="docutils literal notranslate"><span class="pre">&quot;context</span> <span class="pre">variables&quot;</span></code>. These are variables available to the expression interpreter at run-time (similar to the library of available functions).</p>
 <p>For example, expressions can reference context values provided during evaluation or annotation, such as record:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># String expression with context: {&quot;record&quot;: {&quot;a&quot;: &quot;hello&quot;}}</span>
@@ -111,7 +112,7 @@
 </section>
 </section>
 <section id="data-types-and-lists">
-<h2>Data Types and Lists<a class="headerlink" href="#data-types-and-lists" title="Permalink to this heading">¶</a></h2>
+<h2>Data Types and Lists<a class="headerlink" href="#data-types-and-lists" title="Link to this heading">¶</a></h2>
 <p>Expressions always have a return value. The value’s data type depends on the expression, but can be one of the following:</p>
 <table class="docutils align-default">
 <thead>
@@ -151,7 +152,7 @@
 </table>
 <p>Expressions can be set up to return a single value (default) or a list of values. Enabling list mode will cause the expression to always cast the return value as a list, and vice-versa.</p>
 <section id="type-casting">
-<h3>Type Casting<a class="headerlink" href="#type-casting" title="Permalink to this heading">¶</a></h3>
+<h3>Type Casting<a class="headerlink" href="#type-casting" title="Link to this heading">¶</a></h3>
 <p>Each data type “casts” the result of an expression ensuring compatibility with the underlying dataset system. If the result of an expression is incompatible with the data type, an error will be raised for that record.</p>
 <p>For return values compatible with the required data type, the final result should be straightforward. It is important to note that expressions make a distinction between null values (i.e. Python <code class="docutils literal notranslate"><span class="pre">None</span></code>), empty strings, and empty lists. The following tables show what to expect when encountering these types of values for different data types:</p>
 <table class="docutils align-default">
@@ -258,7 +259,7 @@
 </section>
 </section>
 <section id="using-expressions">
-<h2>Using Expressions<a class="headerlink" href="#using-expressions" title="Permalink to this heading">¶</a></h2>
+<h2>Using Expressions<a class="headerlink" href="#using-expressions" title="Link to this heading">¶</a></h2>
 <p>Most commonly, expressions are used to <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#modifying-fields">transform datasets</a>.</p>
 <p>Dataset imports and migrations are asynchronous tasks that can take time to run. There are two ways to run expressions in real time:</p>
 <ul class="simple">
@@ -266,7 +267,7 @@
 <li><p>Annotation: run one or more expressions on an arbitrary list of records.</p></li>
 </ul>
 <section id="evaluate-an-expression">
-<h3>Evaluate an Expression<a class="headerlink" href="#evaluate-an-expression" title="Permalink to this heading">¶</a></h3>
+<h3>Evaluate an Expression<a class="headerlink" href="#evaluate-an-expression" title="Link to this heading">¶</a></h3>
 <p>The ability to evaluate a single expression is helpful when testing new expressions, or in the context of an application view that needs a very specific piece of information. When evaluating individual expressions using the evaluate endpoint, no context is included by default. Users can provide a custom dictionary of context variables through the data parameter.</p>
 <p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Expression</span>
@@ -285,7 +286,7 @@
 </div>
 </section>
 <section id="annotating-records">
-<h3>Annotating Records<a class="headerlink" href="#annotating-records" title="Permalink to this heading">¶</a></h3>
+<h3>Annotating Records<a class="headerlink" href="#annotating-records" title="Link to this heading">¶</a></h3>
 <p>Users can annotate a list of records in real time (i.e. without saving them to a dataset) using the <code class="docutils literal notranslate"><span class="pre">annotate</span></code> endpoint. This provides a way to quickly test one or more expressions on a list of records. To annotate an entire dataset, see <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#modifying-fields">Transforming Datasets</a>.</p>
 <p>Examples</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotator</span>
@@ -352,11 +353,11 @@
 </section>
 </section>
 <section id="expression-functions">
-<h2>Expression Functions<a class="headerlink" href="#expression-functions" title="Permalink to this heading">¶</a></h2>
+<h2>Expression Functions<a class="headerlink" href="#expression-functions" title="Link to this heading">¶</a></h2>
 <p>Users are encouraged to review the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/expression_functions.html">Expression Functions article</a> to access a list of all built-in EDP expression functions along with details about each function.</p>
 </section>
 <section id="use-cases">
-<h2>Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this heading">¶</a></h2>
+<h2>Use Cases<a class="headerlink" href="#use-cases" title="Link to this heading">¶</a></h2>
 <p>Expressions can be evaluated using the EDP Python and R client libraries, such as when querying and annotating datasets. Expressions can also be used when creating Expression Recipes and Dataset Templates in EDP, which are data management tools designed to facilitate dataset transformation and annotation.</p>
 <p><strong>Expression Recipes</strong></p>
 <p>Recipes are expressions that are used to add or modify a dataset field and may be accessed from the EDP web interface to insert or modify a column (field) in a dataset. Recipes can also be used to join datasets by adding multiple fields to a dataset from other datasets based on join conditions. Users are recommended to read the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/expressions.html#use-cases">Recipes</a> documentation for an in-depth review of Recipes.</p>
@@ -364,7 +365,7 @@
 <p>Templates describe how data should be transformed. A template is a collection of fields (columns) that describe the desired format of some input data. Templates are used to import, export, query, or migrate data. Expressions can be used in templates for field normalization and transformation, as well as for adding additional fields and annotations to input data. Users are recommended to read the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/dataset_templates.html">Dataset Templates</a> documentation for an in-depth review of Templates.</p>
 </section>
 <section id="api-endpoints">
-<h2>API Endpoints<a class="headerlink" href="#api-endpoints" title="Permalink to this heading">¶</a></h2>
+<h2>API Endpoints<a class="headerlink" href="#api-endpoints" title="Link to this heading">¶</a></h2>
 <p>There are two endpoints that can be used to run expressions in real-time: annotate and evaluate. Annotate can be used to transform a list of records, and evaluate can be used for running individual expressions. These two endpoints are primarily designed for testing expressions and dataset templates but they can also be used when data outside of datasets need to be processed. To annotate entire datasets or imported files, see <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/transforming_datasets.html#transforming-datasets">Transforming Data</a>. Also, see <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/expression_functions.html">Expression Functions</a> for a list of functions available for use in expressions.</p>
 <p>Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
 For correct work of the API, you need to change <code class="docutils literal notranslate"><span class="pre">&lt;EDP_API_HOST&gt;</span></code> to your current domain, such as my-domain.api.edp.aws.quartz.bio</p>
@@ -393,7 +394,7 @@ For correct work of the API, you need to change <code class="docutils literal no
 </tbody>
 </table>
 <section id="annotate">
-<h3>Annotate<a class="headerlink" href="#annotate" title="Permalink to this heading">¶</a></h3>
+<h3>Annotate<a class="headerlink" href="#annotate" title="Link to this heading">¶</a></h3>
 <p>Run a set of expressions on a list of records in real-time.</p>
 <p>Request Body</p>
 <p>In the request body, provide the following properties:</p>
@@ -429,7 +430,7 @@ For correct work of the API, you need to change <code class="docutils literal no
 </table>
 </section>
 <section id="evaluate">
-<h3>Evaluate<a class="headerlink" href="#evaluate" title="Permalink to this heading">¶</a></h3>
+<h3>Evaluate<a class="headerlink" href="#evaluate" title="Link to this heading">¶</a></h3>
 <p>Evaluate a single expression with a custom context.</p>
 <p>Request Body</p>
 <p>In the request body, provide the following properties:</p>
@@ -462,7 +463,7 @@ For correct work of the API, you need to change <code class="docutils literal no
 </section>
 </section>
 <section id="common-issues">
-<h2>Common Issues<a class="headerlink" href="#common-issues" title="Permalink to this heading">¶</a></h2>
+<h2>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading">¶</a></h2>
 <p>Using expressions does require some basic knowledge of Python. Due to the condensed nature of an expression, syntax errors can be hard to spot. Selecting the correct data type can also be confusing at times.</p>
 <p><strong>The data type defines the final output of an expression.</strong></p>
 <p>One common issue is confusing the data type of a particular function with the final output of an expression. When working with functions, users can look to its documentation to see what it returns. If it returns a list, users should make sure their expression handles that, even if list mode is disabled.</p>
@@ -478,7 +479,7 @@ For correct work of the API, you need to change <code class="docutils literal no
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">QuartzBio</a></h1>
 
@@ -489,7 +490,16 @@ For correct work of the API, you need to change <code class="docutils literal no
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
@@ -545,7 +555,7 @@ For correct work of the API, you need to change <code class="docutils literal no
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.3.0</a></li>
     
 </ul>
 <div class="relations">
@@ -557,16 +567,6 @@ For correct work of the API, you need to change <code class="docutils literal no
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -583,8 +583,8 @@ For correct work of the API, you need to change <code class="docutils literal no
       &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/expressions.md.txt"
