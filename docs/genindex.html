@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index &#8212; QuartzBio  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -638,6 +639,8 @@
         <li><a href="quartzbio.html#quartzbio.QuartzBioClient.get">(quartzbio.QuartzBioClient method)</a>
 </li>
       </ul></li>
+      <li><a href="quartzbio.resource.object.html#quartzbio.resource.object.UploadProgressTracker.get_average_speed">get_average_speed() (quartzbio.resource.object.UploadProgressTracker method)</a>
+</li>
       <li><a href="quartzbio.html#quartzbio.Dataset.get_by_full_path">get_by_full_path() (quartzbio.Dataset class method)</a>
 
       <ul>
@@ -658,7 +661,11 @@
         <li><a href="quartzbio.resource.object.html#quartzbio.resource.object.Object.get_by_path">(quartzbio.resource.object.Object class method)</a>
 </li>
       </ul></li>
+      <li><a href="quartzbio.resource.object.html#quartzbio.resource.object.UploadProgressTracker.get_completion_percentage">get_completion_percentage() (quartzbio.resource.object.UploadProgressTracker method)</a>
+</li>
       <li><a href="quartzbio.cli.credentials.html#quartzbio.cli.credentials.get_credentials">get_credentials() (in module quartzbio.cli.credentials)</a>
+</li>
+      <li><a href="quartzbio.resource.object.html#quartzbio.resource.object.UploadProgressTracker.get_elapsed_time">get_elapsed_time() (quartzbio.resource.object.UploadProgressTracker method)</a>
 </li>
       <li><a href="quartzbio.html#quartzbio.Dataset.get_global_beacon_status">get_global_beacon_status() (quartzbio.Dataset method)</a>
 
@@ -1122,6 +1129,8 @@
       <li><a href="quartzbio.resource.apiresource.html#quartzbio.resource.apiresource.ListObject.next_page">next_page() (quartzbio.resource.apiresource.ListObject method)</a>
 </li>
       <li><a href="quartzbio.errors.html#quartzbio.errors.NotFoundError">NotFoundError</a>
+</li>
+      <li><a href="quartzbio.resource.object.html#quartzbio.resource.object.UploadProgressTracker.notify_error">notify_error() (quartzbio.resource.object.UploadProgressTracker method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1607,6 +1616,12 @@
 </li>
       <li><a href="quartzbio.resource.quartzbio_object.html#quartzbio.resource.quartzbio_object.QuartzBioObject.refresh_from">refresh_from() (quartzbio.resource.quartzbio_object.QuartzBioObject method)</a>
 </li>
+      <li><a href="quartzbio.html#quartzbio.Object.refresh_presigned_urls">refresh_presigned_urls() (quartzbio.Object class method)</a>
+
+      <ul>
+        <li><a href="quartzbio.resource.object.html#quartzbio.resource.object.Object.refresh_presigned_urls">(quartzbio.resource.object.Object class method)</a>
+</li>
+      </ul></li>
       <li><a href="quartzbio.client.html#quartzbio.client.QuartzBioClient.request">request() (quartzbio.client.QuartzBioClient method)</a>
 
       <ul>
@@ -1875,6 +1890,8 @@
         <li><a href="quartzbio.resource.object.html#quartzbio.resource.object.Object.untag">(quartzbio.resource.object.Object method)</a>
 </li>
       </ul></li>
+      <li><a href="quartzbio.resource.object.html#quartzbio.resource.object.UploadProgressTracker.update_progress">update_progress() (quartzbio.resource.object.UploadProgressTracker method)</a>
+</li>
       <li><a href="quartzbio.resource.apiresource.html#quartzbio.resource.apiresource.UpdateableAPIResource">UpdateableAPIResource (class in quartzbio.resource.apiresource)</a>
 </li>
       <li><a href="quartzbio.cli.data.html#quartzbio.cli.data.upload">upload() (in module quartzbio.cli.data)</a>
@@ -1891,6 +1908,8 @@
         <li><a href="quartzbio.html#quartzbio.Vault.upload_file">(quartzbio.Vault method)</a>
 </li>
       </ul></li>
+      <li><a href="quartzbio.resource.object.html#quartzbio.resource.object.UploadProgressTracker">UploadProgressTracker (class in quartzbio.resource.object)</a>
+</li>
       <li><a href="quartzbio.html#quartzbio.User">User (class in quartzbio)</a>
 
       <ul>
@@ -1992,7 +2011,7 @@
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">QuartzBio</a></h1>
 
@@ -2003,7 +2022,16 @@
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
@@ -2048,7 +2076,7 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.3.0</a></li>
     
 </ul>
 <div class="relations">
@@ -2058,16 +2086,6 @@
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -2084,8 +2102,8 @@
       &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
     </div>
 

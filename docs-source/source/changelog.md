@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0
+
+- Improved multipart upload resilience by introducing the retries of the failed part by requesting a new pre-signed URL from the EDP API, instead of aborting the entire upload process in case when a specific part fails during a multipart upload
+- Clean-fail on read-only log files, ensuring permission issues are detected and reported before further package usages
+
 ## 1.2.0 
 
 - Update minimum required python version to 3.8

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Filters &#8212; QuartzBio  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Querying Datasets and Files" href="querying_datasets_and_files.html" />
@@ -33,9 +34,9 @@
           <div class="body" role="main">
             
   <section id="filters">
-<h1>Filters<a class="headerlink" href="#filters" title="Permalink to this heading">¶</a></h1>
+<h1>Filters<a class="headerlink" href="#filters" title="Link to this heading">¶</a></h1>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
 <p>The EDP provides an easy-to-use, real-time API for <a class="reference external" href="https://quartzbio.freshdesk.com/a/solutions/articles/73000612356">querying datasets and files</a> through the Python and R client libraries, which also enable the application of complex filters on dataset and file fields. Users can also utilize Bash to query and filter datasets.</p>
 <p>Users can filter on any field in a dataset or file:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Object</span>
@@ -99,7 +100,7 @@
 <p>Full-text fields use the <code class="docutils literal notranslate"><span class="pre">contains</span></code> filter action by default and act like a typical search would. Results are ordered by relevance based on the provided search terms. When using the <code class="docutils literal notranslate"><span class="pre">contains</span></code> action on string fields, the system converts the filter into a regular expression: <code class="docutils literal notranslate"><span class="pre">.*{VALUE}.*</span></code>, which is equivalent to the SQL expressions <code class="docutils literal notranslate"><span class="pre">%{VALUE}%</span></code>.</p>
 </section>
 <section id="string-filters">
-<h2>String Filters<a class="headerlink" href="#string-filters" title="Permalink to this heading">¶</a></h2>
+<h2>String Filters<a class="headerlink" href="#string-filters" title="Link to this heading">¶</a></h2>
 <p>Users may filter string fields using the exact (or case-insensitive) match, regular expression match (<code class="docutils literal notranslate"><span class="pre">regexp</span></code>), or prefix match (<code class="docutils literal notranslate"><span class="pre">prefix</span></code>). Users can also match against multiple strings at once (a boolean <em>or</em>) using the “<code class="docutils literal notranslate"><span class="pre">in&quot;</span></code> filter. By default, filters on string fields use the “equals” match.</p>
 <p>In Python:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
@@ -122,7 +123,7 @@
 </div>
 </section>
 <section id="text-filters">
-<h2>Text Filters<a class="headerlink" href="#text-filters" title="Permalink to this heading">¶</a></h2>
+<h2>Text Filters<a class="headerlink" href="#text-filters" title="Link to this heading">¶</a></h2>
 <p>Long (paragraph-length) fields typically use the <code class="docutils literal notranslate"><span class="pre">text</span></code> data type. The <code class="docutils literal notranslate"><span class="pre">&quot;contains&quot;</span></code> filter in text fields works more like a search than a filter. Results that match the search term are brought back in the order of relevance.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
@@ -134,7 +135,7 @@
 </div>
 </section>
 <section id="numeric-date-filters">
-<h2>Numeric &amp; Date Filters<a class="headerlink" href="#numeric-date-filters" title="Permalink to this heading">¶</a></h2>
+<h2>Numeric &amp; Date Filters<a class="headerlink" href="#numeric-date-filters" title="Link to this heading">¶</a></h2>
 <p>Numeric and date fields can be filtered by exact match, exact match in a list (<code class="docutils literal notranslate"><span class="pre">in</span></code>), half-open range match (<code class="docutils literal notranslate"><span class="pre">range</span></code>), and standard operators (<code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code>, <code class="docutils literal notranslate"><span class="pre">gte</span></code>, <code class="docutils literal notranslate"><span class="pre">lte</span></code>). Dates are in the format <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
@@ -155,7 +156,7 @@
 </div>
 </section>
 <section id="entity-filters">
-<h2>Entity Filters<a class="headerlink" href="#entity-filters" title="Permalink to this heading">¶</a></h2>
+<h2>Entity Filters<a class="headerlink" href="#entity-filters" title="Link to this heading">¶</a></h2>
 <p>EDP-supported <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/metadata_and_global_beacons.html#entities">Entities</a> can be used for filtering, without requiring the exact field name that the Entity resides in. The entity filters are only compatible with datasets.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
@@ -170,7 +171,7 @@
 </div>
 </section>
 <section id="genomic-coordinate-filters">
-<h2>Genomic Coordinate Filters<a class="headerlink" href="#genomic-coordinate-filters" title="Permalink to this heading">¶</a></h2>
+<h2>Genomic Coordinate Filters<a class="headerlink" href="#genomic-coordinate-filters" title="Link to this heading">¶</a></h2>
 <p>A dataset’s genomic build is indicated by the suffix of the dataset’s <code class="docutils literal notranslate"><span class="pre">full_path</span></code>. The genomic coordinate filters are only compatible with datasets.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
@@ -197,7 +198,7 @@
 </div>
 </section>
 <section id="combining-filters">
-<h2>Combining Filters<a class="headerlink" href="#combining-filters" title="Permalink to this heading">¶</a></h2>
+<h2>Combining Filters<a class="headerlink" href="#combining-filters" title="Link to this heading">¶</a></h2>
 <p>The examples below show how to filter a dataset on one or two fields. In many cases, users will probably need to combine many filters into a single query.</p>
 <p>When manually writing queries in JSON, users can combine and nest filters using boolean operators (‘and’, ‘or’, ‘not’). In the Python client, users can combine filters using the <code class="docutils literal notranslate"><span class="pre">Filter</span></code> and <code class="docutils literal notranslate"><span class="pre">GenomicFilter</span></code> classes (”<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>” for “and”, “<code class="docutils literal notranslate"><span class="pre">|</span></code>” for “or”, and “<code class="docutils literal notranslate"><span class="pre">~</span></code>” for “not”).</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Filter</span>
@@ -219,13 +220,13 @@
 </div>
 </section>
 <section id="query-strings">
-<h2>Query Strings<a class="headerlink" href="#query-strings" title="Permalink to this heading">¶</a></h2>
+<h2>Query Strings<a class="headerlink" href="#query-strings" title="Link to this heading">¶</a></h2>
 <p>Query strings are parsed into a series of terms and operators. A query string can be provided as part of an EDP dataset query in combination with filters, or as an alternative to filters.  The query strings are only compatible with datasets.</p>
 <p>Terms in a query string can be single words - “quick” or “brown” - or a phrase surrounded by double quotes - “quick brown” - which will search for all the words in the phrase, in the same order. The query syntax is based on the <a class="reference external" href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">Lucene query syntax</a>.</p>
 <p>Queries are useful to find records that best match a word or phrase, relative to others. Filters are designed to reduce the potential result set by asking <code class="docutils literal notranslate"><span class="pre">yes/no</span></code> questions on every record in a dataset.</p>
 <p>Query string operators allow users to customize a search. The available options are explained below:</p>
 <section id="field-names">
-<h3>Field Names<a class="headerlink" href="#field-names" title="Permalink to this heading">¶</a></h3>
+<h3>Field Names<a class="headerlink" href="#field-names" title="Link to this heading">¶</a></h3>
 <p>By default, when no field names are specified, all string or text fields are searched for each term. Users can provide an explicit field name if they know the field in question:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">status</span><span class="p">:</span><span class="n">active</span>
 </pre></div>
@@ -250,14 +251,14 @@
 </div>
 </section>
 <section id="wildcards">
-<h3>Wildcards<a class="headerlink" href="#wildcards" title="Permalink to this heading">¶</a></h3>
+<h3>Wildcards<a class="headerlink" href="#wildcards" title="Link to this heading">¶</a></h3>
 <p>Wildcard searches can be run on individual terms, using <code class="docutils literal notranslate"><span class="pre">?</span></code> to replace a single character, and <code class="docutils literal notranslate"><span class="pre">*</span></code> to replace zero or more characters:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BRCA</span><span class="o">*</span>
 </pre></div>
 </div>
 </section>
 <section id="ranges">
-<h3>Ranges<a class="headerlink" href="#ranges" title="Permalink to this heading">¶</a></h3>
+<h3>Ranges<a class="headerlink" href="#ranges" title="Link to this heading">¶</a></h3>
 <p>Ranges can be specified for almost any field data type. They are most useful for dates and numeric fields. Inclusive ranges are specified with square brackets <code class="docutils literal notranslate"><span class="pre">[min</span> <span class="pre">TO</span> <span class="pre">max]</span></code> and exclusive ranges with curly brackets <code class="docutils literal notranslate"><span class="pre">{min</span> <span class="pre">TO</span> <span class="pre">max}</span></code>.</p>
 <p>For example, this query will retrieve records for all days in 2012:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span><span class="p">:[</span><span class="mi">2012</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="n">TO</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span><span class="p">]</span>
@@ -282,7 +283,7 @@
 <p>As processing ranges from a query string is much slower and less reliable than using an explicit range filter, users should try range filters first.</p>
 </section>
 <section id="grouping">
-<h3>Grouping<a class="headerlink" href="#grouping" title="Permalink to this heading">¶</a></h3>
+<h3>Grouping<a class="headerlink" href="#grouping" title="Link to this heading">¶</a></h3>
 <p>Multiple terms or clauses can be grouped together with parentheses to form sub-queries:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Serine</span> <span class="n">OR</span> <span class="n">Cysteine</span><span class="p">)</span> <span class="n">AND</span> <span class="n">protease</span>
 </pre></div>
@@ -293,7 +294,7 @@
 </div>
 </section>
 <section id="reserved-characters">
-<h3>Reserved characters<a class="headerlink" href="#reserved-characters" title="Permalink to this heading">¶</a></h3>
+<h3>Reserved characters<a class="headerlink" href="#reserved-characters" title="Link to this heading">¶</a></h3>
 <p>The following characters are reserved in query strings and must be escaped with a leading backslash when used as part of a query term:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>+ - = &amp;&amp; || &gt; &lt; ! ( ) { } [ ] ^ &quot; ~ * ? : \ /
 </pre></div>
@@ -302,7 +303,7 @@
 </section>
 </section>
 <section id="advanced-filters">
-<h2>Advanced Filters<a class="headerlink" href="#advanced-filters" title="Permalink to this heading">¶</a></h2>
+<h2>Advanced Filters<a class="headerlink" href="#advanced-filters" title="Link to this heading">¶</a></h2>
 <p>Users can also compose filters in JSON and apply these filters via R, Python, or the EDP UI:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_full_path</span><span class="p">(</span><span class="s1">&#39;quartzbio:Public:/MEDLINE/2.3.4-2018/MEDLINE-sample&#39;</span><span class="p">)</span>
 
@@ -402,7 +403,7 @@
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">QuartzBio</a></h1>
 
@@ -413,7 +414,16 @@
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
@@ -469,7 +479,7 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.3.0</a></li>
     
 </ul>
 <div class="relations">
@@ -481,16 +491,6 @@
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -507,8 +507,8 @@
       &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/filters.md.txt"

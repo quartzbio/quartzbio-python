@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Creating and Migrating Datasets &#8212; QuartzBio  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Dataset Templates" href="dataset_templates.html" />
@@ -33,15 +34,15 @@
           <div class="body" role="main">
             
   <section id="creating-and-migrating-datasets">
-<h1>Creating and Migrating Datasets<a class="headerlink" href="#creating-and-migrating-datasets" title="Permalink to this heading">¶</a></h1>
+<h1>Creating and Migrating Datasets<a class="headerlink" href="#creating-and-migrating-datasets" title="Link to this heading">¶</a></h1>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
 <p>A dataset on the EDP represents a collection of records indexed with a specific schema (i.e. a list of fields). Datasets make it easy to query and filter datasets of <strong>any size in real-time</strong>.</p>
 <p>Datasets can be created with a predefined schema (using a <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/dataset_templates.html#overview">Dataset template</a>) or without any fields. The platform will always detect new fields in imported records and assign data types. However, users are recommended to use templates so that the data types of fields can be set in advance. Records can be added to datasets in multiple ways such as transforming files into datasets, programmatically generating records, or copying records from other datasets using <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#migrating-datasets">dataset migrations</a>.</p>
 <p>Datasets are designed to be a flexible and scalable solution for storing structured JSON-compatible data. The molecular data landscape is filled with a large variety of unique file formats, each with its own subtleties and quirks. On the EDP, almost any data source can be imported into a dataset as long as it can be transformed into JSON. The EDP supports many formats, making it easy to import data into a dataset. Once the data has been imported into a dataset, users can take advantage of the many features they offer: scalability, portability, version control, flexibility of schemas, querying and filtering of data as well as annotation and analysis using <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/expressions.html#overview">Expressions</a>.</p>
 </section>
 <section id="creating-datasets">
-<h2>Creating Datasets<a class="headerlink" href="#creating-datasets" title="Permalink to this heading">¶</a></h2>
+<h2>Creating Datasets<a class="headerlink" href="#creating-datasets" title="Link to this heading">¶</a></h2>
 <p>To start working with datasets on the EDP, users can create new, empty datasets “from scratch”. Datasets have both a schema (dataset fields) and contents (dataset records). On the EDP, users don’t need to know their schema in advance (fields are automatically detected from imported data). However, in many cases crafting a schema (i.e. setting dataset fields) can help avoid issues with data types and field names.</p>
 <p>To create a dataset, users can supply a full path in the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">vault</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span>
@@ -73,7 +74,7 @@
 <p>Once the dataset is created it will be empty (containing no records) and consist of the default EDP _id field and any other fields that may have been added to the fields parameter. Fields beginning with an underscore such as _id and _commit are considered reserved and may be modified during an import. The _id field represents the unique ID for each record, which can be used to <strong>edit</strong> or <strong>delete</strong> individual records. The value of _id cannot be edited once a record is saved. The _commit field is always reset during the commit process and makes it possible to track and log all changes made to a Dataset.</p>
 </section>
 <section id="dataset-fields">
-<h2>Dataset Fields<a class="headerlink" href="#dataset-fields" title="Permalink to this heading">¶</a></h2>
+<h2>Dataset Fields<a class="headerlink" href="#dataset-fields" title="Link to this heading">¶</a></h2>
 <p>By default, new fields are automatically detected by the import system when transforming a file into a dataset. Users can also provide a list of fields (i.e. a template) using the fields parameter and explicitly set names and titles, data types, ordering, descriptions, and entity types for each field.</p>
 <p>Dataset fields have the following properties:</p>
 <table class="docutils align-default">
@@ -177,18 +178,19 @@
 </pre></div>
 </div>
 <section id="url-template">
-<h3>URL Template<a class="headerlink" href="#url-template" title="Permalink to this heading">¶</a></h3>
+<h3>URL Template<a class="headerlink" href="#url-template" title="Link to this heading">¶</a></h3>
 <p>If users add a <code class="docutils literal notranslate"><span class="pre">url_template</span></code> value to the dataset field, the dataset table will show the value as a link in the EDP UI. This is useful for linking to other sources/websites. The dataset below has links for the gene and variant pages on EDP:</p>
-<a class="reference external image-reference" href="https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/73063228026/original/KQ21JSo_ifuMQ4KCmFXzIZ4f9JLUaVWSLw.png?1689112995"><img alt="" src="https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/73063228026/original/KQ21JSo_ifuMQ4KCmFXzIZ4f9JLUaVWSLw.png?1689112995" /></a>
+<a class="reference external image-reference" href="https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/73063228026/original/KQ21JSo_ifuMQ4KCmFXzIZ4f9JLUaVWSLw.png?1689112995"><img alt="" src="https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/73063228026/original/KQ21JSo_ifuMQ4KCmFXzIZ4f9JLUaVWSLw.png?1689112995" />
+</a>
 <p><strong>URL Template</strong>: Adding a value to the <code class="docutils literal notranslate"><span class="pre">url_template</span></code> property of a field will link it to the field values in the EDP web interface.</p>
 </section>
 </section>
 <section id="migrating-datasets">
-<h2>Migrating Datasets<a class="headerlink" href="#migrating-datasets" title="Permalink to this heading">¶</a></h2>
+<h2>Migrating Datasets<a class="headerlink" href="#migrating-datasets" title="Link to this heading">¶</a></h2>
 <p>Users can perform dataset “migrations” to copy data between or within datasets as well as use Python-based EDP <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/expressions.html#overview">Expressions</a> to transform data during migrations. As such, migrations allow users to modify datasets in-place, making it possible to add, edit, and remove fields. All dataset migrations have a source dataset and a target dataset (which can be the same when editing a single dataset).</p>
 </section>
 <section id="copying-datasets">
-<h2>Copying Datasets<a class="headerlink" href="#copying-datasets" title="Permalink to this heading">¶</a></h2>
+<h2>Copying Datasets<a class="headerlink" href="#copying-datasets" title="Link to this heading">¶</a></h2>
 <p>Copying a dataset is the simplest dataset migration. In this case, a new dataset is created (the target) and all the records from a source dataset are copied to it. The source dataset remains unchanged. Copying datasets can be useful if users do not want to alter the source dataset or if they do not have write access to the source dataset.</p>
 <p>If users do not want to copy the entire source dataset, they can provide filter parameters to copy a subset. This example copies all BRCA1 variants from ClinVar into a new dataset:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
@@ -205,7 +207,7 @@
 </div>
 </section>
 <section id="modifying-fields">
-<h2>Modifying Fields<a class="headerlink" href="#modifying-fields" title="Permalink to this heading">¶</a></h2>
+<h2>Modifying Fields<a class="headerlink" href="#modifying-fields" title="Link to this heading">¶</a></h2>
 <p>The title, description, url_template, ordering, and entity_type of a field can be modified at any time. Field names cannot be renamed and fields cannot be removed in-place, though they can be hidden by setting the <code class="docutils literal notranslate"><span class="pre">is_hidden</span></code> parameter to TRUE. To change the name of a field, users must perform a dataset migration to create a new field with the desired name in the cloned dataset. Similarly, to remove a field from a dataset, it must be cloned to a new dataset that does not have the field the user intends to delete. For more information about modifying datasets, users can refer to the <a class="reference external" href="https://quartzbio.github.io/quartzbio-python/transforming_datasets.html#modifying-fields">Modifying Datasets</a> documentation.</p>
 <p>The following example renames the field of the dataset through a dataset migration:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sb</span>
@@ -232,12 +234,12 @@
 </pre></div>
 </div>
 <section id="api-endpoints">
-<h3>API Endpoints<a class="headerlink" href="#api-endpoints" title="Permalink to this heading">¶</a></h3>
+<h3>API Endpoints<a class="headerlink" href="#api-endpoints" title="Link to this heading">¶</a></h3>
 <p>Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
 For correct work of the API, you need to change <code class="docutils literal notranslate"><span class="pre">&lt;EDP_API_HOST&gt;</span></code> to your current domain, such as my-domain.api.edp.aws.quartz.bio</p>
 </section>
 <section id="datasets">
-<h3>Datasets<a class="headerlink" href="#datasets" title="Permalink to this heading">¶</a></h3>
+<h3>Datasets<a class="headerlink" href="#datasets" title="Link to this heading">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
@@ -325,7 +327,7 @@ For correct work of the API, you need to change <code class="docutils literal no
 </table>
 </section>
 <section id="id2">
-<h3>Dataset Fields<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<h3>Dataset Fields<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
@@ -504,7 +506,7 @@ For correct work of the API, you need to change <code class="docutils literal no
 <p>In the request body, provide a valid DatasetField object (see <em>create</em> above).</p>
 </section>
 <section id="id3">
-<h3>Dataset Migrations<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<h3>Dataset Migrations<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
@@ -684,7 +686,7 @@ For correct work of the API, you need to change <code class="docutils literal no
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">QuartzBio</a></h1>
 
@@ -695,7 +697,16 @@ For correct work of the API, you need to change <code class="docutils literal no
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
@@ -748,7 +759,7 @@ For correct work of the API, you need to change <code class="docutils literal no
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.3.0</a></li>
     
 </ul>
 <div class="relations">
@@ -760,16 +771,6 @@ For correct work of the API, you need to change <code class="docutils literal no
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -786,8 +787,8 @@ For correct work of the API, you need to change <code class="docutils literal no
       &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/creating_and_migrating_datasets.md.txt"

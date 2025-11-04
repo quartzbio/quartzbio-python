@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>quartzbio.query module &#8212; QuartzBio  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -31,23 +32,23 @@
           <div class="body" role="main">
             
   <section id="module-quartzbio.query">
-<span id="quartzbio-query-module"></span><h1>quartzbio.query module<a class="headerlink" href="#module-quartzbio.query" title="Permalink to this heading">¶</a></h1>
+<span id="quartzbio-query-module"></span><h1>quartzbio.query module<a class="headerlink" href="#module-quartzbio.query" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="quartzbio.query.BatchQuery">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">BatchQuery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queries</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.BatchQuery" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">BatchQuery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queries</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.BatchQuery" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>BatchQuery accepts a list of Query objects and executes them
 in a single request to /v2/batch_query.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.BatchQuery.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.BatchQuery.execute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.BatchQuery.execute" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quartzbio.query.Filter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">Filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">raw_filters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Filter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">Filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">raw_filters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Filter" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Filter objects.</p>
 <p>Makes it easier to create filters cumulatively using <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> (and),
@@ -99,29 +100,29 @@ end__lte=20000)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quartzbio.query.GenomicFilter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">GenomicFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.GenomicFilter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">GenomicFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.GenomicFilter" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quartzbio.query.Filter" title="quartzbio.query.Filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a></p>
 <p>Helper class that generates filters on genomic coordinates.</p>
 <p>Range filtering only works on “genomic” datasets
 (where dataset.is_genomic is True).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quartzbio.query.GenomicFilter.FIELD_CHR">
-<span class="sig-name descname"><span class="pre">FIELD_CHR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genomic_coordinates.chromosome'</span></em><a class="headerlink" href="#quartzbio.query.GenomicFilter.FIELD_CHR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">FIELD_CHR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genomic_coordinates.chromosome'</span></em><a class="headerlink" href="#quartzbio.query.GenomicFilter.FIELD_CHR" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quartzbio.query.GenomicFilter.FIELD_START">
-<span class="sig-name descname"><span class="pre">FIELD_START</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genomic_coordinates.start'</span></em><a class="headerlink" href="#quartzbio.query.GenomicFilter.FIELD_START" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">FIELD_START</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genomic_coordinates.start'</span></em><a class="headerlink" href="#quartzbio.query.GenomicFilter.FIELD_START" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quartzbio.query.GenomicFilter.FIELD_STOP">
-<span class="sig-name descname"><span class="pre">FIELD_STOP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genomic_coordinates.stop'</span></em><a class="headerlink" href="#quartzbio.query.GenomicFilter.FIELD_STOP" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">FIELD_STOP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'genomic_coordinates.stop'</span></em><a class="headerlink" href="#quartzbio.query.GenomicFilter.FIELD_STOP" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.GenomicFilter.from_string">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.GenomicFilter.from_string" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.GenomicFilter.from_string" title="Link to this definition">¶</a></dt>
 <dd><p>Handles UCSC-style range queries (chr1:100-200)</p>
 </dd></dl>
 
@@ -129,18 +130,18 @@ end__lte=20000)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quartzbio.query.Query">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">Query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genome_build=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_fields=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entities=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit=inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_class=&lt;class</span> <span class="pre">'dict'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_fields=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotator_params=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">Query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genome_build=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_fields=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entities=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit=inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_class=&lt;class</span> <span class="pre">'dict'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_fields=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotator_params=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quartzbio.query.QueryBase" title="quartzbio.query.QueryBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueryBase</span></code></a></p>
 <p>A Query API request wrapper that generates a request from Filter objects,
 and can iterate through streaming result sets.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.Query.annotate">
-<span class="sig-name descname"><span class="pre">annotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.annotate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">annotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.annotate" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.Query.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.execute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.execute" title="Link to this definition">¶</a></dt>
 <dd><p>Executes a query. Additional query parameters can be passed
 as keyword arguments.</p>
 <p>Returns: The request parameters and the raw query response.</p>
@@ -148,12 +149,12 @@ as keyword arguments.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.Query.export">
-<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">follow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.export" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">follow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.export" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.Query.facets">
-<span class="sig-name descname"><span class="pre">facets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.facets" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">facets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.facets" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a dictionary with the requested facets.</p>
 <p>The facets function supports string args, and keyword
 args.</p>
@@ -165,13 +166,13 @@ will return all facets for field_1 and 10 facets for field_2.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.Query.fields">
-<span class="sig-name descname"><span class="pre">fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.fields" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.fields" title="Link to this definition">¶</a></dt>
 <dd><p>Returns all expected fields that will be found in the results.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.Query.join">
-<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'b_'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">always_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.join" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'b_'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">always_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.join" title="Link to this definition">¶</a></dt>
 <dd><p>Performs a left outer join between the current
 query (query A) and another query (query B).</p>
 <p>Set prefix to None to use a random prefix.
@@ -180,7 +181,7 @@ Enable always_prefix to always apply a prefix.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.Query.migrate">
-<span class="sig-name descname"><span class="pre">migrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">follow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.migrate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">migrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">follow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.migrate" title="Link to this definition">¶</a></dt>
 <dd><p>Migrate the data from the Query to a target dataset.</p>
 <p>Valid optional kwargs include:</p>
 <ul class="simple">
@@ -194,13 +195,13 @@ Enable always_prefix to always apply a prefix.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.Query.position">
-<span class="sig-name descname"><span class="pre">position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.position" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.position" title="Link to this definition">¶</a></dt>
 <dd><p>Shortcut to do a single position filter on genomic datasets.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.Query.range">
-<span class="sig-name descname"><span class="pre">range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.range" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.Query.range" title="Link to this definition">¶</a></dt>
 <dd><p>Shortcut to do range filters on genomic datasets.</p>
 </dd></dl>
 
@@ -208,38 +209,38 @@ Enable always_prefix to always apply a prefix.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">QueryBase</span></span><a class="headerlink" href="#quartzbio.query.QueryBase" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">QueryBase</span></span><a class="headerlink" href="#quartzbio.query.QueryBase" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A helper abstract mixin class that contains
 common methods for Query and QueryFile classes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase.DEFAULT_PAGE_SIZE">
-<span class="sig-name descname"><span class="pre">DEFAULT_PAGE_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#quartzbio.query.QueryBase.DEFAULT_PAGE_SIZE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DEFAULT_PAGE_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#quartzbio.query.QueryBase.DEFAULT_PAGE_SIZE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase.INF">
-<span class="sig-name descname"><span class="pre">INF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000000000000000</span></em><a class="headerlink" href="#quartzbio.query.QueryBase.INF" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">INF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000000000000000</span></em><a class="headerlink" href="#quartzbio.query.QueryBase.INF" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase.MAX_PAGE_SIZE">
-<span class="sig-name descname"><span class="pre">MAX_PAGE_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10000</span></em><a class="headerlink" href="#quartzbio.query.QueryBase.MAX_PAGE_SIZE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">MAX_PAGE_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10000</span></em><a class="headerlink" href="#quartzbio.query.QueryBase.MAX_PAGE_SIZE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase.as_slice">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slice_or_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.as_slice" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slice_or_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.as_slice" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase.bounded_slice">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bounded_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_slice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.bounded_slice" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bounded_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_slice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.bounded_slice" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.count" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.count" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the total number of results returned by a query.
 The count is dependent on the filters, but independent of any limit.
 It is like SQL:
@@ -249,7 +250,7 @@ See also __len__ for a function that is dependent on limit.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase.filter">
-<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.filter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.filter" title="Link to this definition">¶</a></dt>
 <dd><p>Returns this Query/QueryFile instance with the query args combined with
 existing set with AND.</p>
 <p>kwargs are simply passed to a new Filter object and combined to any
@@ -265,14 +266,14 @@ filter once with the resulting Filter instance.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase.limit">
-<span class="sig-name descname"><span class="pre">limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.limit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.limit" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a new Query/QueryFile instance with the new
 limit values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.QueryBase.next">
-<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.next" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryBase.next" title="Link to this definition">¶</a></dt>
 <dd><p>Allows the Query/QueryFile object to be an iterable.</p>
 <p>This method will iterate through a cached result set
 and fetch successive pages as required.</p>
@@ -286,18 +287,18 @@ slice range or limit has been fetched.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="quartzbio.query.QueryFile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">QueryFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryFile" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quartzbio.query.</span></span><span class="sig-name descname"><span class="pre">QueryFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryFile" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#quartzbio.query.QueryBase" title="quartzbio.query.QueryBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueryBase</span></code></a></p>
 <p>A QueryFile API request wrapper that generates a request for an object content query,
 and can iterate through streaming result sets.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="quartzbio.query.QueryFile.DEFAULT_PAGE_SIZE">
-<span class="sig-name descname"><span class="pre">DEFAULT_PAGE_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000</span></em><a class="headerlink" href="#quartzbio.query.QueryFile.DEFAULT_PAGE_SIZE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DEFAULT_PAGE_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000</span></em><a class="headerlink" href="#quartzbio.query.QueryFile.DEFAULT_PAGE_SIZE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.QueryFile.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryFile.execute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryFile.execute" title="Link to this definition">¶</a></dt>
 <dd><p>Executes a query. Additional query parameters can be passed
 as keyword arguments.</p>
 <p>Returns: The request parameters and the raw query response.</p>
@@ -305,7 +306,7 @@ as keyword arguments.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="quartzbio.query.QueryFile.fields">
-<span class="sig-name descname"><span class="pre">fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryFile.fields" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#quartzbio.query.QueryFile.fields" title="Link to this definition">¶</a></dt>
 <dd><p>Returns all expected fields that will be found in the results.</p>
 </dd></dl>
 
@@ -318,7 +319,7 @@ as keyword arguments.</p>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">QuartzBio</a></h1>
 
@@ -329,7 +330,16 @@ as keyword arguments.</p>
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
@@ -374,7 +384,7 @@ as keyword arguments.</p>
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.2.0</a></li>
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.3.0</a></li>
     
 </ul>
 <div class="relations">
@@ -384,16 +394,6 @@ as keyword arguments.</p>
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -410,8 +410,8 @@ as keyword arguments.</p>
       &#169;2025 Precision for Medicine, inc..
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/quartzbio.query.rst.txt"
