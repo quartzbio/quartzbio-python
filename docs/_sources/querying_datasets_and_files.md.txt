@@ -2,13 +2,13 @@
 
 ## Overview
 
-The EDP is designed for easy access to molecular information. It provides an easy-to-use, real-time API for querying any dataset or file on the platform through the EDP Python or R client libraries. Users can also use Bash to query datasets. Users can also apply complex filters when querying datasets and files; to learn more about using filters, users can refer to the [Filters](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000614733) documentation.
+The EDP is designed for easy access to molecular information. It provides an easy-to-use, real-time API for querying any dataset or file on the platform through the EDP Python or R client libraries. Users can also use Bash to query datasets. Users can also apply complex filters when querying datasets and files; to learn more about using filters, users can refer to the [Filters](https://quartzbio.github.io/quartzbio-python/filters.html#overview) documentation.
 
 ## Querying Datasets
 
 Dataset query results are returned in pages, similar to a search engine. To narrow down search results, datasets can be filtered on one or more fields. Users can either build queries using a programming language (or even write raw JSON) or by building them directly on any dataset page in the EDP web application. The easiest way to query datasets is by using the EDP Python or R client libraries. 
 
-A basic query returns a page of results from the specified public dataset. Users can set the paginate parameter to True to retrieve all records or use the limit parameter to specify how many records to retrieve. Users should note that in the R client, the limit parameter allows users to retrieve a maximum of 10,000 records in a single request. Additionally, the query function accepts the following parameters:
+A basic query returns a page of results from the specified public dataset. Users can set the `paginate_parameter` to True to retrieve all records or use the limit parameter to specify how many records to retrieve. Users should note that in the R client, the limit parameter allows users to retrieve a maximum of 10,000 records in a single request. Additionally, the query function accepts the following parameters:
 
 |    Parameter    |  Value  |                                                                                                                                  Description                                                                                                                                   |
 |-----------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -49,11 +49,11 @@ Dataset queries can be saved and then used to make queries on datasets with a si
 
 For example, users may save a query for a set of interesting genes. They can then make this query available for all datasets that contain genes. If shared with other users in the organization, they will also be able to apply this query.
 
-The Saved Queries API
+### The Saved Queries API
 
 To retrieve Saved Queries that apply to a dataset, or all those available:
 
-In Python:
+
 ```Python
 dataset_queries = SavedQuery.all(dataset="<DATASET_ID>")
 
@@ -62,7 +62,7 @@ all_saved_queries = SavedQuery.all()
 
 To use a saved query, users can retrieve the SavedQuery object and then apply the parameters.
 
-In Python:
+
 ```Python
 saved_query = SavedQuery.retrieve("SAVED_QUERY_ID")
 
@@ -75,7 +75,7 @@ results = Dataset.retrieve("<DATASET_ID").query(**saved_query.params)
 
 To create a SavedQuery, users can define the query parameters and provide a valid dataset, as well as give it a name and description.
 
-In Python:
+
 
 ```Python
 params = {
@@ -102,7 +102,7 @@ File objects can be queried and filtered on one or more fields. The query result
 
 A basic query returns a page of results from the specified file object:
 
-In Python:
+
 ```Python
 clinvar = Object.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz')
 clinvar.query()
@@ -110,7 +110,7 @@ clinvar.query()
 
 Users can retrieve a specified number of records from the file by setting the limit query parameter:
 
-In Python:
+
 ```Python
 clinvar = Object.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz')
 q = clinvar.query(limit=50)
@@ -118,14 +118,14 @@ q = clinvar.query(limit=50)
 
 All fields from the file can be retrieved by calling the fields method:
 
-In Python:
+
 ```Python
 fields = Object.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz').query().fields()
 ```
 
-Users can also use the download\_url() method to load files into readers such as pandas:
+Users can also use the `download_url()` method to load files into readers such as pandas:
 
-In Python:
+
 ```Python
 from quartzbio import *
 import pandas
@@ -154,7 +154,7 @@ File querying is only supported for the following file extensions and compressio
 
 The only supported encoding is UTF-8.
 
-The output format of the query can be provided by using the output\_format parameter which can be one of the following:
+The output format of the query can be provided by using the `output_format` parameter which can be one of the following:
 
 | **Output Format**  |                       **Description**                        |
 |----------------|----------------------------------------------------------|
@@ -164,7 +164,7 @@ The output format of the query can be provided by using the output\_format param
 
 Example:
 
-In Python:
+
 ```Python
 clinvar = Object.get_by_full_path('quartzbio:Public:/ClinVar/5.2.0-20210110/ClinVar-5-2-0-20210110-Variants-GRCH37-1425664822266145048-20221110194518.json.gz')
 clinvar.query(output_format='json')
@@ -172,9 +172,10 @@ clinvar.query(output_format='json')
 
 ## API Endpoints
 
-Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
+Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
+For correct work of the API, you need to change `<EDP_API_HOST>` to your current domain, such as my-domain.api.edp.aws.quartz.bio
 
-Dataset Query
+### Dataset Query
 
 | Method |             HTTP Request              |   Description    |                                     Authorization                                     |                         Response                          |
 |--------|---------------------------------------|------------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------|
@@ -195,7 +196,7 @@ The request body should contain valid query parameters:
 |      limit      | integer |  The number of results to return per-page.  |
 |     offset      | integer |    The record offset in the result-set.     |
 
-Users can refer to the [Filters documentation](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000614733) for more information about constructing filters.
+Users can refer to the [Filters documentation](https://quartzbio.github.io/quartzbio-python/filters.html) for more information about constructing filters.
 
 The dataset query response has the following structure:
 
@@ -209,14 +210,11 @@ The dataset query response has the following structure:
 |    took     | integer |  Time to retrieve the records, in miliseconds.  |
 |    total    | integer | The total number of records in the result-set.  |
 
-Saved Queries
+### Saved Queries
 
 | Method |                   HTTP Request                    |       Description       |                       Authorization                       |                   Response                   |
 |--------|---------------------------------------------------|-------------------------|-----------------------------------------------------------|----------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/saved\_queries/{ID} | Retrieve a Saved Query. | This request requires an authorized user with permission. | The response contains a SavedQuery resource. |
-
-| Method |                 HTTP Request                  |        Description        |                             Authorization                              |                      Response                      |
-|--------|-----------------------------------------------|---------------------------|------------------------------------------------------------------------|----------------------------------------------------|
 | create | POST https://<EDP\_API\_HOST>/v2/saved\_queries | Create a new Saved Query. | This request requires an authorized user with appropriate permissions. | The response contains the new SavedQuery resource. |
 
 Request Body:
@@ -232,8 +230,5 @@ Request Body:
 | Method |                     HTTP Request                     |      Description      |                                  Authorization                                   |                      Response                       |
 |--------|------------------------------------------------------|-----------------------|----------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/saved\_queries/{ID} | Delete a Saved Query. | This request requires an authorized user with write permissions on the resource. | The response returns "HTTP 200 OK" when successful. |
-
-| Method |                 HTTP Request                 |                   Description                    |               Authorization               |                       Response                        |
-|--------|----------------------------------------------|--------------------------------------------------|-------------------------------------------|-------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/saved\_queries | Retrieves all Saved Queries available to a user. | This request requires an authorized user. | The response contains a list of SavedQuery resources. |
 

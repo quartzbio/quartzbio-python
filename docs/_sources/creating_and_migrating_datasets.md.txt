@@ -2,11 +2,11 @@
 
 ## Overview
 
-A dataset on the EDP represents a collection of records indexed with a specific schema (i.e. a list of fields). Datasets make it easy to query and filter datasets of any size in real-time.
+A dataset on the EDP represents a collection of records indexed with a specific schema (i.e. a list of fields). Datasets make it easy to query and filter datasets of **any size in real-time**.
 
-Datasets can be created with a predefined schema (using a [Dataset template](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606022)) or without any fields. The platform will always detect new fields in imported records and assign data types; however, users are recommended to use templates so that the data types of fields can be set in advance. Records can be added to datasets in multiple ways such as transforming files into datasets, programmatically generating records, or copying records from other datasets using "dataset migrations".
+Datasets can be created with a predefined schema (using a [Dataset template](https://quartzbio.github.io/quartzbio-python/dataset_templates.html#overview)) or without any fields. The platform will always detect new fields in imported records and assign data types. However, users are recommended to use templates so that the data types of fields can be set in advance. Records can be added to datasets in multiple ways such as transforming files into datasets, programmatically generating records, or copying records from other datasets using [dataset migrations](https://quartzbio.github.io/quartzbio-python/creating_and_migrating_datasets.html#migrating-datasets).
 
-Datasets are designed to be a flexible and scalable solution for storing structured JSON-compatible data. The molecular data landscape is filled with a large variety of unique file formats, each with its own subtleties and quirks. On the EDP, almost any data source can be imported into a dataset as long as it can be transformed into JSON. The EDP supports many formats, making it easy to import data into a dataset. Once the data has been imported into a dataset, users can take advantage of the many features they offer: scalability, portability, version control, flexibility of schemas, querying and filtering of data as well as annotation and analysis using [Expressions](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023).
+Datasets are designed to be a flexible and scalable solution for storing structured JSON-compatible data. The molecular data landscape is filled with a large variety of unique file formats, each with its own subtleties and quirks. On the EDP, almost any data source can be imported into a dataset as long as it can be transformed into JSON. The EDP supports many formats, making it easy to import data into a dataset. Once the data has been imported into a dataset, users can take advantage of the many features they offer: scalability, portability, version control, flexibility of schemas, querying and filtering of data as well as annotation and analysis using [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html#overview).
 
 ## Creating Datasets
 
@@ -47,7 +47,7 @@ When creating the dataset, users can supply a number of optional parameters:
 -   metadata: A dictionary of key/value pairs that can be associated with the dataset.
 -   tags: A list of strings (tags) that can be associated with the dataset.
 
-Once the dataset is created it will be empty (containing no records) and consist of the default EDP \_id field and any other fields that may have been added to the fields parameter. Fields beginning with an underscore such as \_id and \_commit are considered reserved and may be modified during an import. The \_id field represents the unique ID for each record, which can be used to edit or delete individual records. The value of \_id cannot be edited once a record is saved. The \_commit field is always reset during the commit process and makes it possible to track and log all changes made to a Dataset. 
+Once the dataset is created it will be empty (containing no records) and consist of the default EDP \_id field and any other fields that may have been added to the fields parameter. Fields beginning with an underscore such as \_id and \_commit are considered reserved and may be modified during an import. The \_id field represents the unique ID for each record, which can be used to **edit** or **delete** individual records. The value of \_id cannot be edited once a record is saved. The \_commit field is always reset during the commit process and makes it possible to track and log all changes made to a Dataset. 
 
 ## Dataset Fields
 
@@ -57,7 +57,7 @@ Dataset fields have the following properties:
 
 |    **Property**     |      **Value**      |                                                                                         **Description**                                                                                          |
 |-----------------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name (required) |     string      |                                                                The "low-level" field name, is used in JSON-formatted records.                                                                |
+| name (**required**) |     string      |                                                                The "low-level" field name, is used in JSON-formatted records.                                                                |
 |   data\_type    |     string      |                                                                                      A valid data type.                                                                                      |
 |   description   |     string      |                                                                     Free text that describes the contents of the field.                                                                      |
 |  entity\_type   |     string      |                                                                                   A valid EDP entity type.                                                                                   |
@@ -74,10 +74,8 @@ Users should note that double underscores ("\_\_") should not be used in dataset
 
 The following example creates a new dataset using a template with two fields:
 
-In Python:
 ```Python
-from quartzbio import Dataset
-from quartzbio import DatasetField
+from quartzbio import Dataset, DatasetField
 
 fields = [
     {
@@ -117,18 +115,18 @@ field.description = "A new description"
 field.save()
 ```
 
-URL Template
+### URL Template
 
-If users add a url\_template value to the dataset field, the dataset table will show the value as a link in the EDP UI. This is useful for linking to other sources/websites. The dataset below has links for the gene and variant pages on EDP:
+If users add a `url_template` value to the dataset field, the dataset table will show the value as a link in the EDP UI. This is useful for linking to other sources/websites. The dataset below has links for the gene and variant pages on EDP:
 
 [![](https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/73063228026/original/KQ21JSo_ifuMQ4KCmFXzIZ4f9JLUaVWSLw.png?1689112995)](https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/73063228026/original/KQ21JSo_ifuMQ4KCmFXzIZ4f9JLUaVWSLw.png?1689112995)
 
-**URL Template**: Adding a value to the url\_template property of a field will link it to the field values in the EDP web interface.  
+**URL Template**: Adding a value to the `url_template` property of a field will link it to the field values in the EDP web interface.  
 
 
 ## Migrating Datasets
 
-Users can perform dataset "migrations" to copy data between or within datasets as well as use Python-based EDP [Expressions](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000606023) to transform data during migrations. As such, migrations allow users to modify datasets in-place, making it possible to add, edit, and remove fields. All dataset migrations have a source dataset and a target dataset (which can be the same when editing a single dataset).
+Users can perform dataset "migrations" to copy data between or within datasets as well as use Python-based EDP [Expressions](https://quartzbio.github.io/quartzbio-python/expressions.html#overview) to transform data during migrations. As such, migrations allow users to modify datasets in-place, making it possible to add, edit, and remove fields. All dataset migrations have a source dataset and a target dataset (which can be the same when editing a single dataset).
 
 ## Copying Datasets
 
@@ -136,7 +134,6 @@ Copying a dataset is the simplest dataset migration. In this case, a new dataset
 
 If users do not want to copy the entire source dataset, they can provide filter parameters to copy a subset. This example copies all BRCA1 variants from ClinVar into a new dataset:
 
-In Python:
 ```Python
 from quartzbio import Dataset
 
@@ -152,11 +149,10 @@ query.migrate(target=target)
 
 ## Modifying Fields
 
-The title, description, url\_template, ordering, and entity\_type of a field can be modified at any time. Field names cannot be renamed and fields cannot be removed in-place, though they can be hidden by setting the is\_hidden parameter to TRUE. To change the name of a field, users must perform a dataset migration to create a new field with the desired name in the cloned dataset. Similarly, to remove a field from a dataset, it must be cloned to a new dataset that does not have the field the user intends to delete. For more information about modifying datasets, users can refer to the [Modifying Datasets](https://quartzbio.freshdesk.com/en/support/solutions/articles/73000612157) documentation.
+The title, description, url\_template, ordering, and entity\_type of a field can be modified at any time. Field names cannot be renamed and fields cannot be removed in-place, though they can be hidden by setting the `is_hidden` parameter to TRUE. To change the name of a field, users must perform a dataset migration to create a new field with the desired name in the cloned dataset. Similarly, to remove a field from a dataset, it must be cloned to a new dataset that does not have the field the user intends to delete. For more information about modifying datasets, users can refer to the [Modifying Datasets](https://quartzbio.github.io/quartzbio-python/transforming_datasets.html#modifying-fields) documentation.
 
 The following example renames the field of the dataset through a dataset migration:
 
-In Python:
 ```Python
 import quartzbio as sb
 
@@ -183,9 +179,10 @@ migration = dataset.migrate(target=dataset, target_fields=target_fields)
 
 ### API Endpoints
 
-Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor.edp.aws.quartz.bio, you would use sponsor.api.edp.aws.quartz.bio.
+Methods do not accept URL parameters or request bodies unless specified. Please note that if your EDP endpoint is sponsor-cloud.edp.aws.quartz.bio, you would use sponsor-cloud.api.edp.aws.quartz.bio.
+For correct work of the API, you need to change `<EDP_API_HOST>` to your current domain, such as my-domain.api.edp.aws.quartz.bio
 
-Datasets
+### Datasets
 
 | Method |              HTTP Request               |    Description    |                                  Authorization                                   |                     Response                     |
 |--------|-----------------------------------------|-------------------|----------------------------------------------------------------------------------|--------------------------------------------------|
@@ -207,12 +204,9 @@ Request Body:
 | Method |                      HTTP Request                       |    Description    |                                     Authorization                                      |                      Response                       |
 |--------|---------------------------------------------------------|-------------------|----------------------------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID} | Delete a dataset. | This request requires an authorized user with permission to modify the target dataset. | The response returns "HTTP 200 OK" when successful. |
-
-| Method |                     HTTP Request                     |            Description             |                                    Authorization                                     |                 Response                  |
-|--------|------------------------------------------------------|------------------------------------|--------------------------------------------------------------------------------------|-------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID} | Retrieve metadata about a dataset. | This request requires an authorized user with permission to view the target dataset. | The response contains a Dataset resource. |
 
-Dataset Fields
+### Dataset Fields
 
 | Method |                  HTTP Request                  |       Description       |                                 Authorization                                  |                       Response                        |
 |--------|------------------------------------------------|-------------------------|--------------------------------------------------------------------------------|-------------------------------------------------------|
@@ -254,9 +248,6 @@ Data Types:
 | Method |                    HTTP Request                    |        Description        |                                 Authorization                                 |                    Response                    |
 |--------|----------------------------------------------------|---------------------------|-------------------------------------------------------------------------------|------------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/dataset\_fields/{ID} | Retrieve a dataset field. | This request requires an authorized user with read permission on the dataset. | The response contains a DatasetField resource. |
-
-| Method |                        HTTP Request                         |                   Description                   |                                 Authorization                                 |                        Response                         |
-|--------|-------------------------------------------------------------|-------------------------------------------------|-------------------------------------------------------------------------------|---------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/datasets/{DATASET\_ID}/fields | Retrieve a set of dataset fields for a dataset. | This request requires an authorized user with read permission on the dataset. | The response contains a list of DatasetField resources. |
 
 Parameters:
@@ -274,7 +265,7 @@ Request Body
 
 In the request body, provide a valid DatasetField object (see _create_ above).
 
-Dataset Migrations
+### Dataset Migrations
 
 | Method |                    HTTP Request                    |         Description         |                                                            Authorization                                                             |                        Response                        |
 |--------|----------------------------------------------------|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|
@@ -308,13 +299,7 @@ The following query parameters (source\_params property) are supported for migra
 | Method |                       HTTP Request                        |         Description         |                          Authorization                           |                      Response                       |
 |--------|-----------------------------------------------------------|-----------------------------|------------------------------------------------------------------|-----------------------------------------------------|
 | delete | DELETE https://<EDP\_API\_HOST>/v2/dataset\_migrations/{ID} | Delete a dataset migration. | This request requires an authorized user with write permissions. | The response returns "HTTP 200 OK" when successful. |
-
-| Method |                      HTTP Request                      |                 Description                  |                       Authorization                       |                      Response                      |
-|--------|--------------------------------------------------------|----------------------------------------------|-----------------------------------------------------------|----------------------------------------------------|
 |  get   | GET https://<EDP\_API\_HOST>/v2/dataset\_migrations/{ID} | Retrieve metadata about a dataset migration. | This request requires an authorized user with permission. | The response contains a DatasetMigration resource. |
-
-| Method |                          HTTP Request                          |                     Description                      |                         Authorization                          |                                           Response                                            |
-|--------|----------------------------------------------------------------|------------------------------------------------------|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 |  list  | GET https://<EDP\_API\_HOST>/v2/dataset/{DATASET\_ID}/migrations | Retrieve a list of dataset migrations for a dataset. | This request requires an authorized user with read permission. | The response contains a list of DatasetMigration resources from the specified source dataset. |
 
 Parameters:
