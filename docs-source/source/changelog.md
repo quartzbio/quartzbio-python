@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0
+
+- Removed file upload threshold in order to fix the Dataset Imports using manifest URLs
+- Fixed EDP file paths for Windows file upload command
+
 ## 1.3.0
 
 - Improved multipart upload resilience by introducing the retries of the failed part by requesting a new pre-signed URL from the EDP API, instead of aborting the entire upload process in case when a specific part fails during a multipart upload
