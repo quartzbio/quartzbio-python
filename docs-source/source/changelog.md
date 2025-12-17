@@ -17,6 +17,11 @@
 - Add support for configuring the client via environment variables, and local credentials file
 - Add support for multipart uploads for large files
 
+- Update minimum required python version to 3.8
+- Add api_host property to the Client class for easier access to the configured API host
+- Add support for configuring the client via environment variables, and local credentials file
+- Add support for multipart uploads for large files
+
 ## 1.1.0
 
 - Fix annotator_params default to empty dict instead of None
