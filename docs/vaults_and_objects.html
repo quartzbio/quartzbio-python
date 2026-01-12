@@ -94,7 +94,7 @@
 </section>
 <section id="uploading-files">
 <h2>Uploading Files<a class="headerlink" href="#uploading-files" title="Link to this heading">¶</a></h2>
-<p>Users can upload files to any vault to which they have write-level access. File names are <code class="docutils literal notranslate"><span class="pre">case-insensitive</span></code>. Uploading a file with a duplicate name (or the same name as a folder) will cause the new file’s name to be auto-incremented (i.e. file, file-1, file-2, …). <strong>The maximum file upload size is 100 GB</strong>.</p>
+<p>Users can upload files to any vault to which they have write-level access. File names are <code class="docutils literal notranslate"><span class="pre">case-insensitive</span></code>. Uploading a file with a duplicate name (or the same name as a folder) will cause the new file’s name to be auto-incremented (i.e. file, file-1, file-2, …). <strong>The maximum file upload size is 100 GB and only UTF-8 encoded files are supported. Importing files with a different encoding may result in corrupted content.</strong>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vault</span>
 
 <span class="c1"># First retrieve the vault</span>
