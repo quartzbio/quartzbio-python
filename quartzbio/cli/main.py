@@ -470,7 +470,6 @@ class QuartzBioArgumentParser(argparse.ArgumentParser):
             help="Override the default QuartzBio API host",
             type=self.api_host_url,
         )
-        self.add_argument("--api-key", help="Manually provide a QuartzBio API key")
         self.add_argument(
             "--access-token", help="Manually provide a QuartzBio OAuth2 access token"
         )
@@ -535,7 +534,6 @@ def main():
 
     quartzbio.login(
         api_host=args.api_host,
-        api_key=args.api_key,
         access_token=args.access_token,
     )
 
