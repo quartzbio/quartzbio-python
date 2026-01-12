@@ -66,7 +66,7 @@ folder = vault.create_folder('new-folder', path='/')
 
 ## Uploading Files
 
-Users can upload files to any vault to which they have write-level access. File names are `case-insensitive`. Uploading a file with a duplicate name (or the same name as a folder) will cause the new file's name to be auto-incremented (i.e. file, file-1, file-2, ...). **The maximum file upload size is 100 GB**.
+Users can upload files to any vault to which they have write-level access. File names are `case-insensitive`. Uploading a file with a duplicate name (or the same name as a folder) will cause the new file's name to be auto-incremented (i.e. file, file-1, file-2, ...). **The maximum file upload size is 100 GB and only UTF-8 encoded files are supported. Importing files with a different encoding may result in corrupted content.**.
 
 
 
