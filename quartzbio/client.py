@@ -91,7 +91,7 @@ class QuartzBioClient(object):
         self,
         host=None,
         token=None,
-        token_type: Literal["Bearer", "Token"] = "Token",
+        token_type: Literal["Bearer", "Token"] = "Bearer",
         include_resources=True,
         retry_all: bool = None,
     ):

@@ -16,7 +16,6 @@ def login_and_save_credentials(*args):
 
     quartzbio.login(
         api_host=args.api_host,
-        api_key=args.api_key,
         access_token=args.access_token,
         # name=args.name,
         # version=args.version,

@@ -18,9 +18,9 @@ class QuartzBioTestCase(unittest.TestCase):
 
     def setUp(self):
         super(QuartzBioTestCase, self).setUp()
-        api_key = os.environ.get("QUARTZBIO_API_KEY", None)
         api_host = os.environ.get("QUARTZBIO_API_HOST", None)
-        self.client = quartzbio.QuartzBioClient(host=api_host, token=api_key)
+        access_token = os.environ.get("QUARTZBIO_ACCESS_TOKEN", None)
+        self.client = quartzbio.QuartzBioClient(host=api_host, token=access_token)
 
     def check_response(self, response, expect, msg):
         subset = [(key, response[key]) for key in [x[0] for x in expect]]
