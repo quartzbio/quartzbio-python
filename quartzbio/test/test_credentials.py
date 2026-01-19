@@ -89,5 +89,5 @@ class TestCredentials(unittest.TestCase):
             ),
         )
 
-        expected = (quartzbio.get_api_host(), pair[0], "Token", pair[1])
+        expected = (quartzbio.get_api_host(), pair[0], "Bearer", pair[1])
         self.assertEqual(auths, expected, "Should get back creds we saved")

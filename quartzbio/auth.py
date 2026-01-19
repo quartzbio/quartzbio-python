@@ -18,7 +18,7 @@ logger = logging.getLogger("quartzbio")
 class QuartzBioTokenAuth(AuthBase):
     """Custom auth handler for QuartzBio API token authentication"""
 
-    def __init__(self, token=None, token_type="Token"):
+    def __init__(self, token=None, token_type="Bearer"):
         self.token = token
         self.token_type = token_type
 
@@ -68,11 +68,6 @@ def authenticate(
         source_host = 'params'
 
     if not token:
-        api_key = (
-            os.environ.get("QUARTZBIO_API_KEY", None)
-            or os.environ.get("EDP_API_KEY", None)
-            or os.environ.get("SOLVEBIO_API_KEY", None)
-        )
 
         access_token = (
             os.environ.get("QUARTZBIO_ACCESS_TOKEN", None)
@@ -83,9 +78,6 @@ def authenticate(
         if access_token:
             token = access_token
             token_type = "Bearer"
-        elif api_key:
-            token = api_key
-            token_type = "Token"
 
         if token:
             source_token = 'envvars'
@@ -128,7 +120,6 @@ def authenticate(
             "   Means that you've set your credentials through environment variables:",
             "   QUARTZBIO_API_HOST",
             "   QUARTZBIO_ACCESS_TOKEN",
-            "   QUARTZBIO_API_KEY",
         ]))
 
     if not host:

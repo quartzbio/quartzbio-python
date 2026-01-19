@@ -40,16 +40,3 @@ class TestLogin(unittest.TestCase):
             # Test invalid host
             quartzbio.client._host = "https://some.fake.domain.foobar"
             self.assertEqual(auth.login_and_save_credentials(), None, "Invalid login")
-
-    def test_init_login(self):
-        from quartzbio import login
-        from quartzbio.client import client
-
-        _auth = client._auth
-
-        client._auth = None
-        login(api_key="TEST_KEY")
-        self.assertEqual(client._auth.token, "TEST_KEY")
-
-        # Reset the key
-        client._auth = _auth
