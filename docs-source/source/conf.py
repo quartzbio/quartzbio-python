@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'QuartzBio'
-copyright = '2025 Precision for Medicine, inc.'
+copyright = '2026 QuartzBio'
 author = 'QuartzBio'
 
 # -- General configuration ---------------------------------------------------
