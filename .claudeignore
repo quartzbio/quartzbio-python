@@ -1,0 +1,38 @@
+# Build and distribution
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv*/
+.venv*/
+
+# Test coverage
+.coverage
+.pytest_cache/
+htmlcov/
+
+# IDE
+.idea/
+.vscode/
+
+# Tox environments
+.tox/
+
+# Generated documentation
+docs/build/
+docs/_build/
+
+# Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Large data files (if any)
+*.csv
+*.json.gz
+*.parquet
+
+# OS files
+.DS_Store
