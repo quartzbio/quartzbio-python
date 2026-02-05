@@ -23,3 +23,6 @@ settings.json
 # spike dev scripts
 spike.sh
 spike.py
+
+# Claude Code local settings (don't commit local permissions/overrides)
+.claude/settings.local.json
