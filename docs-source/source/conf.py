@@ -33,7 +33,7 @@ exclude_patterns = []
 html_theme = 'alabaster'
 html_theme_options = {
     "extra_nav_links": {
-        "Current Version: v1.4.0": "https://pypi.org/project/quartzbio/",
+        "Current Version: v1.5.0": "https://pypi.org/project/quartzbio/",
     }
 }
 html_static_path = ['_static']

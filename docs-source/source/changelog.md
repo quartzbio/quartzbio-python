@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.0
+
+- Drop API key auth path: remove CLI `--api-key`.
+- Default auth handler/client token type switched to `Bearer` to align with access tokens only.
+
 ## 1.4.0
 
 - Removed file upload threshold in order to fix the Dataset Imports using manifest URLs
