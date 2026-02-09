@@ -35,21 +35,28 @@
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">¶</a></h1>
 <section id="id1">
-<h2>1.4.0<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<h2>1.5.0<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Drop API key auth path: remove CLI <code class="docutils literal notranslate"><span class="pre">--api-key</span></code>.</p></li>
+<li><p>Default auth handler/client token type switched to <code class="docutils literal notranslate"><span class="pre">Bearer</span></code> to align with access tokens only.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>1.4.0<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Removed file upload threshold in order to fix the Dataset Imports using manifest URLs</p></li>
 <li><p>Fixed EDP file paths for Windows file upload command</p></li>
 </ul>
 </section>
-<section id="id2">
-<h2>1.3.0<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<section id="id3">
+<h2>1.3.0<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Improved multipart upload resilience by introducing the retries of the failed part by requesting a new pre-signed URL from the EDP API, instead of aborting the entire upload process in case when a specific part fails during a multipart upload</p></li>
 <li><p>Clean-fail on read-only log files, ensuring permission issues are detected and reported before further package usages</p></li>
 </ul>
 </section>
-<section id="id3">
-<h2>1.2.0<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<section id="id4">
+<h2>1.2.0<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Update minimum required python version to 3.8</p></li>
 <li><p>Add api_host property to the Client class for easier access to the configured API host</p></li>
@@ -57,16 +64,16 @@
 <li><p>Add support for multipart uploads for large files</p></li>
 </ul>
 </section>
-<section id="id4">
-<h2>1.1.0<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
+<section id="id5">
+<h2>1.1.0<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fix annotator_params default to empty dict instead of None</p></li>
 <li><p>Fix credentials handling when both API key and access token are provided</p></li>
 <li><p>Fix uploads paths when used on Windows OS</p></li>
 </ul>
 </section>
-<section id="id5">
-<h2>1.0.0<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
+<section id="id6">
+<h2>1.0.0<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Initial release</p></li>
 </ul>
@@ -137,11 +144,12 @@
 <p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">1.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">1.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">1.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">1.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">1.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">1.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">1.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">1.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">1.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">1.0.0</a></li>
 </ul>
 </li>
 </ul>
@@ -150,7 +158,7 @@
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.4.0</a></li>
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.5.0</a></li>
     
 </ul>
 <div class="relations">
@@ -174,7 +182,7 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &#169;2025 Precision for Medicine, inc..
+      &#169;2026 QuartzBio.
       
       |
       Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
