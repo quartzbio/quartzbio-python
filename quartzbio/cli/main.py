@@ -68,7 +68,18 @@ class QuartzBioArgumentParser(argparse.ArgumentParser):
                 },
             ]
         },
-        "logout": {"func": auth.logout, "help": "Logout and delete saved credentials"},
+        "logout": {
+            "func": auth.logout,
+            "help": "Logout and delete saved credentials",
+            "arguments": [
+                {
+                    "flags": "--all",
+                    "action": "store_true",
+                    "default": False,
+                    "help": "Logout from all sessions",
+                },
+            ],
+        },
         "whoami": {"func": auth.whoami, "help": "Show your QuartzBio email address"},
         "tutorial": {
             "func": print_tutorial,
