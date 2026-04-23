@@ -102,15 +102,7 @@ def get_credentials(api_host: str = None) -> ApiCredentials:
             # the rest of the credentials file is ignored
             return None
     else:
-        # If there are no stored credentials for the default host,
-        # but there are other stored credentials, use the first
-        # available option that ends with '.api.quartzbio.com',
-        netrc_host = next(
-            filter(lambda h: h.endswith(".api.quartzbio.com"), netrc_obj.hosts), None
-        )
-
-    # Otherwise use the first available.
-    if netrc_host is None:
+        # Use the first available entry (most recently saved credentials).
         netrc_host = next(iter(netrc_obj.hosts))
 
     if netrc_host is not None:
@@ -130,7 +122,9 @@ def get_credentials(api_host: str = None) -> ApiCredentials:
     #     return None
 
 
-def delete_credentials():
+def delete_credentials(api_host=None):
+    api_host = api_host or quartzbio.get_api_host()
+
     try:
         netrc_path = netrc.path()
         rc = netrc(netrc_path)
@@ -138,11 +132,22 @@ def delete_credentials():
         raise CredentialsError("Could not open netrc file: " + str(e))
 
     try:
-        del rc.hosts[as_netrc_machine(quartzbio.get_api_host())]
+        del rc.hosts[as_netrc_machine(api_host)]
     except KeyError:
         pass
     else:
         rc.save(netrc_path)
+
+
+def delete_all_credentials():
+    try:
+        netrc_path = netrc.path()
+        rc = netrc(netrc_path)
+    except (IOError, TypeError, NetrcParseError) as e:
+        raise CredentialsError("Could not open netrc file: " + str(e))
+
+    rc.hosts.clear()
+    rc.save(netrc_path)
 
 
 def save_credentials(email, token, token_type="Token", api_host=None):
@@ -154,6 +159,9 @@ def save_credentials(email, token, token_type="Token", api_host=None):
     except (IOError, TypeError, NetrcParseError) as e:
         raise CredentialsError("Could not open netrc file: " + str(e))
 
-    # Overwrites any existing credentials
-    rc.hosts[as_netrc_machine(api_host)] = (email, token_type, token)
+    # Place the most recently saved credentials first so that
+    # get_credentials() returns them by default (it picks the first match).
+    machine = as_netrc_machine(api_host)
+    rc.hosts.pop(machine, None)
+    rc.hosts = {machine: (email, token_type, token), **rc.hosts}
     rc.save(netrc_path)

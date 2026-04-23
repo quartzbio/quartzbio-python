@@ -6,6 +6,7 @@ from ..client import client
 from .credentials import get_credentials
 from .credentials import save_credentials
 from .credentials import delete_credentials
+from .credentials import delete_all_credentials
 
 
 def login_and_save_credentials(*args):
@@ -57,9 +58,15 @@ def logout(*args):
     """
     Delete's the user's locally-stored credentials.
     """
-    if get_credentials():
-        delete_credentials()
-        print("You have been logged out.")
+    args = args[0]
+    creds = get_credentials()
+    if creds:
+        if args.all:
+            delete_all_credentials()
+            print("You have been logged out from all sessions.")
+        else:
+            delete_credentials(api_host=creds.api_host)
+            print("You have been logged out.")
     else:
         print("You are not logged-in.")
 
