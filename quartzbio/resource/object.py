@@ -1041,23 +1041,45 @@ class Object(
                 time.sleep(wait_time)
 
     @classmethod
-    def _complete_multipart_upload(cls, obj, parts, _client, local_path):
-        """Complete the multipart upload"""
-        print("Completing multipart upload...")
+    def _complete_multipart_upload(cls, obj, parts, _client, local_path, max_retries=3):
+        """Complete the multipart upload with retry logic"""
         complete_data = {
             "upload_id": obj.upload_id,
             "physical_object_id": obj.upload_key,
             "parts": parts,
         }
-        complete_resp = _client.post("/v2/complete_multi_part", complete_data)
 
-        if "message" in complete_resp:
-            print(
-                f"Successfully uploaded {local_path} to {obj.path} with multipart upload using {len(parts)} parts."
-            )
-            return obj
-        else:
-            raise Exception(complete_resp)
+        for attempt in range(max_retries):
+            try:
+                print("Completing multipart upload...")
+                complete_resp = _client.post("/v2/complete_multi_part", complete_data)
+
+                if "message" in complete_resp:
+                    print(
+                        f"Successfully uploaded {local_path} to {obj.path} "
+                        f"with multipart upload using {len(parts)} parts."
+                    )
+                    return obj
+                else:
+                    raise FileUploadError(
+                        f"Unexpected response from complete_multi_part: {complete_resp}"
+                    )
+
+            except FileUploadError:
+                raise
+
+            except Exception as e:
+                if attempt == max_retries - 1:
+                    raise FileUploadError(
+                        f"Failed to complete multipart upload after {max_retries} attempts: {e}"
+                    )
+
+                wait_time = 2 ** attempt
+                print(
+                    f"Complete multipart upload failed "
+                    f"(attempt {attempt + 1}/{max_retries}): {str(e)}, retrying in {wait_time}s..."
+                )
+                time.sleep(wait_time)
 
     def _object_list_helper(self, **params):
         """Helper method to get objects within"""
