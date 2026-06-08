@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.6.0
+
+- Improved reliability of large file uploads by automatically retrying failed completion steps, reducing the chance of upload errors requiring manual intervention.                                                                                                                   
+- Enhanced session continuity by preserving recently used credentials, so users can pick up where they left off without needing to re-authenticate each time.
+
 ## 1.5.0
 
 - Drop API key auth path: remove CLI `--api-key`.

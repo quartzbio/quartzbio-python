@@ -14,6 +14,8 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="quartzbio.cli package" href="quartzbio.cli.html" />
+    <link rel="prev" title="quartzbio" href="modules.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -50,6 +52,7 @@
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.credentials.html#quartzbio.cli.credentials.ApiCredentials"><code class="docutils literal notranslate"><span class="pre">ApiCredentials</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.credentials.html#quartzbio.cli.credentials.CredentialsError"><code class="docutils literal notranslate"><span class="pre">CredentialsError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.credentials.html#quartzbio.cli.credentials.as_netrc_machine"><code class="docutils literal notranslate"><span class="pre">as_netrc_machine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.credentials.html#quartzbio.cli.credentials.delete_all_credentials"><code class="docutils literal notranslate"><span class="pre">delete_all_credentials()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.credentials.html#quartzbio.cli.credentials.delete_credentials"><code class="docutils literal notranslate"><span class="pre">delete_credentials()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.credentials.html#quartzbio.cli.credentials.get_credentials"><code class="docutils literal notranslate"><span class="pre">get_credentials()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="quartzbio.cli.credentials.html#quartzbio.cli.credentials.netrc"><code class="docutils literal notranslate"><span class="pre">netrc</span></code></a></li>
@@ -90,6 +93,24 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="quartzbio.cli.html#module-quartzbio.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.contrib.html">quartzbio.contrib package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.contrib.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.contrib.dash.html">quartzbio.contrib.dash package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.contrib.dash.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.contrib.dash.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.contrib.dash.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quartzbio.contrib.streamlit.html">quartzbio.contrib.streamlit package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.contrib.streamlit.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quartzbio.contrib.streamlit.html#module-quartzbio.contrib.streamlit">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.contrib.html#module-quartzbio.contrib">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quartzbio.resource.html">quartzbio.resource package</a><ul>
@@ -261,6 +282,12 @@
 <li class="toctree-l3"><a class="reference internal" href="quartzbio.annotate.html#quartzbio.annotate.Expression.evaluate"><code class="docutils literal notranslate"><span class="pre">Expression.evaluate()</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quartzbio.auth.html">quartzbio.auth module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.auth.html#quartzbio.auth.QuartzBioTokenAuth"><code class="docutils literal notranslate"><span class="pre">QuartzBioTokenAuth</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.auth.html#quartzbio.auth.authenticate"><code class="docutils literal notranslate"><span class="pre">authenticate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="quartzbio.auth.html#quartzbio.auth.validate_api_host_url"><code class="docutils literal notranslate"><span class="pre">validate_api_host_url()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quartzbio.client.html">quartzbio.client module</a><ul>
@@ -1940,18 +1967,29 @@ EDP checks user credentials &amp; host URL from multiple sources, in the followi
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">quartzbio</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">quartzbio package</a></li>
+</ul>
+</li>
+</ul>
 
 
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.4.0</a></li>
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.6.0</a></li>
     
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">quartzbio</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">quartzbio</a></li>
+      <li>Next: <a href="quartzbio.cli.html" title="next chapter">quartzbio.cli package</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
