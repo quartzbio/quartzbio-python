@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    quartzbio.cli
+   quartzbio.contrib
    quartzbio.resource
    quartzbio.utils
 
@@ -18,6 +19,7 @@ Submodules
    :maxdepth: 4
 
    quartzbio.annotate
+   quartzbio.auth
    quartzbio.client
    quartzbio.errors
    quartzbio.global_search
@@ -29,5 +31,5 @@ Module contents
 
 .. automodule:: quartzbio
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

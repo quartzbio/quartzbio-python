@@ -57,6 +57,12 @@ Module Documentation
 
    changelog
 
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference
+
+   modules
+
 Indices and tables
 ==================
 

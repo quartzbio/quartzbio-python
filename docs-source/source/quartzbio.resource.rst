@@ -37,5 +37,5 @@ Module contents
 
 .. automodule:: quartzbio.resource
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
