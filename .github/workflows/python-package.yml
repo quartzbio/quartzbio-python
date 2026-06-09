@@ -11,7 +11,7 @@ jobs:
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
     env:
       QUARTZBIO_API_HOST: ${{ secrets.QUARTZBIO_API_HOST }}
-      QUARTZBIO_ACCESS_KEY_KEY: ${{ secrets.QUARTZBIO_ACCESS_KEY }}
+      QUARTZBIO_ACCESS_TOKEN: ${{ secrets.QUARTZBIO_ACCESS_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
