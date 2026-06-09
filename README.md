@@ -10,7 +10,7 @@ Installation & Setup
 Install `quartzbio` using `pip`:
 
     pip install quartzbio
-
+    
 
 For interactive use, we recommend installing `IPython` and `gnureadline`:
 
