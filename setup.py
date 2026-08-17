@@ -34,7 +34,7 @@ setup(
     long_description_content_type='text/markdown',
     python_requires='>=3.8',
     author='QuartzBio',
-    author_email='qb-help@precisionformedicine.com',
+    author_email='help@quartz.bio',
     url='https://github.com/quartzbio/quartzbio-python',
     packages=find_packages(),
     package_dir={'quartzbio': 'quartzbio', 'recipes': 'recipes'},
