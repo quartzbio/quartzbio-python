@@ -53,6 +53,15 @@ Module Documentation
 
 .. toctree::
    :maxdepth: 2
+   :caption: Applications in EDP
+
+   Python <python_applications>
+   R/Shiny <r_shiny_applications>
+   Flask <flask_applications>
+   Spotfire <spotfire_integration>
+
+.. toctree::
+   :maxdepth: 2
    :caption: Changelog
 
    changelog
