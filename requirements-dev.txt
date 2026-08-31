@@ -19,6 +19,7 @@ click==8.1.7
 black==24.8.0
 # quartzbio
 
+# Docs toolchain.
 sphinx==7.1.2
 sphinx-autobuild==2021.3.14
 sphinx-mdinclude==0.6.2

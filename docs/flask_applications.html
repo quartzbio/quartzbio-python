@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Developing EDP Applications with Flask &#8212; QuartzBio  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Integrating a Client Hosted Spotfire with your QuartzBio Environments" href="spotfire_integration.html" />
+    <link rel="prev" title="Creating and Deploying EDP R/Shiny Applications" href="r_shiny_applications.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="developing-edp-applications-with-flask">
+<h1>Developing EDP Applications with Flask<a class="headerlink" href="#developing-edp-applications-with-flask" title="Link to this heading">¶</a></h1>
+<p>EDP users have the ability to create new apps through the EDP API and Python frameworks such as Flask. EDP applications represent unique OAuth2 credentials that enable a third-party system to obtain EDP access tokens on behalf of EDP users. By default, applications created on the EDP are accessible only to users in the same organization.</p>
+<section id="creating-apps">
+<h2>Creating Apps<a class="headerlink" href="#creating-apps" title="Link to this heading">¶</a></h2>
+<p>To get started, users can create a personal access token on the EDP web interface and access the EDP Python client library. Each time users create a new app, they will be granted a unique client ID and client secret:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Application</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quartzbio.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">client</span>
+
+<span class="c1">#EDP supports wildcard URIs. If a hosted app has a dynamic value in the URL, such as:</span>
+<span class="s2">&quot;https://my-app.my-dash-apps.net/notebookSession/123456/_oauth-redirect&quot;</span>
+<span class="c1">#here `123456` is a session ID that changes for each session, then the redirect URI can be provided as:</span>
+<span class="s2">&quot;https://my-app.my-dash-apps.net/notebookSession/*/_oauth-redirect&quot;</span>
+
+<span class="c1"># Create the app (only do this once per application)</span>
+<span class="c1"># Using an example Flask app OAuth2 redirect URL:</span>
+<span class="n">my_app</span> <span class="o">=</span> <span class="n">Application</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;My Flask App&#39;</span><span class="p">,</span>
+    <span class="n">redirect_uris</span><span class="o">=</span><span class="s1">&#39;http://127.0.0.1:5000/callback&#39;</span><span class="p">)</span>
+
+<span class="c1"># Print the app&#39;s client ID</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_app</span><span class="o">.</span><span class="n">client_id</span><span class="p">)</span>
+
+<span class="c1"># Print the app&#39;s client secret</span>
+<span class="n">secret</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/v2/applications/{APP-CLIENT-ID}/secret&quot;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The client ID and client secret are a critical part of the OAuth2 Authorization Code flow, so users should make sure to copy them to a safe place. Users can always contact QuartzBio Support to retrieve client IDs and secrets.</p>
+</section>
+<section id="application-example">
+<h2>Application Example<a class="headerlink" href="#application-example" title="Link to this heading">¶</a></h2>
+<p>Below is an example of EDP integration with Flask. For more information about updating and deleting EDP applications as well as other application frameworks, users can refer to the Python Applications documentation.</p>
+<p><strong>Note: if your EDP endpoint is ``sponsor.edp.aws.quartz.bio``, you would use ``sponsor.api.edp.aws.quartz.bio``.</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">session</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">quartzbio</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="s2">&quot;your_flask_secret_key&quot;</span>
+
+<span class="c1"># Replace these values with your QuartzBio EDP client_id and client_secret</span>
+<span class="c1"># You may also request a client ID and secret from our support team</span>
+<span class="n">CLIENT_ID</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{CLIENT_ID}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">CLIENT_SECRET</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{CLIENT_SECRET}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Set this to the web-app you would like to connect to</span>
+<span class="n">DOMAIN</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{DOMAIN}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Set this to your local redirect URI (OAuth2 redirect)</span>
+<span class="c1"># this must also be set in the application configured in the EDP</span>
+<span class="n">REDIRECT_URI</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.1:5000/callback&quot;</span>
+
+<span class="c1"># Do not change these parameters</span>
+<span class="n">API_HOST</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">DOMAIN</span><span class="si">}</span><span class="s2">.api.edp.aws.quartz.bio&quot;</span>
+<span class="n">WEB_HOST</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">DOMAIN</span><span class="si">}</span><span class="s2">.edp.aws.quartz.bio&quot;</span>
+<span class="n">AUTH_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">WEB_HOST</span><span class="si">}</span><span class="s2">/authorize&quot;</span>
+<span class="n">TOKEN_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">API_HOST</span><span class="si">}</span><span class="s2">/v1/oauth2/token&quot;</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">():</span>
+    <span class="c1"># Redirect user to QuartzBio&#39;s OAuth2 endpoint</span>
+    <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;access_token&quot;</span><span class="p">):</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">quartzbio</span><span class="o">.</span><span class="n">QuartzBioClient</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="n">API_HOST</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;access_token&quot;</span><span class="p">],</span> <span class="n">token_type</span><span class="o">=</span><span class="s2">&quot;Bearer&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Return HTML with current user</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">User</span><span class="o">.</span><span class="n">retrieve</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Logged-in as: </span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">full_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">200</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">auth_endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">AUTH_URL</span><span class="si">}</span><span class="s2">?client_id=</span><span class="si">{</span><span class="n">CLIENT_ID</span><span class="si">}</span><span class="s2">&amp;redirect_uri=</span><span class="si">{</span><span class="n">REDIRECT_URI</span><span class="si">}</span><span class="s2">&amp;response_type=code&quot;</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">auth_endpoint</span><span class="p">)</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/callback&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">():</span>
+    <span class="c1"># Get the authorization code from the API redirect</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Exchange the code for an access token</span>
+    <span class="n">token_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;grant_type&quot;</span><span class="p">:</span> <span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+        <span class="s2">&quot;redirect_uri&quot;</span><span class="p">:</span> <span class="n">REDIRECT_URI</span><span class="p">,</span>
+        <span class="s2">&quot;client_id&quot;</span><span class="p">:</span> <span class="n">CLIENT_ID</span><span class="p">,</span>
+        <span class="s2">&quot;client_secret&quot;</span><span class="p">:</span> <span class="n">CLIENT_SECRET</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">TOKEN_URL</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">token_data</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s2">&quot;access_token&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">session</span><span class="p">[</span><span class="s2">&quot;access_token&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;access_token&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Now you can use this token to make API requests to the EDP</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Authenticated successfully!&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Authentication failed!&quot;</span><span class="p">,</span> <span class="mi">400</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">QuartzBio</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Authentication</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Vaults and Files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exporting_data.html">Exporting Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_data.html">Importing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html">Import Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_parameters.html#json-jsonl">JSON (JSONL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vaults_and_objects.html">Vaults and Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creating_and_migrating_datasets.html">Creating and Migrating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_templates.html">Dataset Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset_versioning.html">Dataset Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="joining_and_aggregating_datasets.html">Joining and Aggregating Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforming_datasets.html">Transforming Datasets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Expressions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression_functions.html">Expression Functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Global Search</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_discovery.html">Data Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata_and_global_beacons.html">Metadata and Global Beacons</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Queries and Filters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="querying_datasets_and_files.html">Querying Datasets and Files</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications in EDP</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python_applications.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r_shiny_applications.html">R/Shiny</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Flask</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-apps">Creating Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#application-example">Application Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spotfire_integration.html">Spotfire</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Changelog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">quartzbio</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/quartzbio/">Current Version: v1.6.0</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="r_shiny_applications.html" title="previous chapter">Creating and Deploying EDP R/Shiny Applications</a></li>
+      <li>Next: <a href="spotfire_integration.html" title="next chapter">Integrating a Client Hosted Spotfire with your QuartzBio Environments</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026 QuartzBio.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/flask_applications.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
